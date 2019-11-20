@@ -1,6 +1,12 @@
 package com.gaby.plants.model;
 
 public class GardenService {
+    private Garden garden;
+
+    public void addPlant(Plant plant) {
+        throw new UnsupportedOperationException();
+    }
+
     public void selectPlant(long plantId){
         throw new UnsupportedOperationException();
     }
