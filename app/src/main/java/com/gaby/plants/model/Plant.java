@@ -1,5 +1,10 @@
 package com.gaby.plants.model;
 
+import lombok.Builder;
+import lombok.Getter;
+
+@Builder(toBuilder = true)
+@Getter
 public class Plant {
     private long plantId;
     private PlantType plantType;
