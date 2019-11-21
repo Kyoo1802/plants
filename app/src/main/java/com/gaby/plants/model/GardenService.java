@@ -1,5 +1,7 @@
 package com.gaby.plants.model;
 
+import java.util.Collection;
+
 public class GardenService {
     private Garden garden;
 
@@ -14,18 +16,6 @@ public class GardenService {
                 .lastTimeAbono(plant.getDateOfBirth())
                 .build();
         garden.getPlants().put(plant.getPlantId(), plant);
-    }
-
-    public void selectPlant(long plantId) {
-        throw new UnsupportedOperationException();
-    }
-
-    public String getPlantInformation(String plantId) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Garden getGardenerInformation() {
-        throw new UnsupportedOperationException();
     }
 
     public void adjustLightSun(long plantId) {
@@ -43,9 +33,11 @@ public class GardenService {
 
             Plant compost = plant.toBuilder().hasCompost(true).build();
             garden.getPlants().put(compost.getPlantId(), compost);
-
         }
-        //throw new UnsupportedOperationException();
+    }
+
+    public void removePlant(long plantId) {
+        garden.getPlants().remove(plantId);
     }
 
     public void addWater(long plantId) {
@@ -56,24 +48,46 @@ public class GardenService {
             garden.getPlants().put(water.getPlantId(), water);
 
         }
-
-        //throw new UnsupportedOperationException();
     }
 
-    public void removePlant(long plantId) {
-        throw new UnsupportedOperationException();
+    public String getGardenInformation() {
+        String info = "";
+
+        for (Plant plant : garden.getPlants().values()) {
+            info += plant.getPlantId() + " : " + plant.getPlantState() + "\n";
+        }
+
+        return info;
+    }
+
+    public String getPlantInformation(long plantId) {
+        if (garden.getPlants().containsKey(plantId)) {
+            Plant plant = garden.getPlants().get(plantId);
+            return plant.getPlantId() + " : " + plant.getPlantState() + " " + plant.getPlantType() + "\n";
+        }
+        return "";
     }
 
     public void collectFruits(long plantId) {
-        throw new UnsupportedOperationException();
+        if (garden.getPlants().containsKey(plantId)) {
+            Plant plant = garden.getPlants().get(plantId);
+            if (plant.getPlantState() == PlantState.FRUIT_PLANT) {
+                Plant collectFruits = plant.toBuilder().plantState(PlantState.PLANT).build();
+                garden.getPlants().put(collectFruits.getPlantId(), collectFruits);
+            }
+        }
     }
 
-    public Plant listPlants() {
-        throw new UnsupportedOperationException();
+    public Collection<Plant> listPlants() {
+        return garden.getPlants().values();
     }
 
-    public void changePlantState(PlantState plantState) {
-        throw new UnsupportedOperationException();
-    }
+    public void changePlantState(long plantId, PlantState plantState) {
+        if (garden.getPlants().containsKey(plantId)) {
+            Plant plant = garden.getPlants().get(plantId);
 
+            Plant compost = plant.toBuilder().plantState(plantState).build();
+            garden.getPlants().put(compost.getPlantId(), compost);
+        }
+    }
 }
