@@ -217,6 +217,24 @@ public class GardenServiceUnitTest {
         Truth.assertThat(garden.getNumPlants()).isEqualTo(1);
     }
 
+    @Test
+    public void play_Pass() {
+        // TODO(Gaby):  Terminar una prueba general
+        Garden garden = new Garden();
+        GardenService gs = new GardenService(garden);
+
+        gs.addPlant(createPlant(PLANT_ID_1));
+        gs.changePlantState(PLANT_ID_1, PlantState.PLANT);
+
+        gs.addPlant(createPlant(PLANT_ID_2));
+
+        Truth.assertThat(garden.getNumPlants()).isEqualTo(2);
+        String info = gs.getPlantInformation(PLANT_ID_1);
+        Truth.assertThat(info)
+                .isEqualTo(
+                        PLANT_ID_1 + " : " + PlantState.PLANT + " " + PlantType.STRAWBERRY + "\n");
+    }
+
     private Plant createPlant(long id) {
         return Plant.builder()
                 .plantId(id)
