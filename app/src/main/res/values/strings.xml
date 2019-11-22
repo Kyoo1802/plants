@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Plants</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="iniciar">iniciar</string>
+    <string name="plants">Plants!</string>
+    <string name="todo" />
+    <string name="selecciona_una_opci_n">Selecciona una opción</string>
+    <string name="fresa">Fresa</string>
+    <string name="tomate">Tomate</string>
 </resources>
