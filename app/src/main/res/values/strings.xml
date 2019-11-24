@@ -9,4 +9,8 @@
     <string name="selecciona_una_opci_n">Selecciona una opción</string>
     <string name="fresa">Fresa</string>
     <string name="tomate">Tomate</string>
+    <string name="preparando_tierra">Preparando tierra...</string>
+    <string name="agregandoCompost">Agregando composta...</string>
+    <string name="agregando_tierra">Agregando tierra...</string>
+    <string name="plants">Plants!</string>
 </resources>

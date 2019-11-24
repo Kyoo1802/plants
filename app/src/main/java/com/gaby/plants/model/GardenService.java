@@ -50,6 +50,16 @@ public class GardenService {
         }
     }
 
+    public void addAbono(long plantId) {
+        if (garden.getPlants().containsKey(plantId)) {
+            Plant plant = garden.getPlants().get(plantId);
+            long horaActual = System.currentTimeMillis();
+            Plant abono = plant.toBuilder().lastTimeAbono(horaActual).build();
+            garden.getPlants().put(abono.getPlantId(), abono);
+
+        }
+    }
+
     public String getGardenInformation() {
         String info = "";
 
