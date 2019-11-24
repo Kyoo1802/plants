@@ -11,6 +11,7 @@ public class GardenServiceUnitTest {
 
     static long PLANT_ID_1 = 123L;
     static long PLANT_ID_2 = 321L;
+    static long PLANT_ID_3 = 333L;
 
     @Test
     public void addPlant_Pass() {
@@ -223,16 +224,67 @@ public class GardenServiceUnitTest {
         Garden garden = new Garden();
         GardenService gs = new GardenService(garden);
 
-        gs.addPlant(createPlant(PLANT_ID_1));
-        gs.changePlantState(PLANT_ID_1, PlantState.PLANT);
-
+        //CREACION DE PLANTAS
+        gs.addPlant(createPlant(PLANT_ID_3));
         gs.addPlant(createPlant(PLANT_ID_2));
+        gs.addPlant(createPlant(PLANT_ID_1));
+
+
+        //CAMBIO DE ESTADO A SEMILLA
+        gs.changePlantState(PLANT_ID_3, PlantState.SEED);
+        gs.changePlantState(PLANT_ID_2, PlantState.SEED);
+        gs.changePlantState(PLANT_ID_1, PlantState.SEED);
+
+
+        //AJUSTE DE EXPOSICION DE SOL
+        gs.adjustLightSun(PLANT_ID_3);
+        gs.adjustLightSun(PLANT_ID_2);
+        gs.adjustLightSun(PLANT_ID_1);
+
+        //AGREGAR COMPOSTA
+        gs.setCompost(PLANT_ID_3);
+        gs.setCompost(PLANT_ID_2);
+        gs.setCompost(PLANT_ID_1);
+
+        //REMOVER PLANTA 1
+        gs.removePlant(PLANT_ID_1);
+
+        //CAMBIO DE ESTADO A PLANTA
+        gs.changePlantState(PLANT_ID_3, PlantState.PLANT);
+        gs.changePlantState(PLANT_ID_2, PlantState.PLANT);
+
+        //PLANTA MUERTA
+        gs.changePlantState(PLANT_ID_2, PlantState.WITHERED);
+
+        //CAMBIO DE ESTADO A FRUTOS
+        gs.changePlantState(PLANT_ID_3, PlantState.FRUIT_PLANT);
+
+        //RECOLECCION DE FRUTAS
+        gs.collectFruits(PLANT_ID_3);
+
+        gs.changePlantState(PLANT_ID_3, PlantState.PLANT);
+
+
+        Truth.assertThat(garden.getPlants().get(PLANT_ID_3).isHasSunLight())
+                .isEqualTo(true);
+        Truth.assertThat(garden.getPlants().get(PLANT_ID_2).isHasSunLight())
+                .isEqualTo(true);
+
+
+        Truth.assertThat(garden.getPlants().get(PLANT_ID_3).isHasCompost())
+                .isEqualTo(true);
+        Truth.assertThat(garden.getPlants().get(PLANT_ID_2).isHasCompost())
+                .isEqualTo(true);
+
+        String info = gs.getPlantInformation(PLANT_ID_3);
+        String info2 = gs.getPlantInformation(PLANT_ID_2);
 
         Truth.assertThat(garden.getNumPlants()).isEqualTo(2);
-        String info = gs.getPlantInformation(PLANT_ID_1);
         Truth.assertThat(info)
                 .isEqualTo(
-                        PLANT_ID_1 + " : " + PlantState.PLANT + " " + PlantType.STRAWBERRY + "\n");
+                        PLANT_ID_3 + " : " + PlantState.PLANT + " " + PlantType.STRAWBERRY + "\n");
+        Truth.assertThat(info2)
+                .isEqualTo(PLANT_ID_2 + " : " + PlantState.WITHERED + " " + PlantType.STRAWBERRY + "\n");
     }
 
     private Plant createPlant(long id) {
