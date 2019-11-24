@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment(View view) {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameFragment);
 
-        if (currentFragment == null || currentFragment instanceof FragmentSelectPlant) {
+        if (currentFragment == null || currentFragment instanceof FragmentPrepGround) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             FragmentOpenApp ff2 = new FragmentOpenApp();
             ft.replace(R.id.frameFragment, ff2);
@@ -38,10 +38,23 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentFragment instanceof FragmentOpenApp) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FragmentSelectPlant ff3 = new FragmentSelectPlant();
+            FragmentStartApp ff3 = new FragmentStartApp();
             ft.replace(R.id.frameFragment, ff3);
             ft.commit();
         }
 
+        if (currentFragment instanceof FragmentStartApp) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentSelectPlant ff4 = new FragmentSelectPlant();
+            ft.replace(R.id.frameFragment, ff4);
+            ft.commit();
+        }
+
+        if (currentFragment instanceof FragmentSelectPlant) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentPrepGround ff5 = new FragmentPrepGround();
+            ft.replace(R.id.frameFragment, ff5);
+            ft.commit();
+        }
     }
 }
