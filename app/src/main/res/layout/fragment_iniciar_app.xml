@@ -16,7 +16,7 @@
         android:textSize="80sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logoPlants"
         android:layout_width="215dp"
         android:layout_height="219dp"
         android:layout_gravity="center_horizontal"

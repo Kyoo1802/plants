@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
         // Pone un layout en la pantalla
         setContentView(R.layout.main_activity);
 
-        Button buttonABC = findViewById(R.id.buttonABC);
+        Button buttonChangeFragment = findViewById(R.id.buttonChangeFragment);
 
-        buttonABC.setOnClickListener(new View.OnClickListener() {
+        buttonChangeFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeFragment(v);
@@ -29,18 +29,19 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment(View view) {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameFragment);
 
-        if (currentFragment == null || currentFragment instanceof SelectPlantFragment) {
+        if (currentFragment == null || currentFragment instanceof FragmentSelectPlant) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FragmentStartApp ff2 = new FragmentStartApp();
+            FragmentOpenApp ff2 = new FragmentOpenApp();
             ft.replace(R.id.frameFragment, ff2);
             ft.commit();
         }
 
-        if (currentFragment instanceof FragmentStartApp) {
+        if (currentFragment instanceof FragmentOpenApp) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            SelectPlantFragment ff3 = new SelectPlantFragment();
+            FragmentSelectPlant ff3 = new FragmentSelectPlant();
             ft.replace(R.id.frameFragment, ff3);
             ft.commit();
         }
+
     }
 }
