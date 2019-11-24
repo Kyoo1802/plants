@@ -25,6 +25,7 @@
         app:srcCompat="@drawable/logoplanta2" />
 
     <Button
+        android:id="@+id/btnStart"
         android:layout_width="178dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

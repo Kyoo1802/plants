@@ -1,11 +1,11 @@
 package com.gaby.plants;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-
-import com.gaby.plants.model.SelectedPlantFragment;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,14 +16,31 @@ public class MainActivity extends AppCompatActivity {
         // Pone un layout en la pantalla
         setContentView(R.layout.main_activity);
 
+        Button buttonABC = findViewById(R.id.buttonABC);
+
+        buttonABC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(v);
+            }
+        });
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Begin the transaction
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.placeholder, new SelectedPlantFragment());
-        ft.commit();
+    public void changeFragment(View view) {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameFragment);
+
+        if (currentFragment == null || currentFragment instanceof SelectPlantFragment) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentStartApp ff2 = new FragmentStartApp();
+            ft.replace(R.id.frameFragment, ff2);
+            ft.commit();
+        }
+
+        if (currentFragment instanceof FragmentStartApp) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            SelectPlantFragment ff3 = new SelectPlantFragment();
+            ft.replace(R.id.frameFragment, ff3);
+            ft.commit();
+        }
     }
 }

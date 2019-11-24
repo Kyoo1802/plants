@@ -5,25 +5,21 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textABC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonABC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <fragment
-        android:id="@+id/titles"
-        class="com.gaby.plants.model.SelectedPlantFragment"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:text="Button----ABC" />
 
     <FrameLayout
-        android:id="@+id/placeholder"
+        android:id="@+id/frameFragment"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="match_parent"></FrameLayout>
+
+
 </LinearLayout>
