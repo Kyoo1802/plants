@@ -1,12 +1,18 @@
 package com.gaby.plants.model;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+
 import java.util.Collection;
 
 public class GardenService {
     private Garden garden;
 
+    private MutableLiveData<Collection<Plant>> plants;
+
     public GardenService(Garden garden) {
         this.garden = garden;
+        plants = new MutableLiveData<>();
     }
 
     public void addPlant(Plant plant) {
@@ -16,6 +22,7 @@ public class GardenService {
                 .lastTimeAbono(plant.getDateOfBirth())
                 .build();
         garden.getPlants().put(plant.getPlantId(), plant);
+        plants.postValue(garden.getPlants().values());
     }
 
     public void adjustLightSun(long plantId) {
@@ -99,5 +106,9 @@ public class GardenService {
             Plant compost = plant.toBuilder().plantState(plantState).build();
             garden.getPlants().put(compost.getPlantId(), compost);
         }
+    }
+
+    public LiveData<Collection<Plant>> getPlants() {
+        return plants;
     }
 }

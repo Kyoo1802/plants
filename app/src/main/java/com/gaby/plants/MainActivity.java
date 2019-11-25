@@ -1,11 +1,19 @@
 package com.gaby.plants;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.gaby.plants.model.Plant;
+import com.gaby.plants.viewmodel.GardenViewModel;
+
+import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,12 +24,33 @@ public class MainActivity extends AppCompatActivity {
         // Pone un layout en la pantalla
         setContentView(R.layout.main_activity);
 
-        Button buttonABC = findViewById(R.id.buttonABC);
+        // VM Observer
+        final GardenViewModel vm = ViewModelProviders.of(this).get(GardenViewModel.class);
+        vm.listPlants().observe(this, new Observer<Collection<Plant>>() {
+            @Override
+            public void onChanged(@Nullable Collection<Plant> plants) {
+                System.out.println("Plants has changed");
+                for (Plant p : plants) {
+                    System.out.println("Plant:" + p.getPlantType() + " " + p.getDateOfBirth());
+                }
+            }
+        });
 
+        // Button events
+        Button buttonABC = findViewById(R.id.buttonABC);
         buttonABC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeFragment(v);
+            }
+        });
+
+
+        Button buttonCDE = findViewById(R.id.buttonCDE);
+        buttonCDE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vm.onTapAddStrawberry();
             }
         });
     }

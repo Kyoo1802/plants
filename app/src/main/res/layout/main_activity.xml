@@ -16,10 +16,14 @@
         android:layout_height="wrap_content"
         android:text="Button----ABC" />
 
+    <Button
+        android:id="@+id/buttonCDE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call service" />
+
     <FrameLayout
         android:id="@+id/frameFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></FrameLayout>
-
-
 </LinearLayout>
