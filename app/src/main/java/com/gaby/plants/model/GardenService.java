@@ -8,20 +8,30 @@ import java.util.Collection;
 public class GardenService {
     private Garden garden;
 
+    // Canal de comunicacion con la vista.
+    // (todo lo que quiero que la vista pueda ser notificado cuando hay cambios)
     private MutableLiveData<Collection<Plant>> plants;
 
     public GardenService(Garden garden) {
         this.garden = garden;
-        plants = new MutableLiveData<>();
+        this.plants = new MutableLiveData<>();
+    }
+
+    public LiveData<Collection<Plant>> getPlants() {
+        return plants;
     }
 
     public void addPlant(Plant plant) {
+        System.out.println("¡GardenService.addPlant() !");
         plant = plant.toBuilder()
                 .plantState(PlantState.GROUND)
                 .lastTimeWater(plant.getDateOfBirth())
                 .lastTimeAbono(plant.getDateOfBirth())
                 .build();
         garden.getPlants().put(plant.getPlantId(), plant);
+
+        System.out.println("¡Se manda la notificacion a los observers!");
+        // Manda la notificacion a cualquier camara de los View
         plants.postValue(garden.getPlants().values());
     }
 
@@ -45,6 +55,9 @@ public class GardenService {
 
     public void removePlant(long plantId) {
         garden.getPlants().remove(plantId);
+
+        // Manda la notificacion a cualquier camara de los View
+        plants.postValue(garden.getPlants().values());
     }
 
     public void addWater(long plantId) {
@@ -106,9 +119,5 @@ public class GardenService {
             Plant compost = plant.toBuilder().plantState(plantState).build();
             garden.getPlants().put(compost.getPlantId(), compost);
         }
-    }
-
-    public LiveData<Collection<Plant>> getPlants() {
-        return plants;
     }
 }

@@ -8,7 +8,6 @@ import lombok.Getter;
 
 @Getter
 public class Garden {
-    private long gardenId;
     private Map<Long, Plant> plants = new LinkedHashMap<>();
 
     public int getNumPlants() {

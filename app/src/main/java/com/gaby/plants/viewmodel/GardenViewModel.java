@@ -24,11 +24,25 @@ public class GardenViewModel extends AndroidViewModel {
     }
 
     public void onTapAddStrawberry() {
+        System.out.println("¡View Model onTapAddStrawberry!");
+
+        // Obtener el tiempo actual del celular.
+        long currentTime = Calendar.getInstance().getTime().getTime();
+
+        Plant plantStrawBerry = Plant.builder()
+                .plantId(id++)
+                .dateOfBirth(currentTime)
+                .plantType(PlantType.STRAWBERRY)
+                .build();
+        gardenService.addPlant(plantStrawBerry);
+    }
+
+    public void onTapAddTomato() {
         Date currentTime = Calendar.getInstance().getTime();
         Plant plantStrawBerry = Plant.builder()
                 .plantId(id++)
                 .dateOfBirth(currentTime.getTime())
-                .plantType(PlantType.STRAWBERRY)
+                .plantType(PlantType.TOMATE)
                 .build();
         gardenService.addPlant(plantStrawBerry);
     }

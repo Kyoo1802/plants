@@ -1,5 +1,6 @@
-package com.gaby.plants;
+package com.gaby.plants.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.gaby.plants.R;
+import com.gaby.plants.viewmodel.GardenViewModel;
 
 public class FragmentSelectPlant extends Fragment {
 
@@ -20,6 +24,7 @@ public class FragmentSelectPlant extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         System.out.println("On onCreateView....");
 
 
@@ -41,11 +46,13 @@ public class FragmentSelectPlant extends Fragment {
             }
 
         });
-        super.onActivityCreated(savedInstanceState);
     }
 
     private void selectStrawberry(View v) {
-        System.out.println("¡Elegiste Fresa!");
+        System.out.println("¡Presionaste Fresa!");
+        // VM Observer
+        final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
+        vm.onTapAddStrawberry();
     }
 
     private void selectTomato(View v) {

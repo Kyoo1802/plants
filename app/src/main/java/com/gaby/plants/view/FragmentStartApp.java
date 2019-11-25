@@ -1,12 +1,15 @@
-package com.gaby.plants;
+package com.gaby.plants.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.gaby.plants.R;
 
 public class FragmentStartApp extends Fragment {
 
@@ -35,7 +38,10 @@ public class FragmentStartApp extends Fragment {
     }
 
     private void startPlants(View v) {
-        System.out.println("Empezando plants!!!");
+        FragmentTransaction ft = this.getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentSelectPlant ff4 = new FragmentSelectPlant();
+        ft.replace(R.id.frameFragment, ff4);
+        ft.commit();
     }
 
     @Override
