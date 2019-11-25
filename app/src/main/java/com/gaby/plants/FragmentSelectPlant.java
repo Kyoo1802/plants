@@ -24,18 +24,32 @@ public class FragmentSelectPlant extends Fragment {
 
 
         Button btnStrawberry = this.getView().findViewById(R.id.btnStrawberry);
-        
+        Button btnTomato = this.getView().findViewById(R.id.btnTomato);
+
         btnStrawberry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectStrawberry(v);
             }
+
+        });
+
+        btnTomato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTomato(v);
+            }
+
         });
         super.onActivityCreated(savedInstanceState);
     }
 
     private void selectStrawberry(View v) {
         System.out.println("¡Elegiste Fresa!");
+    }
+
+    private void selectTomato(View v) {
+        System.out.println("¡Elegiste Tomate!");
     }
 
 }
