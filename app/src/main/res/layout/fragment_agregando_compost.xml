@@ -20,7 +20,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/andika"
         android:text="@string/agregandoCompost"
-        android:textColor="#2A373E"
+        android:textColor="#000000"
         android:textSize="30sp" />
 
 

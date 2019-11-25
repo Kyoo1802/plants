@@ -11,10 +11,10 @@
         android:text="TextView" />
 
     <Button
-        android:id="@+id/buttonABC"
+        android:id="@+id/buttonChangeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button----ABC" />
+        android:text="Cambiar de fragment" />
 
     <Button
         android:id="@+id/buttonCDE"

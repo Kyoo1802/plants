@@ -16,7 +16,7 @@
         android:textSize="80sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logoPlants"
         android:layout_width="215dp"
         android:layout_height="219dp"
         android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
         android:layout_width="178dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#FFCA00"
         android:text="@string/iniciar"
         android:textColor="#FFFFFF"
