@@ -37,7 +37,7 @@
     file: 'sampledata/strawberry_two.obj',
     name: 'strawberry_two',
     recenter: 'root',
-    scale: 0.101062,
+    scale: 0.040106,
   },
   samplers: [
     {
