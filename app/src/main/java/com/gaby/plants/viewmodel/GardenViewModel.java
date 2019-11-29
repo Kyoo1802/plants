@@ -39,12 +39,29 @@ public class GardenViewModel extends AndroidViewModel {
 
     public void onTapAddTomato() {
         Date currentTime = Calendar.getInstance().getTime();
-        Plant plantStrawBerry = Plant.builder()
+        Plant plantTomato = Plant.builder()
                 .plantId(id++)
                 .dateOfBirth(currentTime.getTime())
                 .plantType(PlantType.TOMATE)
                 .build();
-        gardenService.addPlant(plantStrawBerry);
+        gardenService.addPlant(plantTomato);
+    }
+
+    public void onCompleteAdjustLight(long id) {
+        gardenService.adjustLightSun(id);
+    }
+
+    public void onTapBtnAddAbono(long id) {
+        gardenService.addAbono(id);
+    }
+
+
+    public void onTapBtnAddWater(long id) {
+        gardenService.addWater(id);
+    }
+
+    public void onSelectRemovePlant(long id) {
+        gardenService.removePlant(id);
     }
 
     public LiveData<Collection<Plant>> listPlants() {

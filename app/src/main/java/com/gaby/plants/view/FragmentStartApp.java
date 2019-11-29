@@ -39,8 +39,8 @@ public class FragmentStartApp extends Fragment {
 
     private void startPlants(View v) {
         FragmentTransaction ft = this.getActivity().getSupportFragmentManager().beginTransaction();
-        FragmentSelectPlant ff4 = new FragmentSelectPlant();
-        ft.replace(R.id.frameFragment, ff4);
+        FragmentSelectPlant fragmentSelectPlant = new FragmentSelectPlant();
+        ft.replace(R.id.frameFragment, fragmentSelectPlant);
         ft.commit();
     }
 

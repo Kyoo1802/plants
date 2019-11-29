@@ -12,6 +12,7 @@ public class GardenService {
     // (todo lo que quiero que la vista pueda ser notificado cuando hay cambios)
     private MutableLiveData<Collection<Plant>> plants;
 
+
     public GardenService(Garden garden) {
         this.garden = garden;
         this.plants = new MutableLiveData<>();
@@ -38,9 +39,9 @@ public class GardenService {
     public void adjustLightSun(long plantId) {
         if (garden.getPlants().containsKey(plantId)) {
             Plant plant = garden.getPlants().get(plantId);
-
             Plant updatedPlant = plant.toBuilder().hasSunLight(true).build();
             garden.getPlants().put(updatedPlant.getPlantId(), updatedPlant);
+            plants.postValue(garden.getPlants().values());
         }
     }
 
@@ -50,6 +51,7 @@ public class GardenService {
 
             Plant compost = plant.toBuilder().hasCompost(true).build();
             garden.getPlants().put(compost.getPlantId(), compost);
+            plants.postValue(garden.getPlants().values());
         }
     }
 
@@ -77,6 +79,7 @@ public class GardenService {
             Plant abono = plant.toBuilder().lastTimeAbono(horaActual).build();
             garden.getPlants().put(abono.getPlantId(), abono);
 
+            plants.postValue(garden.getPlants().values());
         }
     }
 

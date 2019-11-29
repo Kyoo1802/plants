@@ -1,7 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/btnAddWater"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:foregroundGravity="center_horizontal"
+            app:srcCompat="@drawable/menu_btn_agua" />
+
+        <ImageButton
+            android:id="@+id/btnAddNewPlant"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:foregroundGravity="center_horizontal"
+            app:srcCompat="@drawable/menu_btn_add_plant" />
+
+        <ImageButton
+            android:id="@+id/btnAddAbono"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:foregroundGravity="center_horizontal"
+            app:srcCompat="@drawable/menu_btn_abono" />
 
 
 </LinearLayout>

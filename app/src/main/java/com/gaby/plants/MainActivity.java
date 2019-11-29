@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.gaby.plants.model.Plant;
 import com.gaby.plants.view.FragmentAddCompost;
-import com.gaby.plants.view.FragmentOpenApp;
+import com.gaby.plants.view.FragmentBotonesPrincipales;
 import com.gaby.plants.view.FragmentPrepGround;
 import com.gaby.plants.view.FragmentSelectPlant;
 import com.gaby.plants.view.FragmentStartApp;
@@ -53,51 +53,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonCDE = findViewById(R.id.buttonCDE);
-        buttonCDE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.onTapAddStrawberry();
-            }
-        });
     }
 
     public void changeFragment(View view) {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameFragment);
 
-        if (currentFragment == null || currentFragment instanceof FragmentAddCompost) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FragmentOpenApp ff2 = new FragmentOpenApp();
-            ft.replace(R.id.frameFragment, ff2);
-            ft.commit();
-        }
-
-        if (currentFragment instanceof FragmentOpenApp) {
+        if (currentFragment == null || currentFragment instanceof FragmentBotonesPrincipales) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             FragmentStartApp fragmentStartApp = new FragmentStartApp();
             ft.replace(R.id.frameFragment, fragmentStartApp);
             ft.commit();
         }
 
+
         if (currentFragment instanceof FragmentStartApp) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FragmentSelectPlant ff4 = new FragmentSelectPlant();
-            ft.replace(R.id.frameFragment, ff4);
+            FragmentSelectPlant fragmentSelectPlant = new FragmentSelectPlant();
+            ft.replace(R.id.frameFragment, fragmentSelectPlant);
             ft.commit();
         }
 
         if (currentFragment instanceof FragmentSelectPlant) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FragmentPrepGround ff5 = new FragmentPrepGround();
-            ft.replace(R.id.frameFragment, ff5);
+            FragmentPrepGround fragmentPrepGround = new FragmentPrepGround();
+            ft.replace(R.id.frameFragment, fragmentPrepGround);
             ft.commit();
         }
 
         if (currentFragment instanceof FragmentPrepGround) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FragmentAddCompost ff6 = new FragmentAddCompost();
-            ft.replace(R.id.frameFragment, ff6);
+            FragmentAddCompost fragmentAddCompost = new FragmentAddCompost();
+            ft.replace(R.id.frameFragment, fragmentAddCompost);
             ft.commit();
         }
+
+        if (currentFragment instanceof FragmentAddCompost) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentBotonesPrincipales fragmentBotonesPrincipales = new FragmentBotonesPrincipales();
+            ft.replace(R.id.frameFragment, fragmentBotonesPrincipales);
+            ft.commit();
+        }
+
     }
 }

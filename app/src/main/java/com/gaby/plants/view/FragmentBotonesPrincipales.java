@@ -7,19 +7,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.gaby.plants.R;
+import com.gaby.plants.model.Plant;
 import com.gaby.plants.viewmodel.GardenViewModel;
 
-public class FragmentSelectPlant extends Fragment {
+public class FragmentBotonesPrincipales extends Fragment {
+    private Plant plant = Plant.builder().build();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_opciones, container, false);
+        return inflater.inflate(R.layout.fragment_botones_principales, container, false);
     }
 
     @Override
@@ -28,37 +30,38 @@ public class FragmentSelectPlant extends Fragment {
         System.out.println("On onCreateView....");
 
 
-        Button btnStrawberry = this.getView().findViewById(R.id.btnStrawberry);
-        Button btnTomato = this.getView().findViewById(R.id.btnTomato);
+        ImageButton btnAddWater = this.getView().findViewById(R.id.btnAddWater);
+        ImageButton btnAddAbono = this.getView().findViewById(R.id.btnAddAbono);
 
-        btnStrawberry.setOnClickListener(new View.OnClickListener() {
+
+        btnAddWater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectStrawberry(v);
+                addWater(v);
             }
 
         });
 
-        btnTomato.setOnClickListener(new View.OnClickListener() {
+        btnAddAbono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectTomato(v);
+                addAbono(v);
             }
 
         });
     }
 
-    private void selectStrawberry(View v) {
-        System.out.println("¡Presionaste Fresa!");
+    private void addWater(View v) {
+        System.out.println("¡Presionaste agua!");
         // VM Observer
         final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-        vm.onTapAddStrawberry();
+        vm.onTapBtnAddWater(plant.getPlantId());
     }
 
-    private void selectTomato(View v) {
-        System.out.println("¡Elegiste Tomate!");
+    private void addAbono(View v) {
+        System.out.println("¡Elegiste abono!");
         final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-        vm.onTapAddTomato();
+        vm.onTapBtnAddAbono(plant.getPlantId());
     }
 
 }

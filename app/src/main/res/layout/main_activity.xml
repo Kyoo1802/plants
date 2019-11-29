@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textABC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
     <Button
         android:id="@+id/buttonChangeFragment"
@@ -16,11 +11,6 @@
         android:layout_height="wrap_content"
         android:text="Cambiar de fragment" />
 
-    <Button
-        android:id="@+id/buttonCDE"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Call service" />
 
     <FrameLayout
         android:id="@+id/frameFragment"
