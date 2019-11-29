@@ -41,9 +41,9 @@
   },
   samplers: [
     {
-      file: 'sampledata\\strawberry_diffuse.png',
+      file: 'sampledata\\strawberry_diffuse.jpg',
       name: 'strawberry_diffuse',
-      pipeline_name: 'strawberry_diffuse.png',
+      pipeline_name: 'strawberry_diffuse.jpg',
     },
   ],
   version: '0.54:2',

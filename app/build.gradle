@@ -45,6 +45,7 @@ dependencies {
 }
 
 
+
 sceneform.asset('sampledata/strawberry_two.obj',
         'default',
         'sampledata/strawberry_two.sfa',
