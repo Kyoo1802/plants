@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +50,10 @@ public class FragmentSelectPlant extends Fragment {
     }
 
     private void selectStrawberry(View v) {
-        System.out.println("¡Presionaste Fresa!");
-        // VM Observer
-        final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-        vm.onTapAddStrawberry();
+        FragmentTransaction ft =this.getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentSelectedPlant fragmentStartApp = new FragmentSelectedPlant();
+        ft.replace(R.id.frameFragment, fragmentStartApp);
+        ft.commit();
     }
 
     private void selectTomato(View v) {

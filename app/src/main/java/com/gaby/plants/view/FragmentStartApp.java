@@ -38,10 +38,10 @@ public class FragmentStartApp extends Fragment {
     }
 
     private void startPlants(View v) {
-//        FragmentTransaction ft = this.getActivity().getSupportFragmentManager().beginTransaction();
-//        FragmentSelectPlant fragmentSelectPlant = new FragmentSelectPlant();
-//        ft.replace(R.id.frameFragment, fragmentSelectPlant);
-//        ft.commit();
+        FragmentTransaction ft = this.getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentSelectPlant fragmentSelectPlant = new FragmentSelectPlant();
+        ft.replace(R.id.frameFragment, fragmentSelectPlant);
+        ft.commit();
     }
 
     @Override
