@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 28
@@ -39,9 +40,12 @@ dependencies {
     
     // AR Core Dependencies:
     // Provides ARCore Session and related resources.
-    implementation 'com.google.ar:core:1.13.0'
     // Provides ArFragment, and other UX resources.
-    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.13.0'
-    // Alternatively, use ArSceneView without the UX dependency.
-    implementation 'com.google.ar.sceneform:core:1.13.0'
+    implementation "com.google.ar.sceneform.ux:sceneform-ux:1.13.0"
 }
+
+
+sceneform.asset('sampledata/strawberry_two.obj',
+        'default',
+        'sampledata/strawberry_two.sfa',
+        'src/main/res/raw/strawberry_two')

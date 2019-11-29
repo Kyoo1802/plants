@@ -3,6 +3,7 @@ package com.gaby.plants.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.gaby.plants.model.Garden;
@@ -20,7 +21,7 @@ public class GardenViewModel extends AndroidViewModel {
 
     public GardenViewModel(@NonNull Application application) {
         super(application);
-        gardenService = new GardenService(new Garden());
+        gardenService = new GardenService(new Garden(), new MutableLiveData<>());
     }
 
     public void onTapAddStrawberry() {

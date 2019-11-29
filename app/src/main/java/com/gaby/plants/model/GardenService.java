@@ -13,9 +13,9 @@ public class GardenService {
     private MutableLiveData<Collection<Plant>> plants;
 
 
-    public GardenService(Garden garden) {
+    public GardenService(Garden garden, MutableLiveData<Collection<Plant>> plants) {
         this.garden = garden;
-        this.plants = new MutableLiveData<>();
+        this.plants = plants;
     }
 
     public LiveData<Collection<Plant>> getPlants() {

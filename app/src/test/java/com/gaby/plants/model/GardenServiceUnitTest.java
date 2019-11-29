@@ -1,6 +1,9 @@
 package com.gaby.plants.model;
 
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+
 import com.google.common.truth.Truth;
 
 import org.junit.Test;
@@ -13,10 +16,22 @@ public class GardenServiceUnitTest {
     static long PLANT_ID_2 = 321L;
     static long PLANT_ID_3 = 333L;
 
+    static class FakeLiveData<T> extends MutableLiveData<T> {
+        @Override
+        public void postValue(T value) {
+
+        }
+
+        @Override
+        public void setValue(T value) {
+
+        }
+    }
+
     @Test
     public void addPlant_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
 
@@ -26,7 +41,7 @@ public class GardenServiceUnitTest {
     @Test
     public void add2Plants_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
         gs.addPlant(createPlant(321L));
@@ -37,7 +52,7 @@ public class GardenServiceUnitTest {
     @Test
     public void addPlant_checkProperties_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
 
@@ -62,7 +77,7 @@ public class GardenServiceUnitTest {
     @Test
     public void adjustLightSun_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
         gs.addPlant(createPlant(321L));
@@ -76,7 +91,7 @@ public class GardenServiceUnitTest {
     @Test
     public void setCompost_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
 
@@ -90,7 +105,7 @@ public class GardenServiceUnitTest {
     @Test
     public void setCompost_NoUpdates() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
 
@@ -103,7 +118,7 @@ public class GardenServiceUnitTest {
     @Test
     public void changePlantState_changeToSeed() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         long plantID1 = 123L;
 
@@ -130,7 +145,7 @@ public class GardenServiceUnitTest {
     @Test
     public void listPlants_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
         gs.addPlant(createPlant(321L));
@@ -142,7 +157,7 @@ public class GardenServiceUnitTest {
     @Test
     public void collectFruits_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(PLANT_ID_1));
         gs.changePlantState(PLANT_ID_1, PlantState.FRUIT_PLANT);
@@ -157,7 +172,7 @@ public class GardenServiceUnitTest {
     @Test
     public void collectFruits_NoUpdate() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(PLANT_ID_1));
         gs.changePlantState(PLANT_ID_1, PlantState.PLANT);
@@ -171,7 +186,7 @@ public class GardenServiceUnitTest {
     @Test
     public void getGardenInfo_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(PLANT_ID_1));
         gs.changePlantState(PLANT_ID_1, PlantState.PLANT);
@@ -190,7 +205,7 @@ public class GardenServiceUnitTest {
     @Test
     public void getPlantInfo_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(PLANT_ID_1));
         gs.changePlantState(PLANT_ID_1, PlantState.GROUND);
@@ -208,7 +223,7 @@ public class GardenServiceUnitTest {
     @Test
     public void removePlants_Pass() {
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(123L));
         gs.addPlant(createPlant(321L));
@@ -222,7 +237,7 @@ public class GardenServiceUnitTest {
     public void play_Pass() {
         // TODO(Gaby):  Terminar una prueba general
         Garden garden = new Garden();
-        GardenService gs = new GardenService(garden);
+        GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         //CREACION DE PLANTAS
         gs.addPlant(createPlant(PLANT_ID_3));
