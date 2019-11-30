@@ -15,13 +15,21 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class GardenViewModel extends AndroidViewModel {
     private GardenService gardenService;
     private int id = 0;
 
+    @Getter
+    @Setter
+    private SeleccionPlanta seleccion;
+
     public GardenViewModel(@NonNull Application application) {
         super(application);
         gardenService = new GardenService(new Garden(), new MutableLiveData<>());
+        seleccion = SeleccionPlanta.UNKNOWN;
     }
 
     public void onTapAddStrawberry() {
@@ -67,5 +75,9 @@ public class GardenViewModel extends AndroidViewModel {
 
     public LiveData<Collection<Plant>> listPlants() {
         return gardenService.getPlants();
+    }
+
+    public String retrieveGardenInfo() {
+        return gardenService.getGardenInformation();
     }
 }

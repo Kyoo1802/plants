@@ -1,21 +1,11 @@
 package com.gaby.plants;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.gaby.plants.model.Plant;
 import com.gaby.plants.view.FragmentAddCompost;
@@ -24,50 +14,28 @@ import com.gaby.plants.view.FragmentPrepGround;
 import com.gaby.plants.view.FragmentSelectPlant;
 import com.gaby.plants.view.FragmentStartApp;
 import com.gaby.plants.viewmodel.GardenViewModel;
-import com.google.ar.core.Anchor;
-import com.google.ar.core.HitResult;
-import com.google.ar.core.Plane;
-import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.Node;
-import com.google.ar.sceneform.rendering.ModelRenderable;
-import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
-
-import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
-//        // Pone un layout en la pantalla
         setContentView(R.layout.main_activity);
 
         // VM Observer
         final GardenViewModel vm = ViewModelProviders.of(this).get(GardenViewModel.class);
 
-        vm.listPlants().observe(this, new Observer<Collection<Plant>>() {
-            @Override
-            public void onChanged(@Nullable Collection<Plant> plants) {
-                System.out.println("Notificacion recibida Plants has changed");
-                for (Plant p : plants) {
-                    System.out.println("Plant:" + p.getPlantType() + " " + p.getDateOfBirth());
-                }
-                Button buttonChangeFragment = findViewById(R.id.buttonChangeFragment);
+        vm.listPlants().observe(this, plants -> {
+            System.out.println("Notificacion recibida Plants has changed");
+            for (Plant p : plants) {
+                System.out.println("Plant:" + p.getPlantType() + " " + p.getDateOfBirth());
             }
         });
 
-        // Button events
-        Button buttonChangeFragment = findViewById(R.id.buttonChangeFragment);
-
-        buttonChangeFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeFragment(v);
-            }
-        });
-
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentStartApp fragmentStartApp = new FragmentStartApp();
+        ft.replace(R.id.frameFragment, fragmentStartApp);
+        ft.commit();
     }
 
     public void changeFragment(View view) {

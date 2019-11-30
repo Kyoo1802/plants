@@ -24,6 +24,15 @@
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/logoplanta2" />
 
+    <EditText
+        android:id="@+id/gardenInfoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/btnStart"
         android:layout_width="178dp"

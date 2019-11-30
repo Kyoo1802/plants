@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.gaby.plants.R;
 import com.gaby.plants.viewmodel.GardenViewModel;
+import com.gaby.plants.viewmodel.SeleccionPlanta;
 
 public class FragmentSelectPlant extends Fragment {
 
@@ -26,40 +27,34 @@ public class FragmentSelectPlant extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        System.out.println("On onCreateView....");
-
 
         Button btnStrawberry = this.getView().findViewById(R.id.btnStrawberry);
         Button btnTomato = this.getView().findViewById(R.id.btnTomato);
 
-        btnStrawberry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectStrawberry(v);
-            }
+        btnStrawberry.setOnClickListener(v -> selectStrawberry(v));
 
-        });
-
-        btnTomato.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectTomato(v);
-            }
-
-        });
+        btnTomato.setOnClickListener(v -> selectTomato(v));
     }
 
     private void selectStrawberry(View v) {
-        FragmentTransaction ft =this.getActivity().getSupportFragmentManager().beginTransaction();
-        FragmentSelectedPlant fragmentStartApp = new FragmentSelectedPlant();
+        final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
+        vm.setSeleccion(SeleccionPlanta.STRAWBERRY);
+
+
+        FragmentTransaction ft = this.getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentPrepGround fragmentStartApp = new FragmentPrepGround();
         ft.replace(R.id.frameFragment, fragmentStartApp);
         ft.commit();
     }
 
     private void selectTomato(View v) {
-        System.out.println("¡Elegiste Tomate!");
         final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-        vm.onTapAddTomato();
+        vm.setSeleccion(SeleccionPlanta.TOMATO);
+
+        FragmentTransaction ft = this.getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentPrepGround fragmentStartApp = new FragmentPrepGround();
+        ft.replace(R.id.frameFragment, fragmentStartApp);
+        ft.commit();
     }
 
 }

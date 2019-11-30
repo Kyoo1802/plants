@@ -36,7 +36,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.16.18'
     compileOnly 'javax.annotation:jsr250-api:1.0'
     testImplementation "com.google.truth:truth:1.0"
-
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
     
     // AR Core Dependencies:
     // Provides ARCore Session and related resources.
