@@ -34,21 +34,9 @@ public class FragmentBotonesPrincipales extends Fragment {
         ImageButton btnAddAbono = this.getView().findViewById(R.id.btnAddAbono);
 
 
-        btnAddWater.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addWater(v);
-            }
+        btnAddWater.setOnClickListener(v -> addWater(v));
 
-        });
-
-        btnAddAbono.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addAbono(v);
-            }
-
-        });
+        btnAddAbono.setOnClickListener(v -> addAbono(v));
     }
 
     private void addWater(View v) {
