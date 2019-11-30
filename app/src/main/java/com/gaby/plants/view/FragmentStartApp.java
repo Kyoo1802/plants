@@ -42,6 +42,10 @@ public class FragmentStartApp extends Fragment {
         logoPlants.setScaleX(0);
         logoPlants.setScaleY(0);
 
+        TextView textPlants = this.getView().findViewById(R.id.textPlants);
+        textPlants.setScaleX(0);
+        textPlants.setScaleY(0);
+
         animate();
     }
 
@@ -64,21 +68,21 @@ public class FragmentStartApp extends Fragment {
         logoPlantScaleY.setInterpolator(new OvershootInterpolator());
         logoPlantScaleY.setDuration(1500);
 
-        ObjectAnimator textPlantScaleX = ObjectAnimator.ofFloat(textPlants, View.SCALE_X, 0.5f, 1f);
+        ObjectAnimator textPlantScaleX = ObjectAnimator.ofFloat(textPlants, View.SCALE_X, 1f);
         textPlantScaleX.setInterpolator(new OvershootInterpolator());
         textPlantScaleX.setDuration(1500);
 
-        ObjectAnimator textPlantScaleY = ObjectAnimator.ofFloat(textPlants, View.SCALE_Y, 0.5f, 1f);
+        ObjectAnimator textPlantScaleY = ObjectAnimator.ofFloat(textPlants, View.SCALE_Y, 1f);
         textPlantScaleY.setInterpolator(new OvershootInterpolator());
         textPlantScaleY.setDuration(1500);
 
 
         AnimatorSet animator = new AnimatorSet();
-        animator.play(logoPlantScaleX).after(800);
-        animator.play(logoPlantScaleX).with(logoPlantScaleY);
         animator.play(textPlantScaleX).after(800);
+        animator.play(textPlantScaleX).with(textPlantScaleY);
         animator.play(textPlantScaleX).with(logoPlantScaleX);
-        animator.play(textPlantScaleY).before(btnAnimation);
+        animator.play(logoPlantScaleX).with(logoPlantScaleY);
+        animator.play(logoPlantScaleX).before(btnAnimation);
         animator.play(btnAnimation).after(800);
 
         final FragmentActivity myActivity = this.getActivity();
