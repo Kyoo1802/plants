@@ -17,6 +17,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gaby.plants.R;
 import com.gaby.plants.viewmodel.GardenViewModel;
@@ -48,24 +49,37 @@ public class FragmentStartApp extends Fragment {
         // Button start Animation
         Button btnStart = this.getView().findViewById(R.id.btnStart);
         ObjectAnimator btnAnimation = ObjectAnimator.ofFloat(btnStart, View.ALPHA, 1f);
-        btnAnimation.setDuration(1000);
+        btnAnimation.setDuration(1500);
 
         // Scale logo plants Animation
         ImageView logoPlants = this.getView().findViewById(R.id.logoPlants);
 
+        TextView textPlants = this.getView().findViewById(R.id.textPlants);
+
         ObjectAnimator logoPlantScaleX = ObjectAnimator.ofFloat(logoPlants, View.SCALE_X, 1f);
         logoPlantScaleX.setInterpolator(new OvershootInterpolator());
-        logoPlantScaleX.setDuration(1000);
+        logoPlantScaleX.setDuration(1500);
 
         ObjectAnimator logoPlantScaleY = ObjectAnimator.ofFloat(logoPlants, View.SCALE_Y, 1f);
         logoPlantScaleY.setInterpolator(new OvershootInterpolator());
-        logoPlantScaleY.setDuration(1000);
+        logoPlantScaleY.setDuration(1500);
+
+        ObjectAnimator textPlantScaleX = ObjectAnimator.ofFloat(textPlants, View.SCALE_X, 0.5f, 1f);
+        textPlantScaleX.setInterpolator(new OvershootInterpolator());
+        textPlantScaleX.setDuration(1500);
+
+        ObjectAnimator textPlantScaleY = ObjectAnimator.ofFloat(textPlants, View.SCALE_Y, 0.5f, 1f);
+        textPlantScaleY.setInterpolator(new OvershootInterpolator());
+        textPlantScaleY.setDuration(1500);
+
 
         AnimatorSet animator = new AnimatorSet();
-        animator.play(logoPlantScaleX).after(100);
+        animator.play(logoPlantScaleX).after(800);
         animator.play(logoPlantScaleX).with(logoPlantScaleY);
-        animator.play(logoPlantScaleX).before(btnAnimation);
-        animator.play(btnAnimation).after(1000);
+        animator.play(textPlantScaleX).after(800);
+        animator.play(textPlantScaleX).with(logoPlantScaleX);
+        animator.play(textPlantScaleY).before(btnAnimation);
+        animator.play(btnAnimation).after(800);
 
         final FragmentActivity myActivity = this.getActivity();
         final View myView = this.getView();
