@@ -38,11 +38,12 @@ public class FragmentPrepGround extends Fragment {
         final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
         SeleccionPlanta seleccionPlanta = vm.getSeleccion();
 
-        Timer timer = new Timer();
         final FragmentActivity myActivity = this.getActivity();
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                // Sends a request to the UI Thread to trigger a method.
                 new Handler(Looper.getMainLooper()).post(() -> showArcore(myActivity));
             }
         }, 1000);
