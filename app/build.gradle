@@ -50,3 +50,28 @@ sceneform.asset('sampledata/strawberry_two.obj',
         'default',
         'sampledata/strawberry_two.sfa',
         'src/main/res/raw/strawberry_two')
+
+sceneform.asset('sampledata/strawberry_leaf.obj',
+        'default',
+        'sampledata/strawberry_leaf.sfa',
+        'src/main/res/raw/strawberry_leaf')
+
+sceneform.asset('sampledata/strawberry_less.obj',
+        'default',
+        'sampledata/strawberry_less.sfa',
+        'src/main/res/raw/strawberry_less')
+
+sceneform.asset('sampledata/strawberry_lot.obj',
+        'default',
+        'sampledata/strawberry_lot.sfa',
+        'src/main/res/raw/strawberry_lot')
+
+sceneform.asset('sampledata/strawberry_small.obj',
+        'default',
+        'sampledata/strawberry_small.sfa',
+        'src/main/assets/strawberry_small')
+
+sceneform.asset('sampledata/strawberry_on_floor.obj',
+        'default',
+        'sampledata/strawberry_on_floor.sfa',
+        'src/main/res/raw/strawberry_on_floor')

@@ -1,0 +1,50 @@
+{
+  materials: [
+    {
+      name: 'phong1SG',
+      parameters: [
+        {
+          baseColor: 'strawberry_diffuse',
+        },
+        {
+          baseColorTint: [
+            1,
+            1,
+            1,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/strawberry_less.obj',
+    name: 'strawberry_less',
+    recenter: 'root',
+    scale: 0.041062,
+  },
+  samplers: [
+    {
+      file: 'sampledata/strawberry_diffuse.jpg',
+      name: 'strawberry_diffuse',
+      pipeline_name: 'strawberry_diffuse.png',
+    },
+  ],
+  version: '0.54:2',
+}

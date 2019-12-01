@@ -110,12 +110,17 @@ public class FragmentArcore extends Fragment {
                     controls.setLocalPosition(new Vector3(0.0f, 0.45f, 0.0f));
                     controls.setRenderable(selectedPlantControl);
                     controls.setEnabled(false);
-                    controls.setParent(plant);
-                    controls.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
-                    controls.setRenderable(addAbonoControl);
-                    controls.setEnabled(false);
 
-                    plant.setOnTapListener((hitTestResult, motionEvent1) -> controls.setEnabled(!controls.isEnabled()));
+                    Node controls2 = new Node();
+                    controls2.setParent(plant);
+                    controls2.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
+                    controls2.setRenderable(addAbonoControl);
+                    controls2.setEnabled(false);
+
+                    plant.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        controls.setEnabled(!controls.isEnabled());
+                        controls2.setEnabled(!controls2.isEnabled());
+                    });
                 });
     }
 
