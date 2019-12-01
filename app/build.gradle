@@ -37,13 +37,12 @@ dependencies {
     compileOnly 'javax.annotation:jsr250-api:1.0'
     testImplementation "com.google.truth:truth:1.0"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
-    
+
     // AR Core Dependencies:
     // Provides ARCore Session and related resources.
     // Provides ArFragment, and other UX resources.
     implementation "com.google.ar.sceneform.ux:sceneform-ux:1.13.0"
 }
-
 
 
 sceneform.asset('sampledata/strawberry_two.obj',

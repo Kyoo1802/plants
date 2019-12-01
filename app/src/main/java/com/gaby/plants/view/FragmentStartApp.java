@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gaby.plants.R;
+import com.gaby.plants.utils.FragmentUtils;
 import com.gaby.plants.viewmodel.GardenViewModel;
 
 public class FragmentStartApp extends Fragment {
@@ -118,10 +118,7 @@ public class FragmentStartApp extends Fragment {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        FragmentTransaction ft = myActivity.getSupportFragmentManager().beginTransaction();
-                        FragmentSelectPlant fragmentSelectPlant = new FragmentSelectPlant();
-                        ft.replace(R.id.frameFragment, fragmentSelectPlant);
-                        ft.commit();
+                        FragmentUtils.replaceFragment(myActivity, new FragmentSelectPlant());
                     }
                 });
     }

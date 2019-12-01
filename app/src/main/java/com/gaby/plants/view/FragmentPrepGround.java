@@ -1,26 +1,21 @@
 package com.gaby.plants.view;
 
-import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.gaby.plants.R;
+import com.gaby.plants.model.Plant;
+import com.gaby.plants.utils.FragmentUtils;
 import com.gaby.plants.viewmodel.GardenViewModel;
-import com.gaby.plants.viewmodel.SeleccionPlanta;
-import com.google.ar.sceneform.ux.ArFragment;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,8 +30,9 @@ public class FragmentPrepGround extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-        SeleccionPlanta seleccionPlanta = vm.getSeleccion();
+        GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
+        Plant newPlant = vm.getNewPlant();
+        vm.changePrepGround(newPlant.getPlantId());
 
         final FragmentActivity myActivity = this.getActivity();
         Timer timer = new Timer();
@@ -44,28 +40,8 @@ public class FragmentPrepGround extends Fragment {
             @Override
             public void run() {
                 // Sends a request to the UI Thread to trigger a method.
-                new Handler(Looper.getMainLooper()).post(() -> showArcore(myActivity));
+                new Handler(Looper.getMainLooper()).post(() -> FragmentUtils.showArcore(myActivity));
             }
         }, 1000);
-    }
-
-    private static void showArcore(FragmentActivity myActivity) {
-        FragmentTransaction ft = myActivity.getSupportFragmentManager().beginTransaction();
-        List<Fragment> fragmentList = myActivity.getSupportFragmentManager().getFragments();
-
-        boolean arFragmentExist = false;
-        for(Fragment f : fragmentList){
-            if(f instanceof FragmentArcore){
-                ft.show(f);
-                arFragmentExist = true;
-            } else {
-                ft.hide(f);
-            }
-        }
-        if(!arFragmentExist) {
-            FragmentArcore arFragment = new FragmentArcore();
-            ft.add(R.id.frameFragment, arFragment);
-        }
-        ft.commit();
     }
 }

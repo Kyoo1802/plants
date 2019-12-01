@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import com.gaby.plants.model.Garden;
 import com.gaby.plants.model.GardenService;
 import com.gaby.plants.model.Plant;
+import com.gaby.plants.model.PlantState;
 import com.gaby.plants.model.PlantType;
 
 import java.util.Calendar;
@@ -24,60 +25,71 @@ public class GardenViewModel extends AndroidViewModel {
 
     @Getter
     @Setter
-    private SeleccionPlanta seleccion;
+    private Plant newPlant;
+
+    private LiveData<Plant> updatedPlant;
 
     public GardenViewModel(@NonNull Application application) {
         super(application);
         gardenService = new GardenService(new Garden(), new MutableLiveData<>());
-        seleccion = SeleccionPlanta.UNKNOWN;
+        updatedPlant = new MutableLiveData<>();
     }
 
     public void onTapAddStrawberry() {
-        System.out.println("¡View Model onTapAddStrawberry!");
-
-        // Obtener el tiempo actual del celular.
-        long currentTime = Calendar.getInstance().getTime().getTime();
-
-        Plant plantStrawBerry = Plant.builder()
-                .plantId(id++)
-                .dateOfBirth(currentTime)
-                .plantType(PlantType.STRAWBERRY)
-                .build();
-        gardenService.addPlant(plantStrawBerry);
+        newPlant = createPlant(PlantType.STRAWBERRY);
+        gardenService.addPlant(newPlant);
     }
 
     public void onTapAddTomato() {
-        Date currentTime = Calendar.getInstance().getTime();
-        Plant plantTomato = Plant.builder()
-                .plantId(id++)
-                .dateOfBirth(currentTime.getTime())
-                .plantType(PlantType.TOMATE)
-                .build();
-        gardenService.addPlant(plantTomato);
-    }
-
-    public void onCompleteAdjustLight(long id) {
-        gardenService.adjustLightSun(id);
+        newPlant = createPlant(PlantType.TOMATOE);
+        gardenService.addPlant(newPlant);
     }
 
     public void onTapBtnAddAbono(long id) {
         gardenService.addAbono(id);
     }
 
-
     public void onTapBtnAddWater(long id) {
         gardenService.addWater(id);
-    }
-
-    public void onSelectRemovePlant(long id) {
-        gardenService.removePlant(id);
     }
 
     public LiveData<Collection<Plant>> listPlants() {
         return gardenService.getPlants();
     }
+    public LiveData<Plant> updatedPlant() {
+        return updatedPlant;
+    }
 
     public String retrieveGardenInfo() {
         return gardenService.getGardenInformation();
+    }
+
+    public void changeToSeed(long id) {
+        gardenService.changePlantState(id, PlantState.SEED);
+    }
+
+    public void changePrepGround(long id) {
+        gardenService.changePlantState(id, PlantState.PREP_GROUND);
+    }
+
+    public void onCompleteAdjustLight(long plantId) {
+        gardenService.adjustLightSun(plantId);
+    }
+
+    public String getPlantInfo(long plantId) {
+        return gardenService.getPlantInformation(plantId);
+    }
+
+    public void onDeletePlant(long plantId) {
+        gardenService.removePlant(plantId);
+    }
+
+    private Plant createPlant(PlantType strawberry) {
+        Date currentTime = Calendar.getInstance().getTime();
+        return Plant.builder()
+                .plantId(id++)
+                .dateOfBirth(currentTime.getTime())
+                .plantType(strawberry)
+                .build();
     }
 }

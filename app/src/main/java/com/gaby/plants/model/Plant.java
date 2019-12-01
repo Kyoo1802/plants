@@ -14,4 +14,15 @@ public class Plant {
     private long dateOfBirth;
     private long lastTimeWater;
     private long lastTimeAbono;
+
+    public int getCorrectSunAmount() {
+        switch (plantType){
+            case STRAWBERRY:
+                return 20;
+            case TOMATOE:
+                return 40;
+            default:
+                return 50;
+        }
+    }
 }

@@ -25,7 +25,7 @@ public class GardenService {
     public void addPlant(Plant plant) {
         System.out.println("¡GardenService.addPlant() !");
         plant = plant.toBuilder()
-                .plantState(PlantState.GROUND)
+                .plantState(PlantState.UNSPECIFIED)
                 .lastTimeWater(plant.getDateOfBirth())
                 .lastTimeAbono(plant.getDateOfBirth())
                 .build();

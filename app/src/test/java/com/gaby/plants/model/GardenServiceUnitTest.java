@@ -1,7 +1,6 @@
 package com.gaby.plants.model;
 
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.google.common.truth.Truth;
@@ -15,18 +14,6 @@ public class GardenServiceUnitTest {
     static long PLANT_ID_1 = 123L;
     static long PLANT_ID_2 = 321L;
     static long PLANT_ID_3 = 333L;
-
-    static class FakeLiveData<T> extends MutableLiveData<T> {
-        @Override
-        public void postValue(T value) {
-
-        }
-
-        @Override
-        public void setValue(T value) {
-
-        }
-    }
 
     @Test
     public void addPlant_Pass() {
@@ -101,7 +88,6 @@ public class GardenServiceUnitTest {
                 .isEqualTo(true);
     }
 
-
     @Test
     public void setCompost_NoUpdates() {
         Garden garden = new Garden();
@@ -141,7 +127,6 @@ public class GardenServiceUnitTest {
                 .isEqualTo(PlantState.WITHERED);
     }
 
-
     @Test
     public void listPlants_Pass() {
         Garden garden = new Garden();
@@ -167,7 +152,6 @@ public class GardenServiceUnitTest {
         Truth.assertThat(garden.getPlants().get(PLANT_ID_1).getPlantState())
                 .isEqualTo(PlantState.PLANT);
     }
-
 
     @Test
     public void collectFruits_NoUpdate() {
@@ -308,5 +292,17 @@ public class GardenServiceUnitTest {
                 .dateOfBirth(123123)
                 .plantType(PlantType.STRAWBERRY)
                 .build();
+    }
+
+    static class FakeLiveData<T> extends MutableLiveData<T> {
+        @Override
+        public void postValue(T value) {
+
+        }
+
+        @Override
+        public void setValue(T value) {
+
+        }
     }
 }

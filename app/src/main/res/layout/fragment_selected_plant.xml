@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-
     android:clipChildren="false"
-    android:clipToPadding="false">
+
+    android:clipToPadding="false"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="280dp"
@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageBtnSun"
+            android:id="@+id/btnSun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -26,7 +26,7 @@
             app:srcCompat="@drawable/selected_sun" />
 
         <ImageButton
-            android:id="@+id/imageBtnCompost"
+            android:id="@+id/btnAddAbono"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -35,8 +35,18 @@
             android:foregroundGravity="center_horizontal"
             app:srcCompat="@drawable/selected_compost" />
 
+
         <ImageButton
-            android:id="@+id/imageBtnInfo"
+            android:id="@+id/btnAddWater"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:foregroundGravity="center_horizontal"
+            app:srcCompat="@drawable/menu_btn_agua" />
+
+        <ImageButton
+            android:id="@+id/btnInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -46,7 +56,7 @@
             app:srcCompat="@drawable/selected_info" />
 
         <ImageButton
-            android:id="@+id/imageBtnQuit"
+            android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

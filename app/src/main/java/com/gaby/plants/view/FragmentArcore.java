@@ -2,9 +2,13 @@ package com.gaby.plants.view;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.gaby.plants.R;
+import com.gaby.plants.model.Plant;
+import com.gaby.plants.viewmodel.GardenViewModel;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
@@ -25,10 +31,12 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FragmentArcore extends Fragment {
     private static final String TAG = "MainActivity";
@@ -37,7 +45,31 @@ public class FragmentArcore extends Fragment {
     private ModelRenderable plantRenderable;
     private ViewRenderable selectedPlantControl;
     private ViewRenderable addAbonoControl;
-    private List<Node> plantControlNodes =  new LinkedList<>();
+    private ViewRenderable statusView;
+    private List<Node> plantControlNodes = new LinkedList<>();
+
+    private boolean runningAction = false;
+
+    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            Log.e(TAG, "Sceneform requires Android N or later");
+            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
+            activity.finish();
+            return false;
+        }
+        String openGlVersionString =
+                ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
+                        .getDeviceConfigurationInfo()
+                        .getGlEsVersion();
+        if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
+            Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
+            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
+                    .show();
+            activity.finish();
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,6 +126,19 @@ public class FragmentArcore extends Fragment {
                             return null;
                         });
 
+        ViewRenderable.builder()
+                .setView(this.getActivity(), R.layout.fragment_add_abono)
+                .build()
+                .thenAccept(renderable -> {
+                    Log.i(TAG, "Archivo cargado.");
+                    statusView = renderable;
+                })
+                .exceptionally(
+                        throwable -> {
+                            Log.e(TAG, "Unable to load Renderable.", throwable);
+                            return null;
+                        });
+
         ArFragment arFragment = (ArFragment) this.getChildFragmentManager().findFragmentById(R.id.arFragment);
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
@@ -101,65 +146,160 @@ public class FragmentArcore extends Fragment {
                         return;
                     }
 
+                    GardenViewModel vm = ViewModelProviders.of(this).get(GardenViewModel.class);
+                    Plant plant = vm.getNewPlant();
+                    vm.changeToSeed(plant.getPlantId());
+
                     // Create the Anchor.
                     AnchorNode anchorNode = new AnchorNode(hitResult.createAnchor());
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                     // Create the transformable andy and add it to the anchor.
-                    Node plant = new Node();
-                    plant.setParent(anchorNode);
-                    plant.setRenderable(plantRenderable);
+                    Node plantNode = new Node();
+                    plantNode.setParent(anchorNode);
+                    plantNode.setRenderable(plantRenderable);
 
-                    Node controls = new Node();
-                    controls.setParent(plant);
-                    controls.setLocalPosition(new Vector3(0.0f, 0.45f, 0.0f));
-                    controls.setRenderable(selectedPlantControl);
-                    controls.setEnabled(false);
-                    plantControlNodes.add(controls);
+                    Node actionsViewNode = new Node();
+                    actionsViewNode.setParent(plantNode);
+                    actionsViewNode.setLocalPosition(new Vector3(0.0f, 0.45f, 0.0f));
+                    actionsViewNode.setRenderable(selectedPlantControl);
+                    actionsViewNode.setEnabled(false);
+                    plantControlNodes.add(actionsViewNode);
 
-                    Node abono = new Node();
-                    abono.setParent(plant);
-                    abono.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
-                    abono.setRenderable(addAbonoControl);
-                    abono.setEnabled(false);
+                    Node abonoViewNode = new Node();
+                    abonoViewNode.setParent(plantNode);
+                    abonoViewNode.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
+                    abonoViewNode.setRenderable(addAbonoControl);
+                    abonoViewNode.setEnabled(false);
+                    plantControlNodes.add(abonoViewNode);
 
-                    plant.setOnTapListener((hitTestResult, motionEvent1) -> {
-                        boolean controlEnabled = !controls.isEnabled();
+                    Node waterViewNode = new Node();
+                    waterViewNode.setParent(plantNode);
+                    waterViewNode.setLocalPosition(new Vector3(0.20f, 0.00f, 0.00f));
+                    waterViewNode.setRenderable(addAbonoControl);
+                    waterViewNode.setEnabled(false);
+                    plantControlNodes.add(waterViewNode);
+
+                    Node infoViewNode = new Node();
+                    infoViewNode.setParent(plantNode);
+                    infoViewNode.setLocalPosition(new Vector3(-0.45f, 0.00f, 0.00f));
+                    infoViewNode.setRenderable(addAbonoControl);
+                    infoViewNode.setEnabled(false);
+                    plantControlNodes.add(infoViewNode);
+
+                    vm.updatedPlant().observe(this.getActivity(), plantUpdated -> {
+                        if(plantUpdated.getPlantId() == plant.getPlantId()){
+                            plantNode.setRenderable(addAbonoControl);
+                            statusView.getView().findViewById(R.id.btnSun);
+                        }
+                    });
+
+                    plantNode.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        boolean newEnabledState = !actionsViewNode.isEnabled();
                         hideAllControsls();
-                        controls.setEnabled(controlEnabled);
+                        actionsViewNode.setEnabled(newEnabledState);
+                        if (newEnabledState) {
+                            ImageButton btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
+                            ImageButton btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
+                            ImageButton btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
+                            ImageButton btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
+                            ImageButton btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
+                            SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBar);
+                            seekBarSunAdjust.setVisibility(View.GONE);
+
+                            // Button Sun configuration
+                            if(!plant.isHasSunLight()) {
+                                btnSun.setVisibility(View.VISIBLE);
+                                btnAddAbono.setVisibility(View.GONE);
+                                btnAddWater.setVisibility(View.GONE);
+                                btnSun.setOnClickListener(view -> {
+                                    seekBarSunAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                        @Override
+                                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+                                        @Override
+                                        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                                        @Override
+                                        public void onStopTrackingTouch(SeekBar seekBar) {
+                                            if (seekBar.getProgress() == plant.getCorrectSunAmount()) {
+                                                vm.onCompleteAdjustLight(plant.getPlantId());
+                                                seekBarSunAdjust.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                                    seekBarSunAdjust.setVisibility(View.VISIBLE);
+                                });
+                            } else {
+                                btnSun.setVisibility(View.GONE);
+                                btnAddAbono.setVisibility(View.VISIBLE);
+                                btnAddWater.setVisibility(View.VISIBLE);
+
+                                // Button Add Abono configuration
+                                btnAddAbono.setOnClickListener(view -> {
+                                    if(!abonoViewNode.isEnabled()) {
+                                        vm.onTapBtnAddAbono(plant.getPlantId());
+                                        abonoViewNode.setEnabled(true);
+                                        Timer timer = new Timer();
+                                        timer.schedule(new TimerTask() {
+                                            @Override
+                                            public void run() {
+                                                // Sends a request to the UI Thread to trigger a method.
+                                                new Handler(Looper.getMainLooper()).post(() -> abonoViewNode.setEnabled(false));
+                                            }
+                                        }, 1000);
+                                    }
+                                });
+
+                                // Button Add Water configuration
+                                btnAddWater.setOnClickListener(view -> {
+                                    if(!waterViewNode.isEnabled()) {
+                                        vm.onTapBtnAddWater(plant.getPlantId());
+                                        waterViewNode.setEnabled(true);
+                                        Timer timer = new Timer();
+                                        timer.schedule(new TimerTask() {
+                                            @Override
+                                            public void run() {
+                                                // Sends a request to the UI Thread to trigger a method.
+                                                new Handler(Looper.getMainLooper()).post(() -> waterViewNode.setEnabled(false));
+                                            }
+                                        }, 1000);
+                                    }
+                                });
+
+                                // Button View Info configuration
+                                btnInfo.setOnClickListener(view -> {
+                                    vm.getPlantInfo(plant.getPlantId());
+                                    infoViewNode.setEnabled(!infoViewNode.isEnabled());
+                                });
+
+
+                                // Button View Info configuration
+                                btnDelete.setOnClickListener(view -> {
+                                    vm.onDeletePlant(plant.getPlantId());
+                                    hideAllControsls();
+                                    anchorNode.removeChild(plantNode);
+                                });
+                            }
+
+                        }
                     });
-                    ImageButton btn = selectedPlantControl.getView().findViewById(R.id.imageBtnCompost);
-                    btn.setOnClickListener( view -> {
-                        abono.setEnabled(!abono.isEnabled());
-                    });
+
                 });
+
+        Timer growTimer = new Timer();
+        growTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Sends a request to the UI Thread to trigger a method.
+                new Handler(Looper.getMainLooper()).post(() -> {});
+            }
+        }, 1000);
     }
 
     private void hideAllControsls() {
-        for(Node n: plantControlNodes){
+        for (Node n : plantControlNodes) {
             n.setEnabled(false);
         }
-    }
-
-
-    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            Log.e(TAG, "Sceneform requires Android N or later");
-            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
-            activity.finish();
-            return false;
-        }
-        String openGlVersionString =
-                ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
-                        .getDeviceConfigurationInfo()
-                        .getGlEsVersion();
-        if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
-            Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
-            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
-                    .show();
-            activity.finish();
-            return false;
-        }
-        return true;
     }
 }
