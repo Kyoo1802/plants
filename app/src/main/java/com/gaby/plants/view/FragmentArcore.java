@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.gaby.plants.R;
@@ -25,6 +27,9 @@ import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class FragmentArcore extends Fragment {
     private static final String TAG = "MainActivity";
     private static final double MIN_OPENGL_VERSION = 3.0;
@@ -32,6 +37,7 @@ public class FragmentArcore extends Fragment {
     private ModelRenderable plantRenderable;
     private ViewRenderable selectedPlantControl;
     private ViewRenderable addAbonoControl;
+    private List<Node> plantControlNodes =  new LinkedList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,28 +106,39 @@ public class FragmentArcore extends Fragment {
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                     // Create the transformable andy and add it to the anchor.
-                    TransformableNode plant = new TransformableNode(arFragment.getTransformationSystem());
+                    Node plant = new Node();
                     plant.setParent(anchorNode);
                     plant.setRenderable(plantRenderable);
-                    plant.select();
 
                     Node controls = new Node();
                     controls.setParent(plant);
                     controls.setLocalPosition(new Vector3(0.0f, 0.45f, 0.0f));
                     controls.setRenderable(selectedPlantControl);
                     controls.setEnabled(false);
+                    plantControlNodes.add(controls);
 
-                    Node controls2 = new Node();
-                    controls2.setParent(plant);
-                    controls2.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
-                    controls2.setRenderable(addAbonoControl);
-                    controls2.setEnabled(false);
+                    Node abono = new Node();
+                    abono.setParent(plant);
+                    abono.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
+                    abono.setRenderable(addAbonoControl);
+                    abono.setEnabled(false);
 
                     plant.setOnTapListener((hitTestResult, motionEvent1) -> {
-                        controls.setEnabled(!controls.isEnabled());
-                        controls2.setEnabled(!controls2.isEnabled());
+                        boolean controlEnabled = !controls.isEnabled();
+                        hideAllControsls();
+                        controls.setEnabled(controlEnabled);
+                    });
+                    ImageButton btn = selectedPlantControl.getView().findViewById(R.id.imageBtnCompost);
+                    btn.setOnClickListener( view -> {
+                        abono.setEnabled(!abono.isEnabled());
                     });
                 });
+    }
+
+    private void hideAllControsls() {
+        for(Node n: plantControlNodes){
+            n.setEnabled(false);
+        }
     }
 
 
