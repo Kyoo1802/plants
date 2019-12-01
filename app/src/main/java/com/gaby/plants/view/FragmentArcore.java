@@ -5,8 +5,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,11 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.gaby.plants.R;
-import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -29,15 +25,13 @@ import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class FragmentArcore extends Fragment {
     private static final String TAG = "MainActivity";
     private static final double MIN_OPENGL_VERSION = 3.0;
 
     private ModelRenderable plantRenderable;
     private ViewRenderable selectedPlantControl;
+    private ViewRenderable addAbonoControl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,10 +75,23 @@ public class FragmentArcore extends Fragment {
                             return null;
                         });
 
+        ViewRenderable.builder()
+                .setView(this.getActivity(), R.layout.fragment_add_abono)
+                .build()
+                .thenAccept(renderable -> {
+                    Log.i(TAG, "Archivo cargado.");
+                    addAbonoControl = renderable;
+                })
+                .exceptionally(
+                        throwable -> {
+                            Log.e(TAG, "Unable to load Renderable.", throwable);
+                            return null;
+                        });
+
         ArFragment arFragment = (ArFragment) this.getChildFragmentManager().findFragmentById(R.id.arFragment);
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (plantRenderable == null || selectedPlantControl == null) {
+                    if (plantRenderable == null || selectedPlantControl == null || addAbonoControl == null) {
                         return;
                     }
 
@@ -103,10 +110,13 @@ public class FragmentArcore extends Fragment {
                     controls.setLocalPosition(new Vector3(0.0f, 0.45f, 0.0f));
                     controls.setRenderable(selectedPlantControl);
                     controls.setEnabled(false);
+                    controls.setParent(plant);
+                    controls.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
+                    controls.setRenderable(addAbonoControl);
+                    controls.setEnabled(false);
 
                     plant.setOnTapListener((hitTestResult, motionEvent1) -> controls.setEnabled(!controls.isEnabled()));
                 });
-
     }
 
 
