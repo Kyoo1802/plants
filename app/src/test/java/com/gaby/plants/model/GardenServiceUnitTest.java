@@ -1,6 +1,5 @@
 package com.gaby.plants.model;
 
-
 import android.arch.lifecycle.MutableLiveData;
 
 import com.google.common.truth.Truth;
@@ -46,7 +45,7 @@ public class GardenServiceUnitTest {
         Truth.assertThat(garden.getPlants().get(123L).getPlantId())
                 .isEqualTo(123L);
         Truth.assertThat(garden.getPlants().get(123L).getPlantState())
-                .isEqualTo(PlantState.GROUND);
+                .isEqualTo(PlantState.UNSPECIFIED);
         Truth.assertThat(garden.getPlants().get(123L).isHasSunLight())
                 .isEqualTo(false);
         Truth.assertThat(garden.getPlants().get(123L).isHasCompost())
@@ -183,7 +182,7 @@ public class GardenServiceUnitTest {
         Truth.assertThat(info)
                 .isEqualTo(
                         PLANT_ID_1 + " : " + PlantState.PLANT + "\n" +
-                                PLANT_ID_2 + " : " + PlantState.GROUND + "\n");
+                                PLANT_ID_2 + " : " + PlantState.UNSPECIFIED + "\n");
     }
 
     @Test
@@ -192,7 +191,7 @@ public class GardenServiceUnitTest {
         GardenService gs = new GardenService(garden, new FakeLiveData<>());
 
         gs.addPlant(createPlant(PLANT_ID_1));
-        gs.changePlantState(PLANT_ID_1, PlantState.GROUND);
+        gs.changePlantState(PLANT_ID_1, PlantState.UNSPECIFIED);
 
         gs.addPlant(createPlant(PLANT_ID_2));
 
@@ -201,7 +200,7 @@ public class GardenServiceUnitTest {
 
         Truth.assertThat(info)
                 .isEqualTo(
-                        PLANT_ID_1 + " : " + PlantState.GROUND + " " + PlantType.STRAWBERRY + "\n");
+                        PLANT_ID_1 + " : " + PlantState.UNSPECIFIED + " " + PlantType.STRAWBERRY + "\n");
     }
 
     @Test

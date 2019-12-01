@@ -12,11 +12,13 @@ public class Plant {
     private boolean hasSunLight;
     private boolean hasCompost;
     private long dateOfBirth;
+    private int waterPercentage;
     private long lastTimeWater;
+    private int abonoPercentage;
     private long lastTimeAbono;
 
     public int getCorrectSunAmount() {
-        switch (plantType){
+        switch (plantType) {
             case STRAWBERRY:
                 return 20;
             case TOMATOE:

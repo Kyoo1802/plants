@@ -55,15 +55,6 @@ sceneform.asset('sampledata/strawberry_leaf.obj',
         'sampledata/strawberry_leaf.sfa',
         'src/main/res/raw/strawberry_leaf')
 
-sceneform.asset('sampledata/strawberry_less.obj',
-        'default',
-        'sampledata/strawberry_less.sfa',
-        'src/main/res/raw/strawberry_less')
-
-sceneform.asset('sampledata/strawberry_lot.obj',
-        'default',
-        'sampledata/strawberry_lot.sfa',
-        'src/main/res/raw/strawberry_lot')
 
 sceneform.asset('sampledata/strawberry_small.obj',
         'default',

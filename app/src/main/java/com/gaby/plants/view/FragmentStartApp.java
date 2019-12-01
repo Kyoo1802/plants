@@ -76,7 +76,6 @@ public class FragmentStartApp extends Fragment {
         textPlantScaleY.setInterpolator(new OvershootInterpolator());
         textPlantScaleY.setDuration(1500);
 
-
         AnimatorSet animator = new AnimatorSet();
         animator.play(textPlantScaleX).after(800);
         animator.play(textPlantScaleX).with(textPlantScaleY);
@@ -109,8 +108,7 @@ public class FragmentStartApp extends Fragment {
 
     private void startPlants(View v) {
         Button btnStart = this.getView().findViewById(R.id.btnStart);
-
-        final FragmentActivity myActivity = this.getActivity();
+        FragmentActivity myActivity = this.getActivity();
         btnStart.animate()
                 .alpha(0)
                 .setDuration(100)

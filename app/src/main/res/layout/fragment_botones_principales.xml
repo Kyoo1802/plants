@@ -6,11 +6,11 @@
     android:gravity="center_horizontal"
     android:orientation="horizontal">
 
+
     <ImageButton
         android:id="@+id/btnAddNewPlant"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="bottom"
         android:layout_margin="10dp"
         android:foregroundGravity="center_horizontal"
         app:srcCompat="@drawable/menu_btn_add_plant" />

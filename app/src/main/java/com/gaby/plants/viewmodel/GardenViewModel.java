@@ -15,6 +15,7 @@ import com.gaby.plants.model.PlantType;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class GardenViewModel extends AndroidViewModel {
     @Setter
     private Plant newPlant;
 
-    private LiveData<Plant> updatedPlant;
+    private MutableLiveData<Plant> updatedPlant;
 
     public GardenViewModel(@NonNull Application application) {
         super(application);
@@ -46,16 +47,27 @@ public class GardenViewModel extends AndroidViewModel {
     }
 
     public void onTapBtnAddAbono(long id) {
-        gardenService.addAbono(id);
+        Optional<Plant> plant = gardenService.addAbono(id);
+        if (plant.isPresent()) {
+            postUpdatedPlant(plant.get());
+        }
     }
 
     public void onTapBtnAddWater(long id) {
-        gardenService.addWater(id);
+        Optional<Plant> plant = gardenService.addWater(id);
+        if (plant.isPresent()) {
+            postUpdatedPlant(plant.get());
+        }
     }
 
     public LiveData<Collection<Plant>> listPlants() {
         return gardenService.getPlants();
     }
+
+    public void postUpdatedPlant(Plant plant) {
+        updatedPlant.postValue(plant);
+    }
+
     public LiveData<Plant> updatedPlant() {
         return updatedPlant;
     }

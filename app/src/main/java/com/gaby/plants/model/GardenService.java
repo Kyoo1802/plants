@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public class GardenService {
     private Garden garden;
@@ -62,25 +63,29 @@ public class GardenService {
         plants.postValue(garden.getPlants().values());
     }
 
-    public void addWater(long plantId) {
+    public Optional<Plant> addWater(long plantId) {
         if (garden.getPlants().containsKey(plantId)) {
             Plant plant = garden.getPlants().get(plantId);
             long horaActual = System.currentTimeMillis();
-            Plant water = plant.toBuilder().lastTimeWater(horaActual).build();
+            int newPercentage = Math.min(100, plant.getAbonoPercentage() + 5);
+            Plant water = plant.toBuilder().waterPercentage(newPercentage).lastTimeWater(horaActual).build();
             garden.getPlants().put(water.getPlantId(), water);
-
+            return Optional.of(plant);
         }
+        return Optional.empty();
     }
 
-    public void addAbono(long plantId) {
+    public Optional<Plant> addAbono(long plantId) {
         if (garden.getPlants().containsKey(plantId)) {
             Plant plant = garden.getPlants().get(plantId);
             long horaActual = System.currentTimeMillis();
-            Plant abono = plant.toBuilder().lastTimeAbono(horaActual).build();
+            int newPercentage = Math.min(100, plant.getAbonoPercentage() + 5);
+            Plant abono = plant.toBuilder().abonoPercentage(newPercentage).lastTimeAbono(horaActual).build();
             garden.getPlants().put(abono.getPlantId(), abono);
-
             plants.postValue(garden.getPlants().values());
+            return Optional.of(plant);
         }
+        return Optional.empty();
     }
 
     public String getGardenInformation() {
