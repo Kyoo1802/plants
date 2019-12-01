@@ -6,6 +6,8 @@ import lombok.Getter;
 @Builder(toBuilder = true)
 @Getter
 public class Plant {
+    private long waterPercentage;
+    private long abonoPercentage;
     private long plantId;
     private PlantType plantType;
     private PlantState plantState;

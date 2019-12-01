@@ -30,13 +30,13 @@ public class FragmentBotonesPrincipales extends Fragment {
         System.out.println("On onCreateView....");
 
 
-        ImageButton btnAddWater = this.getView().findViewById(R.id.btnAddWater);
-        ImageButton btnAddAbono = this.getView().findViewById(R.id.btnAddAbono);
+        ImageButton imageBtnAddWater = this.getView().findViewById(R.id.ImageBtnAddWater);
+        ImageButton imageBtnAddAbono = this.getView().findViewById(R.id.imageBtnAddAbono);
 
 
-        btnAddWater.setOnClickListener(v -> addWater(v));
+        imageBtnAddWater.setOnClickListener(v -> addWater(v));
 
-        btnAddAbono.setOnClickListener(v -> addAbono(v));
+        imageBtnAddAbono.setOnClickListener(v -> addAbono(v));
     }
 
     private void addWater(View v) {

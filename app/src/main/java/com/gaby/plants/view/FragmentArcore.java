@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -128,7 +126,7 @@ public class FragmentArcore extends Fragment {
                         hideAllControsls();
                         controls.setEnabled(controlEnabled);
                     });
-                    ImageButton btn = selectedPlantControl.getView().findViewById(R.id.imageBtnCompost);
+                    ImageButton btn = selectedPlantControl.getView().findViewById(R.id.addAbono);
                     btn.setOnClickListener( view -> {
                         abono.setEnabled(!abono.isEnabled());
                     });
