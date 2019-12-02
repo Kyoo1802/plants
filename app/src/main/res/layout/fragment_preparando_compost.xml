@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/preparando_tierra"
+        android:id="@+id/preparando_compost"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
@@ -15,26 +15,26 @@
         android:src="@drawable/agregando_tierra" />
 
     <TextView
-        android:id="@+id/preparando_tierra_title"
+        android:id="@+id/preparando_compost_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/preparando_tierra"
+        android:text="@string/preparando_compost"
         android:textColor="#333"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/preparando_tierra_desc"
+        android:id="@+id/preparando_compost_desc"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/preparando_tierra_desc"
+        android:text="@string/preparando_compost_desc"
         android:textColor="#555"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btnContinuarPrepGround"
+        android:id="@+id/btnContinuarPrepCompost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

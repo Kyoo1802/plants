@@ -24,7 +24,6 @@ public class GardenService {
     }
 
     public void addPlant(Plant plant) {
-        System.out.println("¡GardenService.addPlant() !");
         plant = plant.toBuilder()
                 .plantState(PlantState.UNSPECIFIED)
                 .lastTimeWater(plant.getDateOfBirth())
@@ -32,7 +31,7 @@ public class GardenService {
                 .build();
         garden.getPlants().put(plant.getPlantId(), plant);
 
-        System.out.println("¡Se manda la notificacion a los observers!");
+        System.out.println("¡Se manda la notificacion a los observers!: " + plant.getPlantId());
         // Manda la notificacion a cualquier camara de los View
         plants.postValue(garden.getPlants().values());
     }
@@ -42,16 +41,6 @@ public class GardenService {
             Plant plant = garden.getPlants().get(plantId);
             Plant updatedPlant = plant.toBuilder().hasSunLight(true).build();
             garden.getPlants().put(updatedPlant.getPlantId(), updatedPlant);
-            plants.postValue(garden.getPlants().values());
-        }
-    }
-
-    public void setCompost(long plantId) {
-        if (garden.getPlants().containsKey(plantId)) {
-            Plant plant = garden.getPlants().get(plantId);
-
-            Plant compost = plant.toBuilder().hasCompost(true).build();
-            garden.getPlants().put(compost.getPlantId(), compost);
             plants.postValue(garden.getPlants().values());
         }
     }
@@ -67,9 +56,16 @@ public class GardenService {
         if (garden.getPlants().containsKey(plantId)) {
             Plant plant = garden.getPlants().get(plantId);
             long horaActual = System.currentTimeMillis();
-            int newPercentage = Math.min(100, plant.getAbonoPercentage() + 5);
-            Plant water = plant.toBuilder().waterPercentage(newPercentage).lastTimeWater(horaActual).build();
-            garden.getPlants().put(water.getPlantId(), water);
+            int newPercentage = Math.min(100, plant.getWaterPercentage() + plant.getWaterIncrease());
+            Plant.PlantBuilder newPlant = plant.toBuilder().waterPercentage(newPercentage).lastTimeWater(horaActual);
+            if (newPercentage >= 100 && plant.getAbonoIncrease() >= 100 && plant.getPlantState()!=PlantState.FRUIT_PLANT) {
+                newPlant
+                        .waterPercentage(0)
+                        .abonoPercentage(0)
+                        .plantState(plant.getNextState());
+            }
+            garden.getPlants().put(plantId, newPlant.build());
+            plants.postValue(garden.getPlants().values());
             return Optional.of(plant);
         }
         return Optional.empty();
@@ -79,9 +75,15 @@ public class GardenService {
         if (garden.getPlants().containsKey(plantId)) {
             Plant plant = garden.getPlants().get(plantId);
             long horaActual = System.currentTimeMillis();
-            int newPercentage = Math.min(100, plant.getAbonoPercentage() + 5);
-            Plant abono = plant.toBuilder().abonoPercentage(newPercentage).lastTimeAbono(horaActual).build();
-            garden.getPlants().put(abono.getPlantId(), abono);
+            int newPercentage = Math.min(100, plant.getAbonoPercentage() + plant.getAbonoIncrease());
+            Plant.PlantBuilder newPlant = plant.toBuilder().abonoPercentage(newPercentage).lastTimeAbono(horaActual);
+            if (newPercentage >= 100 && plant.getWaterPercentage() >= 100 && plant.getPlantState()!=PlantState.FRUIT_PLANT) {
+                newPlant
+                        .waterPercentage(0)
+                        .abonoPercentage(0)
+                        .plantState(plant.getNextState());
+            }
+            garden.getPlants().put(plantId, newPlant.build());
             plants.postValue(garden.getPlants().values());
             return Optional.of(plant);
         }
@@ -127,5 +129,9 @@ public class GardenService {
             Plant compost = plant.toBuilder().plantState(plantState).build();
             garden.getPlants().put(compost.getPlantId(), compost);
         }
+    }
+
+    public Plant getPlant(long newPlantId) {
+        return garden.getPlants().get(newPlantId);
     }
 }

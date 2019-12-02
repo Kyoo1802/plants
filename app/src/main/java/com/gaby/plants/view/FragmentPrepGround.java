@@ -1,23 +1,24 @@
 package com.gaby.plants.view;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.gaby.plants.R;
 import com.gaby.plants.model.Plant;
 import com.gaby.plants.utils.FragmentUtils;
 import com.gaby.plants.viewmodel.GardenViewModel;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import pl.droidsonroids.gif.GifImageView;
 
 public class FragmentPrepGround extends Fragment {
 
@@ -34,14 +35,37 @@ public class FragmentPrepGround extends Fragment {
         Plant newPlant = vm.getNewPlant();
         vm.changePrepGround(newPlant.getPlantId());
 
-        final FragmentActivity myActivity = this.getActivity();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Sends a request to the UI Thread to trigger a method.
-                new Handler(Looper.getMainLooper()).post(() -> FragmentUtils.showArcore(myActivity));
-            }
-        }, 1000);
+        GifImageView prepGround = this.getView().findViewById(R.id.preparando_tierra);
+        TextView prepGroundTitle = this.getView().findViewById(R.id.preparando_tierra_title);
+        TextView prepGroundDesc = this.getView().findViewById(R.id.preparando_tierra_desc);
+        prepGroundDesc.setAlpha(0f);
+        Button btnContinuarPrepGround = this.getView().findViewById(R.id.btnContinuarPrepGround);
+        btnContinuarPrepGround.setAlpha(0f);
+        btnContinuarPrepGround.setOnClickListener(v -> FragmentUtils.replaceFragment(this.getActivity(), new FragmentPrepCompost()));
+
+        ObjectAnimator animImgScaleX = ObjectAnimator.ofFloat(prepGround, View.SCALE_X, .5f).setDuration(1500);
+        animImgScaleX.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator animImgScaleY = ObjectAnimator.ofFloat(prepGround, View.SCALE_Y, .5f).setDuration(1500);
+        animImgScaleY.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator animImgTranslationY = ObjectAnimator.ofFloat(prepGround, View.TRANSLATION_Y, -650).setDuration(1500);
+        animImgTranslationY.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator animTitleTranslationY = ObjectAnimator.ofFloat(prepGroundTitle, View.TRANSLATION_Y, -900).setDuration(1500);
+        animTitleTranslationY.setInterpolator(new OvershootInterpolator());
+
+        ObjectAnimator animPrepGroundDesc = ObjectAnimator.ofFloat(prepGroundDesc, View.ALPHA, 1f).setDuration(1000);
+        ObjectAnimator animPrepGroundDescTranslationY = ObjectAnimator.ofFloat(prepGroundDesc, View.TRANSLATION_Y, -850).setDuration(1000);
+        ObjectAnimator animPrepGroundBtn = ObjectAnimator.ofFloat(btnContinuarPrepGround, View.ALPHA, 1f).setDuration(1000);
+        ObjectAnimator animanimPrepGroundBtnTranslationY = ObjectAnimator.ofFloat(btnContinuarPrepGround, View.TRANSLATION_Y, -400).setDuration(1000);
+
+        AnimatorSet animator = new AnimatorSet();
+        animator.play(animImgScaleX).after(2000);
+        animator.play(animImgScaleX).with(animImgScaleY);
+        animator.play(animImgScaleX).with(animImgTranslationY);
+        animator.play(animImgScaleX).with(animTitleTranslationY);
+        animator.play(animImgScaleX).before(animPrepGroundDesc);
+        animator.play(animPrepGroundDesc).with(animPrepGroundDescTranslationY);
+        animator.play(animPrepGroundDescTranslationY).before(animanimPrepGroundBtnTranslationY);
+        animator.play(animanimPrepGroundBtnTranslationY).before(animPrepGroundBtn);
+        animator.start();
     }
 }

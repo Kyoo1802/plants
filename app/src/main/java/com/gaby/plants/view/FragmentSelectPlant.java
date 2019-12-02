@@ -37,14 +37,24 @@ public class FragmentSelectPlant extends Fragment {
         GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
         vm.onTapAddStrawberry();
 
-        FragmentUtils.replaceFragment(this.getActivity(), new FragmentPrepGround());
+        switchFragment(vm);
     }
 
     private void selectTomato(View v) {
         GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
         vm.onTapAddTomato();
-
-        FragmentUtils.replaceFragment(this.getActivity(), new FragmentPrepGround());
+        switchFragment(vm);
     }
 
+    private void switchFragment(GardenViewModel vm) {
+        if(vm.isHasShownGround() && vm.isHasShownCompost()){
+            vm.changePrepCompost(vm.getNewPlantId());
+            FragmentUtils.showArcore(this.getActivity());
+        } else if (!vm.isHasShownGround()){
+            vm.changePrepGround(vm.getNewPlantId());
+            FragmentUtils.replaceFragment(this.getActivity(), new FragmentPrepGround());
+        } else {
+            FragmentUtils.replaceFragment(this.getActivity(), new FragmentPrepCompost());
+        }
+    }
 }

@@ -48,8 +48,6 @@ public class GardenServiceUnitTest {
                 .isEqualTo(PlantState.UNSPECIFIED);
         Truth.assertThat(garden.getPlants().get(123L).isHasSunLight())
                 .isEqualTo(false);
-        Truth.assertThat(garden.getPlants().get(123L).isHasCompost())
-                .isEqualTo(false);
         Truth.assertThat(garden.getPlants().get(123L).getDateOfBirth())
                 .isEqualTo(123123);
         Truth.assertThat(garden.getPlants().get(123L).getLastTimeAbono())
@@ -57,7 +55,7 @@ public class GardenServiceUnitTest {
         Truth.assertThat(garden.getPlants().get(123L).getLastTimeWater())
                 .isEqualTo(123123);
         Truth.assertThat(garden.getPlants().get(123L).getPlantType())
-                .isEqualTo(PlantType.STRAWBERRY);
+                .isEqualTo(PlantType.SUNFLOWER);
     }
 
     @Test
@@ -72,32 +70,6 @@ public class GardenServiceUnitTest {
 
         Truth.assertThat(garden.getPlants().get(321L).isHasSunLight())
                 .isEqualTo(true);
-    }
-
-    @Test
-    public void setCompost_Pass() {
-        Garden garden = new Garden();
-        GardenService gs = new GardenService(garden, new FakeLiveData<>());
-
-        gs.addPlant(createPlant(123L));
-
-        gs.setCompost(123L);
-
-        Truth.assertThat(garden.getPlants().get(123L).isHasCompost())
-                .isEqualTo(true);
-    }
-
-    @Test
-    public void setCompost_NoUpdates() {
-        Garden garden = new Garden();
-        GardenService gs = new GardenService(garden, new FakeLiveData<>());
-
-        gs.addPlant(createPlant(123L));
-
-        gs.setCompost(321L);
-
-        Truth.assertThat(garden.getPlants().get(123L).isHasCompost())
-                .isEqualTo(false);
     }
 
     @Test
@@ -200,7 +172,7 @@ public class GardenServiceUnitTest {
 
         Truth.assertThat(info)
                 .isEqualTo(
-                        PLANT_ID_1 + " : " + PlantState.UNSPECIFIED + " " + PlantType.STRAWBERRY + "\n");
+                        PLANT_ID_1 + " : " + PlantState.UNSPECIFIED + " " + PlantType.SUNFLOWER + "\n");
     }
 
     @Test
@@ -239,11 +211,6 @@ public class GardenServiceUnitTest {
         gs.adjustLightSun(PLANT_ID_2);
         gs.adjustLightSun(PLANT_ID_1);
 
-        //AGREGAR COMPOSTA
-        gs.setCompost(PLANT_ID_3);
-        gs.setCompost(PLANT_ID_2);
-        gs.setCompost(PLANT_ID_1);
-
         //REMOVER PLANTA 1
         gs.removePlant(PLANT_ID_1);
 
@@ -268,28 +235,22 @@ public class GardenServiceUnitTest {
         Truth.assertThat(garden.getPlants().get(PLANT_ID_2).isHasSunLight())
                 .isEqualTo(true);
 
-
-        Truth.assertThat(garden.getPlants().get(PLANT_ID_3).isHasCompost())
-                .isEqualTo(true);
-        Truth.assertThat(garden.getPlants().get(PLANT_ID_2).isHasCompost())
-                .isEqualTo(true);
-
         String info = gs.getPlantInformation(PLANT_ID_3);
         String info2 = gs.getPlantInformation(PLANT_ID_2);
 
         Truth.assertThat(garden.getNumPlants()).isEqualTo(2);
         Truth.assertThat(info)
                 .isEqualTo(
-                        PLANT_ID_3 + " : " + PlantState.PLANT + " " + PlantType.STRAWBERRY + "\n");
+                        PLANT_ID_3 + " : " + PlantState.PLANT + " " + PlantType.SUNFLOWER + "\n");
         Truth.assertThat(info2)
-                .isEqualTo(PLANT_ID_2 + " : " + PlantState.WITHERED + " " + PlantType.STRAWBERRY + "\n");
+                .isEqualTo(PLANT_ID_2 + " : " + PlantState.WITHERED + " " + PlantType.SUNFLOWER + "\n");
     }
 
     private Plant createPlant(long id) {
         return Plant.builder()
                 .plantId(id)
                 .dateOfBirth(123123)
-                .plantType(PlantType.STRAWBERRY)
+                .plantType(PlantType.SUNFLOWER)
                 .build();
     }
 

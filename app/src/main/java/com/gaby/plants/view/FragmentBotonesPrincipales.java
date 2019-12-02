@@ -1,17 +1,18 @@
 package com.gaby.plants.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.gaby.plants.R;
-import com.gaby.plants.model.Plant;
+import com.gaby.plants.utils.FragmentUtils;
 
 public class FragmentBotonesPrincipales extends Fragment {
-    private Plant plant = Plant.builder().build();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,6 +24,10 @@ public class FragmentBotonesPrincipales extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        System.out.println("On onCreateView....");
+
+        ImageButton btnAddNewPlant = this.getView().findViewById(R.id.btnAddNewPlant);
+        btnAddNewPlant.setOnClickListener(v -> {
+            FragmentUtils.replaceFragment(this.getActivity(), new FragmentSelectPlant());
+        });
     }
 }

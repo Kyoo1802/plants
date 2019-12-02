@@ -37,6 +37,7 @@ dependencies {
     compileOnly 'javax.annotation:jsr250-api:1.0'
     testImplementation "com.google.truth:truth:1.0"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
+    implementation("com.google.guava:guava:28.1-android")
 
     // AR Core Dependencies:
     // Provides ARCore Session and related resources.

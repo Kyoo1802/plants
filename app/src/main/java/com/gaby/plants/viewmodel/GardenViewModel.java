@@ -18,15 +18,18 @@ import java.util.Date;
 import java.util.Optional;
 
 import lombok.Getter;
-import lombok.Setter;
+
 
 public class GardenViewModel extends AndroidViewModel {
     private GardenService gardenService;
     private int id = 0;
 
     @Getter
-    @Setter
-    private Plant newPlant;
+    private long newPlantId;
+    @Getter
+    private boolean hasShownGround;
+    @Getter
+    private boolean hasShownCompost;
 
     private MutableLiveData<Plant> updatedPlant;
 
@@ -37,12 +40,14 @@ public class GardenViewModel extends AndroidViewModel {
     }
 
     public void onTapAddStrawberry() {
-        newPlant = createPlant(PlantType.STRAWBERRY);
+        Plant newPlant = createPlant(PlantType.SUNFLOWER);
+        newPlantId = newPlant.getPlantId();
         gardenService.addPlant(newPlant);
     }
 
     public void onTapAddTomato() {
-        newPlant = createPlant(PlantType.TOMATOE);
+        Plant newPlant = createPlant(PlantType.CORN);
+        newPlantId = newPlant.getPlantId();
         gardenService.addPlant(newPlant);
     }
 
@@ -76,12 +81,18 @@ public class GardenViewModel extends AndroidViewModel {
         return gardenService.getGardenInformation();
     }
 
-    public void changeToSeed(long id) {
-        gardenService.changePlantState(id, PlantState.SEED);
+    public void changePrepGround(long id) {
+        hasShownGround=true;
+        gardenService.changePlantState(id, PlantState.PREP_GROUND);
     }
 
-    public void changePrepGround(long id) {
-        gardenService.changePlantState(id, PlantState.PREP_GROUND);
+    public void changePrepCompost(long id) {
+        hasShownCompost=true;
+        gardenService.changePlantState(id, PlantState.PREP_COMPOST);
+    }
+
+    public void changeToSeed(long id) {
+        gardenService.changePlantState(id, PlantState.SEED);
     }
 
     public void onCompleteAdjustLight(long plantId) {
@@ -103,5 +114,13 @@ public class GardenViewModel extends AndroidViewModel {
                 .dateOfBirth(currentTime.getTime())
                 .plantType(strawberry)
                 .build();
+    }
+
+    public Plant getNewPlant() {
+        return gardenService.getPlant(newPlantId);
+    }
+
+    public Plant getPlant(long selectedPlantId) {
+        return gardenService.getPlant(selectedPlantId);
     }
 }

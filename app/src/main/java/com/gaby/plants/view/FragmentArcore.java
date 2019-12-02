@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.gaby.plants.R;
 import com.gaby.plants.model.Plant;
+import com.gaby.plants.model.PlantState;
+import com.gaby.plants.model.PlantType;
 import com.gaby.plants.viewmodel.GardenViewModel;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
@@ -29,26 +31,31 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 
 public class FragmentArcore extends Fragment {
     private static final String TAG = "MainActivity";
     private static final double MIN_OPENGL_VERSION = 3.0;
 
-    private ModelRenderable plantRenderable;
     private ViewRenderable selectedPlantControl;
     private ViewRenderable addAbonoControl;
     private ViewRenderable addWaterControl;
     private ViewRenderable progressBarView;
-    private List<Node> plantControlNodes = new LinkedList<>();
 
-    private boolean runningAction = false;
+    private boolean renderablesCompleted;
+
+    Table<PlantType, PlantState, ModelRenderable> renderables = HashBasedTable.create();
+    private List<Node> plantControlNodes = new LinkedList<>();
 
     public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -85,83 +92,90 @@ public class FragmentArcore extends Fragment {
             return;
         }
 
-        // Cargar el Modelo en memoria
-        ModelRenderable.builder()
-                .setSource(this.getActivity(), R.raw.strawberry_two)
-                .build()
-                .thenAccept(renderable -> {
-                    Log.i(TAG, "Archivo cargado.");
-                    plantRenderable = renderable;
-                })
-                .exceptionally(
-                        throwable -> {
-                            Log.e(TAG, "Unable to load Renderable.", throwable);
-                            return null;
-                        });
+        CompletableFuture.allOf(
+                // Cargar Modelos en memoria
+                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.FRUIT_PLANT),
 
-        // Renders the selected plant view
-        ViewRenderable.builder()
-                .setView(this.getActivity(), R.layout.fragment_selected_plant)
-                .build()
-                .thenAccept(renderable -> {
-                    Log.i(TAG, "Archivo cargado.");
-                    selectedPlantControl = renderable;
-                })
-                .exceptionally(
-                        throwable -> {
-                            Log.e(TAG, "Unable to load Renderable.", throwable);
-                            return null;
-                        });
-
-        ViewRenderable.builder()
-                .setView(this.getActivity(), R.layout.fragment_add_abono)
-                .build()
-                .thenAccept(renderable -> {
-                    Log.i(TAG, "Archivo cargado.");
-                    addAbonoControl = renderable;
-                })
-                .exceptionally(
-                        throwable -> {
-                            Log.e(TAG, "Unable to load Renderable.", throwable);
-                            return null;
-                        });
-
-        ViewRenderable.builder()
-                .setView(this.getActivity(), R.layout.fragment_add_water)
-                .build()
-                .thenAccept(renderable -> {
-                    Log.i(TAG, "Archivo cargado.");
-                    addWaterControl = renderable;
-                })
-                .exceptionally(
-                        throwable -> {
-                            Log.e(TAG, "Unable to load Renderable.", throwable);
-                            return null;
-                        });
-
-        ViewRenderable.builder()
-                .setView(this.getActivity(), R.layout.fragment_progress_bar)
-                .build()
-                .thenAccept(renderable -> {
-                    Log.i(TAG, "Archivo cargado.");
-                    progressBarView = renderable;
-                })
-                .exceptionally(
-                        throwable -> {
-                            Log.e(TAG, "Unable to load Renderable.", throwable);
+                // Renders the selected plant view
+                ViewRenderable.builder()
+                        .setView(this.getActivity(), R.layout.fragment_selected_plant)
+                        .build()
+                        .thenAccept(renderable -> {
+                            Log.i(TAG, "Archivo cargado.");
+                            selectedPlantControl = renderable;
+                        })
+                        .exceptionally(
+                                throwable -> {
+                                    Log.e(TAG, "Unable to load Renderable.", throwable);
+                                    return null;
+                                }),
+                ViewRenderable.builder()
+                        .setView(this.getActivity(), R.layout.fragment_add_abono)
+                        .build()
+                        .thenAccept(renderable -> {
+                            Log.i(TAG, "Archivo cargado.");
+                            addAbonoControl = renderable;
+                        })
+                        .exceptionally(
+                                throwable -> {
+                                    Log.e(TAG, "Unable to load Renderable.", throwable);
+                                    return null;
+                                }),
+                ViewRenderable.builder()
+                        .setView(this.getActivity(), R.layout.fragment_add_water)
+                        .build()
+                        .thenAccept(renderable -> {
+                            Log.i(TAG, "Archivo cargado.");
+                            addWaterControl = renderable;
+                        })
+                        .exceptionally(
+                                throwable -> {
+                                    Log.e(TAG, "Unable to load Renderable.", throwable);
+                                    return null;
+                                }),
+                ViewRenderable.builder()
+                        .setView(this.getActivity(), R.layout.fragment_progress_bar)
+                        .build()
+                        .thenAccept(renderable -> {
+                            Log.i(TAG, "Archivo cargado.");
+                            progressBarView = renderable;
+                        })
+                        .exceptionally(
+                                throwable -> {
+                                    Log.e(TAG, "Unable to load Renderable.", throwable);
+                                    return null;
+                                }))
+                .handle(
+                        (notUsed, throwable) -> {
+                            renderablesCompleted = true;
                             return null;
                         });
 
         ArFragment arFragment = (ArFragment) this.getChildFragmentManager().findFragmentById(R.id.arFragment);
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (plantRenderable == null || selectedPlantControl == null || addAbonoControl == null) {
+                    if (!renderablesCompleted) {
                         return;
                     }
 
                     GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-                    Plant plant = vm.getNewPlant();
-                    vm.changeToSeed(plant.getPlantId());
+                    Plant newPlant = vm.getNewPlant();
+                    vm.changeToSeed(vm.getNewPlantId());
 
                     // Create the Anchor.
                     AnchorNode anchorNode = new AnchorNode(hitResult.createAnchor());
@@ -170,7 +184,7 @@ public class FragmentArcore extends Fragment {
                     // Create the transformable andy and add it to the anchor.
                     Node plantNode = new Node();
                     plantNode.setParent(anchorNode);
-                    plantNode.setRenderable(plantRenderable);
+                    plantNode.setRenderable(getRenderableFromPlant(newPlant.getPlantType(), newPlant.getPlantState()));
 
                     Node actionsViewNode = new Node();
                     actionsViewNode.setParent(plantNode);
@@ -207,17 +221,22 @@ public class FragmentArcore extends Fragment {
                     progressViewNode.setEnabled(false);
                     plantControlNodes.add(progressViewNode);
 
+                    long newPlantId = newPlant.getPlantId();
                     vm.updatedPlant().observe(this.getActivity(), plantUpdated -> {
-                        if (plantUpdated.getPlantId() == plant.getPlantId()) {
-//                            plantNode.setRenderable(addAbonoControl);
+                        if (plantUpdated.getPlantId() == newPlantId) {
                             ProgressBar pBarWater = progressBarView.getView().findViewById(R.id.progressBarWater);
                             pBarWater.setProgress(plantUpdated.getWaterPercentage());
+
                             ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
                             pBarAbono.setProgress(plantUpdated.getAbonoPercentage());
+
+                            plantNode.setRenderable(getRenderableFromPlant(plantUpdated.getPlantType(), plantUpdated.getPlantState()));
                         }
                     });
 
                     plantNode.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        long selectedPlantId = newPlantId;
+                        Plant selectedPlant = vm.getPlant(selectedPlantId);
                         boolean newEnabledState = !actionsViewNode.isEnabled();
                         hideAllControls();
                         actionsViewNode.setEnabled(newEnabledState);
@@ -234,7 +253,7 @@ public class FragmentArcore extends Fragment {
                             // Button Add Abono configuration
                             btnAddAbono.setOnClickListener(view -> {
                                 if (!abonoViewNode.isEnabled()) {
-                                    vm.onTapBtnAddAbono(plant.getPlantId());
+                                    vm.onTapBtnAddAbono(selectedPlantId);
                                     abonoViewNode.setEnabled(true);
                                     Timer timer = new Timer();
                                     timer.schedule(new TimerTask() {
@@ -250,7 +269,7 @@ public class FragmentArcore extends Fragment {
                             // Button Add Water configuration
                             btnAddWater.setOnClickListener(view -> {
                                 if (!waterViewNode.isEnabled()) {
-                                    vm.onTapBtnAddWater(plant.getPlantId());
+                                    vm.onTapBtnAddWater(selectedPlantId);
                                     waterViewNode.setEnabled(true);
                                     Timer timer = new Timer();
                                     timer.schedule(new TimerTask() {
@@ -265,14 +284,14 @@ public class FragmentArcore extends Fragment {
 
                             // Button View Info configuration
                             btnInfo.setOnClickListener(view -> {
-                                vm.getPlantInfo(plant.getPlantId());
+                                vm.getPlantInfo(selectedPlantId);
                                 infoViewNode.setEnabled(!infoViewNode.isEnabled());
                             });
 
 
                             // Button View Info configuration
                             btnDelete.setOnClickListener(view -> {
-                                vm.onDeletePlant(plant.getPlantId());
+                                vm.onDeletePlant(selectedPlantId);
                                 hideAllControls();
                                 anchorNode.removeChild(plantNode);
                             });
@@ -289,10 +308,10 @@ public class FragmentArcore extends Fragment {
 
                                     @Override
                                     public void onStopTrackingTouch(SeekBar seekBar) {
-                                        if (seekBar.getProgress() >= plant.getCorrectSunAmount()) {
-                                            vm.onCompleteAdjustLight(plant.getPlantId());
+                                        if (seekBar.getProgress() >= selectedPlant.getCorrectSunAmount()) {
+                                            vm.onCompleteAdjustLight(selectedPlantId);
                                             seekBarSunAdjust.setVisibility(View.GONE);
-                                            showPlantActionBtns(true);
+                                            showPlantActionBtns(true, true);
                                         }
                                     }
                                 });
@@ -303,7 +322,7 @@ public class FragmentArcore extends Fragment {
                                         .setDuration(1000);
                             });
 
-                            showPlantActionBtns(plant.isHasSunLight());
+                            showPlantActionBtns(selectedPlant.isHasSunLight(), false);
                         }
                     });
 
@@ -320,24 +339,45 @@ public class FragmentArcore extends Fragment {
         }, 1000);
     }
 
-    private void showPlantActionBtns(boolean show) {
+    private CompletableFuture<Void> createModelRenderable(int id, PlantType type, PlantState state) {
+        return ModelRenderable.builder()
+                .setSource(this.getActivity(), id)
+                .build()
+                .thenAccept(renderable -> {
+                    Log.i(TAG, "Archivo cargado.");
+                    renderables.put(type, state, renderable);
+                })
+                .exceptionally(
+                        throwable -> {
+                            Log.e(TAG, "Unable to load Renderable.", throwable);
+                            return null;
+                        });
+    }
+
+    private Renderable getRenderableFromPlant(PlantType plantType, PlantState plantState) {
+        return renderables.get(plantType, plantState);
+    }
+
+    private void showPlantActionBtns(boolean show, boolean animate) {
         ImageButton btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
         ImageButton btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
         ImageButton btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
         if (show) {
             btnSun.setVisibility(View.GONE);
-
-            btnAddAbono.setAlpha(0f);
             btnAddAbono.setVisibility(View.VISIBLE);
-            btnAddAbono.animate()
-                    .alpha(1)
-                    .setDuration(1000);
-
-            btnAddWater.setAlpha(0f);
+            btnAddAbono.setAlpha(1f);
             btnAddWater.setVisibility(View.VISIBLE);
-            btnAddWater.animate()
-                    .alpha(1)
-                    .setDuration(1000);
+            btnAddWater.setAlpha(1f);
+            if (animate) {
+                btnAddAbono.setAlpha(0f);
+                btnAddAbono.animate()
+                        .alpha(1)
+                        .setDuration(1000);
+                btnAddWater.setAlpha(0f);
+                btnAddWater.animate()
+                        .alpha(1)
+                        .setDuration(1000);
+            }
         } else {
             btnSun.setVisibility(View.VISIBLE);
             btnAddAbono.setVisibility(View.GONE);

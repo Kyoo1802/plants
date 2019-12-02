@@ -52,6 +52,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
+            android:background="@drawable/selector"
             app:srcCompat="@drawable/selected_quit" />
 
     </LinearLayout>

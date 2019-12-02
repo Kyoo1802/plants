@@ -1,5 +1,5 @@
 package com.gaby.plants.model;
 
 public enum PlantType {
-    UNSPECIFIED, STRAWBERRY, TOMATOE
+    UNSPECIFIED, SUNFLOWER, CORN, BLUE, GREEN
 }

@@ -10,6 +10,11 @@
     <string name="fresa">Fresa</string>
     <string name="tomate">Tomate</string>
     <string name="preparando_tierra">Preparando tierra...</string>
+    <string name="preparando_tierra_desc">Preparar la tierra ayuda a que \n Preparar la tierra ayuda a
+        que \n Preparar la tierra ayuda a que \n Preparar la tierra ayuda a que</string>
+    <string name="preparando_compost">Preparando composta...</string>
+    <string name="preparando_compost_desc">Preparar la composta ayuda a que \n Preparar la composta ayuda a
+        que \n Preparar la composta ayuda a que \n Preparar la composta ayuda a que</string>
     <string name="agregandoCompost">Agregando composta...</string>
     <string name="agregando_tierra">Agregando tierra...</string>
 </resources>
