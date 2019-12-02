@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gaby.plants.R;
@@ -88,7 +91,6 @@ public class FragmentArcore extends Fragment {
         if (!checkIsSupportedDeviceOrFinish(this.getActivity())) {
             return;
         }
-
         CompletableFuture.allOf(
                 // Cargar Modelos en memoria
                 createModelRenderable(R.raw.maceta, PlantType.SUNFLOWER, PlantState.SEED),
@@ -220,7 +222,7 @@ public class FragmentArcore extends Fragment {
 
                     Node progressViewNode = new Node();
                     progressViewNode.setParent(plantNode);
-                    progressViewNode.setLocalPosition(new Vector3(-0.45f, 0.10f, 0.00f));
+                    progressViewNode.setLocalPosition(new Vector3(-0.35f, 0.10f, 0.00f));
                     progressViewNode.setRenderable(progressBarView);
                     progressViewNode.setEnabled(false);
                     plantControlNodes.add(progressViewNode);
@@ -233,8 +235,18 @@ public class FragmentArcore extends Fragment {
 
                             ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
                             pBarAbono.setProgress(plantUpdated.getAbonoPercentage());
-
-                            plantNode.setRenderable(getRenderableFromPlant(plantUpdated.getPlantType(), plantUpdated.getPlantState()));
+                        }
+                    });
+                    vm.updatedState().observe(this.getActivity(), plantUpdated -> {
+                        String test = "state change:" + plantUpdated.getPlantState();
+                        System.out.println(test);
+                        Toast.makeText(this.getActivity(), test, Toast.LENGTH_LONG);
+                        if (plantUpdated.getPlantId() == newPlantId
+                        && (plantUpdated.getPlantState() == PlantState.SPROUD
+                                ||plantUpdated.getPlantState() == PlantState.PLANT
+                                ||plantUpdated.getPlantState() == PlantState.FRUIT_PLANT)) {
+                            Renderable newRenderable = getRenderableFromPlant(plantUpdated.getPlantType(), plantUpdated.getPlantState());
+                            plantNode.setRenderable(newRenderable);
                         }
                     });
 
@@ -251,8 +263,12 @@ public class FragmentArcore extends Fragment {
                             ImageButton btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
                             ImageButton btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
                             ImageButton btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
-                            SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBar);
+                            SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBarSun);
+                            TextView txtSunDegrees = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            seekBarSunAdjust.getProgressDrawable().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
+                            seekBarSunAdjust.getThumb().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
                             seekBarSunAdjust.setVisibility(View.GONE);
+                            txtSunDegrees.setVisibility(View.GONE);
 
                             // Button Add Abono configuration
                             btnAddAbono.setOnClickListener(view -> {
@@ -315,15 +331,17 @@ public class FragmentArcore extends Fragment {
                                         if (seekBar.getProgress() >= selectedPlant.getCorrectSunAmount()) {
                                             vm.onCompleteAdjustLight(selectedPlantId);
                                             seekBarSunAdjust.setVisibility(View.GONE);
+                                            txtSunDegrees.setVisibility(View.GONE);
                                             showPlantActionBtns(true, true);
                                         }
                                     }
                                 });
                                 seekBarSunAdjust.setVisibility(View.VISIBLE);
+                                txtSunDegrees.setVisibility(View.VISIBLE);
                                 seekBarSunAdjust.setAlpha(0);
                                 seekBarSunAdjust.animate()
                                         .alpha(1)
-                                        .setDuration(1000);
+                                        .setDuration(400);
                             });
 
                             showPlantActionBtns(selectedPlant.isHasSunLight(), false);

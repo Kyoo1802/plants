@@ -132,17 +132,17 @@ public class FragmentMenuOpciones extends Fragment {
         private int getResource(PlantType plantType) {
             switch (plantType) {
                 case SUNFLOWER:
-                    return R.drawable.fresa_menu;
+                    return R.drawable.plant1;
                 case CORN:
-                    return R.drawable.fresa_menu;
+                    return R.drawable.plant2;
                 case BLUE:
-                    return R.drawable.fresa_menu;
+                    return R.drawable.plant3;
                 case WHITE_FLOWER:
-                    return R.drawable.fresa_menu;
+                    return R.drawable.plant4;
                 case PURPLE_FLOWER:
-                    return R.drawable.fresa_menu;
+                    return R.drawable.plant5;
                 case SPIKE_PLANT:
-                    return R.drawable.fresa_menu;
+                    return R.drawable.plant6;
                 default:
                     return 0;
             }

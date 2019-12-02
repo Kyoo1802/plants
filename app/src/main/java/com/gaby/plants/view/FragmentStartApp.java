@@ -34,12 +34,9 @@ public class FragmentStartApp extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Button btnStart = this.getView().findViewById(R.id.btnStart);
-        btnStart.setAlpha(0);
+        btnStart.setScaleX(0);
+        btnStart.setScaleY(0);
         btnStart.setOnClickListener(v -> startPlants(v));
-
-        ImageView logoPlants = this.getView().findViewById(R.id.logoPlants);
-        logoPlants.setScaleX(0);
-        logoPlants.setScaleY(0);
 
         ImageView title = this.getView().findViewById(R.id.titlePlants);
         title.setScaleX(0);
@@ -49,24 +46,8 @@ public class FragmentStartApp extends Fragment {
     }
 
     private void animate() {
-        // Button start Animation
-        Button btnStart = this.getView().findViewById(R.id.btnStart);
-        ObjectAnimator btnAnimation = ObjectAnimator.ofFloat(btnStart, View.ALPHA, 1f);
-        btnAnimation.setDuration(600);
-
         // Scale logo plants Animation
-        ImageView logoPlants = this.getView().findViewById(R.id.logoPlants);
-
         ImageView title = this.getView().findViewById(R.id.titlePlants);
-
-        ObjectAnimator logoPlantScaleX = ObjectAnimator.ofFloat(logoPlants, View.SCALE_X, 1f);
-        logoPlantScaleX.setInterpolator(new OvershootInterpolator());
-        logoPlantScaleX.setDuration(1500);
-
-        ObjectAnimator logoPlantScaleY = ObjectAnimator.ofFloat(logoPlants, View.SCALE_Y, 1f);
-        logoPlantScaleY.setInterpolator(new OvershootInterpolator());
-        logoPlantScaleY.setDuration(1500);
-
         ObjectAnimator textPlantScaleX = ObjectAnimator.ofFloat(title, View.SCALE_X, 1f);
         textPlantScaleX.setInterpolator(new OvershootInterpolator());
         textPlantScaleX.setDuration(1500);
@@ -75,13 +56,21 @@ public class FragmentStartApp extends Fragment {
         textPlantScaleY.setInterpolator(new OvershootInterpolator());
         textPlantScaleY.setDuration(1500);
 
+        // Button start Animation
+        Button btnStart = this.getView().findViewById(R.id.btnStart);
+        ObjectAnimator btnStartScaleX = ObjectAnimator.ofFloat(btnStart, View.SCALE_X, 1f);
+        btnStartScaleX.setInterpolator(new OvershootInterpolator());
+        btnStartScaleX.setDuration(1500);
+
+        ObjectAnimator btnStartScaleY = ObjectAnimator.ofFloat(btnStart, btnStart.SCALE_Y, 1f);
+        btnStartScaleY.setInterpolator(new OvershootInterpolator());
+        btnStartScaleY.setDuration(1500);
+
         AnimatorSet animator = new AnimatorSet();
-        animator.play(textPlantScaleX).after(800);
+        animator.play(textPlantScaleX).after(500);
         animator.play(textPlantScaleX).with(textPlantScaleY);
-        animator.play(textPlantScaleX).with(logoPlantScaleX);
-        animator.play(logoPlantScaleX).with(logoPlantScaleY);
-        animator.play(logoPlantScaleX).before(btnAnimation);
-        animator.play(btnAnimation).after(800);
+        animator.play(btnStartScaleX).after(800);
+        animator.play(btnStartScaleX).with(btnStartScaleY);
 
         final FragmentActivity myActivity = this.getActivity();
         final View myView = this.getView();
@@ -95,8 +84,6 @@ public class FragmentStartApp extends Fragment {
                         if (!gardenInfo.isEmpty()) {
                             EditText gardenTextView = myView.findViewById(R.id.gardenInfoView);
                             gardenTextView.setText("Garden text: " + gardenInfo);
-                            ImageView logoPlants = myView.findViewById(R.id.logoPlants);
-                            logoPlants.setVisibility(View.GONE);
                             gardenTextView.setVisibility(View.VISIBLE);
                         }
                     }

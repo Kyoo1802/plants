@@ -122,13 +122,15 @@ public class GardenService {
         return garden.getPlants().values();
     }
 
-    public void changePlantState(long plantId, PlantState plantState) {
+    public Optional<Plant> changePlantState(long plantId, PlantState plantState) {
         if (garden.getPlants().containsKey(plantId)) {
             Plant plant = garden.getPlants().get(plantId);
 
             Plant compost = plant.toBuilder().plantState(plantState).build();
             garden.getPlants().put(compost.getPlantId(), compost);
+            return Optional.of(plant);
         }
+        return Optional.empty();
     }
 
     public Plant getPlant(long newPlantId) {

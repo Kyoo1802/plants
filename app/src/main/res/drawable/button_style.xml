@@ -3,15 +3,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <corners android:radius="100dp" />
+            <corners android:radius="14dp" />
             <solid android:color="#F2BF00" />
         </shape>
     </item>
-    <!--    <item android:drawable="@drawable/menu_btn_abono" android:state_focused="true" /> -->
-    <!--    <item android:drawable="#FFC900" /> &lt;!&ndash; default state &ndash;&gt;-->
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <corners android:radius="100dp" />
+            <corners android:radius="14dp" />
             <solid android:color="#FFC900" />
         </shape>
     </item>

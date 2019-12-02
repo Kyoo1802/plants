@@ -1,8 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
+    android:background="@drawable/background2"
     android:orientation="vertical">
 
     <pl.droidsonroids.gif.GifImageView
@@ -28,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="20dp"
         android:text="@string/preparando_compost_desc"
         android:textColor="#555"
         android:textSize="20sp" />

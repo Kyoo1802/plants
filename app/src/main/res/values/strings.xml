@@ -14,6 +14,8 @@
     <string name="preparando_compost">Preparando composta...</string>
     <string name="preparando_compost_desc">Preparar la composta ayuda a que \n Preparar la composta ayuda a
         que \n Preparar la composta ayuda a que \n Preparar la composta ayuda a que</string>
-    <string name="agregandoCompost">Agregando composta...</string>
-    <string name="agregando_tierra">Agregando tierra...</string>
+    <string name="ajustar_brillo">Ajusta la barra a la cantidad correcta de sol</string>
+    <string name="sun_degrees">25 C</string>
+
+
 </resources>
