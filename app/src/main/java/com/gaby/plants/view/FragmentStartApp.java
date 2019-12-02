@@ -16,7 +16,6 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.gaby.plants.R;
 import com.gaby.plants.utils.FragmentUtils;
@@ -42,9 +41,9 @@ public class FragmentStartApp extends Fragment {
         logoPlants.setScaleX(0);
         logoPlants.setScaleY(0);
 
-        TextView textPlants = this.getView().findViewById(R.id.textPlants);
-        textPlants.setScaleX(0);
-        textPlants.setScaleY(0);
+        ImageView title = this.getView().findViewById(R.id.titlePlants);
+        title.setScaleX(0);
+        title.setScaleY(0);
 
         animate();
     }
@@ -53,12 +52,12 @@ public class FragmentStartApp extends Fragment {
         // Button start Animation
         Button btnStart = this.getView().findViewById(R.id.btnStart);
         ObjectAnimator btnAnimation = ObjectAnimator.ofFloat(btnStart, View.ALPHA, 1f);
-        btnAnimation.setDuration(1500);
+        btnAnimation.setDuration(600);
 
         // Scale logo plants Animation
         ImageView logoPlants = this.getView().findViewById(R.id.logoPlants);
 
-        TextView textPlants = this.getView().findViewById(R.id.textPlants);
+        ImageView title = this.getView().findViewById(R.id.titlePlants);
 
         ObjectAnimator logoPlantScaleX = ObjectAnimator.ofFloat(logoPlants, View.SCALE_X, 1f);
         logoPlantScaleX.setInterpolator(new OvershootInterpolator());
@@ -68,11 +67,11 @@ public class FragmentStartApp extends Fragment {
         logoPlantScaleY.setInterpolator(new OvershootInterpolator());
         logoPlantScaleY.setDuration(1500);
 
-        ObjectAnimator textPlantScaleX = ObjectAnimator.ofFloat(textPlants, View.SCALE_X, 1f);
+        ObjectAnimator textPlantScaleX = ObjectAnimator.ofFloat(title, View.SCALE_X, 1f);
         textPlantScaleX.setInterpolator(new OvershootInterpolator());
         textPlantScaleX.setDuration(1500);
 
-        ObjectAnimator textPlantScaleY = ObjectAnimator.ofFloat(textPlants, View.SCALE_Y, 1f);
+        ObjectAnimator textPlantScaleY = ObjectAnimator.ofFloat(title, View.SCALE_Y, 1f);
         textPlantScaleY.setInterpolator(new OvershootInterpolator());
         textPlantScaleY.setDuration(1500);
 
@@ -116,7 +115,7 @@ public class FragmentStartApp extends Fragment {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        FragmentUtils.replaceFragment(myActivity, new FragmentSelectPlant());
+                        FragmentUtils.replaceFragment(myActivity, new FragmentMenuOpciones());
                     }
                 });
     }

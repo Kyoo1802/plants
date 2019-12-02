@@ -21,7 +21,6 @@
         android:roundIcon="@drawable/logoplanta2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"

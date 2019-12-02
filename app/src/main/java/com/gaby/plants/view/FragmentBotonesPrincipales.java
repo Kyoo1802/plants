@@ -1,6 +1,5 @@
 package com.gaby.plants.view;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,7 @@ public class FragmentBotonesPrincipales extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_botones_principales, container, false);
+        return inflater.inflate(R.layout.arview_botones_principales, container, false);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class FragmentBotonesPrincipales extends Fragment {
 
         ImageButton btnAddNewPlant = this.getView().findViewById(R.id.btnAddNewPlant);
         btnAddNewPlant.setOnClickListener(v -> {
-            FragmentUtils.replaceFragment(this.getActivity(), new FragmentSelectPlant());
+            FragmentUtils.replaceFragment(this.getActivity(), new FragmentMenuOpciones());
         });
     }
 }

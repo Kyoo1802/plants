@@ -58,7 +58,7 @@ public class GardenService {
             long horaActual = System.currentTimeMillis();
             int newPercentage = Math.min(100, plant.getWaterPercentage() + plant.getWaterIncrease());
             Plant.PlantBuilder newPlant = plant.toBuilder().waterPercentage(newPercentage).lastTimeWater(horaActual);
-            if (newPercentage >= 100 && plant.getAbonoIncrease() >= 100 && plant.getPlantState()!=PlantState.FRUIT_PLANT) {
+            if (newPercentage >= 100 && plant.getAbonoIncrease() >= 100 && plant.getPlantState() != PlantState.FRUIT_PLANT) {
                 newPlant
                         .waterPercentage(0)
                         .abonoPercentage(0)
@@ -77,7 +77,7 @@ public class GardenService {
             long horaActual = System.currentTimeMillis();
             int newPercentage = Math.min(100, plant.getAbonoPercentage() + plant.getAbonoIncrease());
             Plant.PlantBuilder newPlant = plant.toBuilder().abonoPercentage(newPercentage).lastTimeAbono(horaActual);
-            if (newPercentage >= 100 && plant.getWaterPercentage() >= 100 && plant.getPlantState()!=PlantState.FRUIT_PLANT) {
+            if (newPercentage >= 100 && plant.getWaterPercentage() >= 100 && plant.getPlantState() != PlantState.FRUIT_PLANT) {
                 newPlant
                         .waterPercentage(0)
                         .abonoPercentage(0)

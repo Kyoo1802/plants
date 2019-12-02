@@ -39,13 +39,13 @@ public class GardenViewModel extends AndroidViewModel {
         updatedPlant = new MutableLiveData<>();
     }
 
-    public void onTapAddStrawberry() {
+    public void onTapAddSunFlower() {
         Plant newPlant = createPlant(PlantType.SUNFLOWER);
         newPlantId = newPlant.getPlantId();
         gardenService.addPlant(newPlant);
     }
 
-    public void onTapAddTomato() {
+    public void onTapAddCorn() {
         Plant newPlant = createPlant(PlantType.CORN);
         newPlantId = newPlant.getPlantId();
         gardenService.addPlant(newPlant);
@@ -82,12 +82,12 @@ public class GardenViewModel extends AndroidViewModel {
     }
 
     public void changePrepGround(long id) {
-        hasShownGround=true;
+        hasShownGround = true;
         gardenService.changePlantState(id, PlantState.PREP_GROUND);
     }
 
     public void changePrepCompost(long id) {
-        hasShownCompost=true;
+        hasShownCompost = true;
         gardenService.changePlantState(id, PlantState.PREP_COMPOST);
     }
 

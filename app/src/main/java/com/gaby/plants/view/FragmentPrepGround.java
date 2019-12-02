@@ -54,8 +54,8 @@ public class FragmentPrepGround extends Fragment {
 
         ObjectAnimator animPrepGroundDesc = ObjectAnimator.ofFloat(prepGroundDesc, View.ALPHA, 1f).setDuration(1000);
         ObjectAnimator animPrepGroundDescTranslationY = ObjectAnimator.ofFloat(prepGroundDesc, View.TRANSLATION_Y, -850).setDuration(1000);
-        ObjectAnimator animPrepGroundBtn = ObjectAnimator.ofFloat(btnContinuarPrepGround, View.ALPHA, 1f).setDuration(1000);
-        ObjectAnimator animanimPrepGroundBtnTranslationY = ObjectAnimator.ofFloat(btnContinuarPrepGround, View.TRANSLATION_Y, -400).setDuration(1000);
+        ObjectAnimator animanimPrepGroundBtnTranslationY = ObjectAnimator.ofFloat(btnContinuarPrepGround, View.TRANSLATION_Y, -400).setDuration(100);
+        ObjectAnimator animPrepGroundBtn = ObjectAnimator.ofFloat(btnContinuarPrepGround, View.ALPHA, 1f).setDuration(400);
 
         AnimatorSet animator = new AnimatorSet();
         animator.play(animImgScaleX).after(2000);

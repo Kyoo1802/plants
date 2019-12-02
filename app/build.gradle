@@ -66,3 +66,8 @@ sceneform.asset('sampledata/strawberry_on_floor.obj',
         'default',
         'sampledata/strawberry_on_floor.sfa',
         'src/main/res/raw/strawberry_on_floor')
+
+sceneform.asset('sampledata/maceta.obj',
+        'default',
+        'sampledata/maceta.sfa',
+        'src/main/res/raw/maceta')

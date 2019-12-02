@@ -46,15 +46,12 @@ import java.util.concurrent.CompletableFuture;
 public class FragmentArcore extends Fragment {
     private static final String TAG = "MainActivity";
     private static final double MIN_OPENGL_VERSION = 3.0;
-
+    Table<PlantType, PlantState, ModelRenderable> renderables = HashBasedTable.create();
     private ViewRenderable selectedPlantControl;
     private ViewRenderable addAbonoControl;
     private ViewRenderable addWaterControl;
     private ViewRenderable progressBarView;
-
     private boolean renderablesCompleted;
-
-    Table<PlantType, PlantState, ModelRenderable> renderables = HashBasedTable.create();
     private List<Node> plantControlNodes = new LinkedList<>();
 
     public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
@@ -94,26 +91,33 @@ public class FragmentArcore extends Fragment {
 
         CompletableFuture.allOf(
                 // Cargar Modelos en memoria
-                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.SEED),
+                createModelRenderable(R.raw.maceta, PlantType.SUNFLOWER, PlantState.SEED),
                 createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.SPROUD),
                 createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.PLANT),
                 createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.SEED),
+                createModelRenderable(R.raw.maceta, PlantType.CORN, PlantState.SEED),
                 createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.SPROUD),
                 createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.PLANT),
                 createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.SEED),
+                createModelRenderable(R.raw.maceta, PlantType.BLUE, PlantState.SEED),
                 createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.SPROUD),
                 createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.PLANT),
                 createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.GREEN, PlantState.FRUIT_PLANT),
-
+                createModelRenderable(R.raw.maceta, PlantType.WHITE_FLOWER, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.WHITE_FLOWER, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.WHITE_FLOWER, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.WHITE_FLOWER, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.maceta, PlantType.PURPLE_FLOWER, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.PURPLE_FLOWER, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.PURPLE_FLOWER, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.PURPLE_FLOWER, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.maceta, PlantType.SPIKE_PLANT, PlantState.SEED),
+                createModelRenderable(R.raw.strawberry_two, PlantType.SPIKE_PLANT, PlantState.SPROUD),
+                createModelRenderable(R.raw.strawberry_two, PlantType.SPIKE_PLANT, PlantState.PLANT),
+                createModelRenderable(R.raw.strawberry_two, PlantType.SPIKE_PLANT, PlantState.FRUIT_PLANT),
                 // Renders the selected plant view
                 ViewRenderable.builder()
-                        .setView(this.getActivity(), R.layout.fragment_selected_plant)
+                        .setView(this.getActivity(), R.layout.arview_selected_plant)
                         .build()
                         .thenAccept(renderable -> {
                             Log.i(TAG, "Archivo cargado.");
@@ -125,7 +129,7 @@ public class FragmentArcore extends Fragment {
                                     return null;
                                 }),
                 ViewRenderable.builder()
-                        .setView(this.getActivity(), R.layout.fragment_add_abono)
+                        .setView(this.getActivity(), R.layout.arview_add_abono)
                         .build()
                         .thenAccept(renderable -> {
                             Log.i(TAG, "Archivo cargado.");
@@ -137,7 +141,7 @@ public class FragmentArcore extends Fragment {
                                     return null;
                                 }),
                 ViewRenderable.builder()
-                        .setView(this.getActivity(), R.layout.fragment_add_water)
+                        .setView(this.getActivity(), R.layout.arview_add_water)
                         .build()
                         .thenAccept(renderable -> {
                             Log.i(TAG, "Archivo cargado.");
@@ -149,7 +153,7 @@ public class FragmentArcore extends Fragment {
                                     return null;
                                 }),
                 ViewRenderable.builder()
-                        .setView(this.getActivity(), R.layout.fragment_progress_bar)
+                        .setView(this.getActivity(), R.layout.arview_progress_bar)
                         .build()
                         .thenAccept(renderable -> {
                             Log.i(TAG, "Archivo cargado.");

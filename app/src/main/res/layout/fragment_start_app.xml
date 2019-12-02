@@ -2,29 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textPlants"
+    <ImageView
+        android:id="@+id/titlePlants"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="50dp"
-        android:fontFamily="@font/boogaloo"
-        android:padding="10dp"
-        android:text="@string/plants"
-        android:textColor="#FFCA00"
-        android:textSize="80sp" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="50dp"
+        app:srcCompat="@drawable/title" />
 
     <ImageView
         android:id="@+id/logoPlants"
         android:layout_width="215dp"
         android:layout_height="219dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:contentDescription="@string/todo"
         app:srcCompat="@drawable/logoplanta2" />
 
     <EditText
@@ -38,14 +34,10 @@
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="178dp"
-        android:layout_height="wrap_content"
+        style="@style/button"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#FFCA00"
-        android:text="@string/iniciar"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:layout_marginTop="85dp"
+        android:text="@string/iniciar" />
 
 
 </LinearLayout>

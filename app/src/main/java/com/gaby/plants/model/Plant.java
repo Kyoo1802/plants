@@ -28,7 +28,7 @@ public class Plant {
     }
 
     public PlantState getNextState() {
-        switch (plantState){
+        switch (plantState) {
             case PREP_GROUND:
                 return PlantState.PREP_COMPOST;
             case PREP_COMPOST:
@@ -46,7 +46,7 @@ public class Plant {
     }
 
     public int getWaterIncrease() {
-        switch (plantState){
+        switch (plantState) {
             case SEED:
                 return 25;
             case SPROUD:
@@ -61,7 +61,7 @@ public class Plant {
     }
 
     public int getAbonoIncrease() {
-        switch (plantState){
+        switch (plantState) {
             case SEED:
                 return 25;
             case SPROUD:
