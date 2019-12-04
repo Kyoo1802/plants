@@ -42,11 +42,11 @@ public class FragmentPrepCompost extends Fragment {
         btnView.setAlpha(0f);
         btnView.setOnClickListener(v -> FragmentUtils.showArcore(this.getActivity()));
 
-        ObjectAnimator animImgScaleX = ObjectAnimator.ofFloat(imageView, View.SCALE_X, .5f).setDuration(1500);
+        ObjectAnimator animImgScaleX = ObjectAnimator.ofFloat(imageView, View.SCALE_X, .4f).setDuration(1500);
         animImgScaleX.setInterpolator(new OvershootInterpolator());
-        ObjectAnimator animImgScaleY = ObjectAnimator.ofFloat(imageView, View.SCALE_Y, .5f).setDuration(1500);
+        ObjectAnimator animImgScaleY = ObjectAnimator.ofFloat(imageView, View.SCALE_Y, .4f).setDuration(1500);
         animImgScaleY.setInterpolator(new OvershootInterpolator());
-        ObjectAnimator animImgTranslationY = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, -650).setDuration(1500);
+        ObjectAnimator animImgTranslationY = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, -570).setDuration(1500);
         animImgTranslationY.setInterpolator(new OvershootInterpolator());
         ObjectAnimator animTitleTranslationY = ObjectAnimator.ofFloat(titleView, View.TRANSLATION_Y, -900).setDuration(1500);
         animTitleTranslationY.setInterpolator(new OvershootInterpolator());

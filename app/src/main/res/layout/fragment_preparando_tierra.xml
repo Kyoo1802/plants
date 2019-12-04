@@ -9,7 +9,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/agregando_tierra" />
 
     <TextView
@@ -25,7 +25,7 @@
     <TextView
         android:id="@+id/preparando_tierra_desc"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="190dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="20dp"
         android:text="@string/preparando_tierra_desc"
