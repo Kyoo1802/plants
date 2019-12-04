@@ -6,62 +6,91 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/preparando_compost_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/ajustar_brillo"
-        android:background="#fff"
-        android:textColor="#000"
-        android:textSize="12sp"/>
+        android:id="@+id/sun_adjust"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:background="#5efd"
+        android:text="3bf"
+        android:textColor="#41c419"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/bien"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:background="#5efd"
+        android:text="@string/bien"
+        android:textColor="#41c419"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/water_adjust"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:background="#5efd"
+        android:text="@string/add_water_desc"
+        android:textColor="#41c419"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/abono_adjust"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:background="#5efd"
+        android:text="@string/add_abono_desc"
+        android:textColor="#41c419"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
-        <ImageButton
+        <Button
             android:id="@+id/btnSun"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            app:srcCompat="@drawable/selected_sun" />
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/sun_btn" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnInfo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            app:srcCompat="@drawable/selected_info" />
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/info_btn" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnAddAbono"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
-            app:srcCompat="@drawable/menu_btn_abono" />
+            android:background="@drawable/add_abono_btn" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnAddWater"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            app:srcCompat="@drawable/menu_btn_agua" />
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/add_water_btn" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnDelete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_style"
-            app:srcCompat="@drawable/selected_quit" />
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/delete_btn"
+            app:srcCompat="@drawable/delete_btn" />
 
     </LinearLayout>
 
@@ -71,19 +100,29 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/txtSunDegrees"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#5efd"
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:text="0 C"
+            android:textColor="#f90"
+            android:textSize="12sp" />
+
         <SeekBar
             android:id="@+id/seekBarSun"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <TextView
-            android:id="@+id/txtSunDegrees"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/sun_degrees"
-            android:textColor="#000"
-            android:textSize="12sp"/>
+            android:layout_weight="1"
+            android:background="#55e0f4dc"
+            android:colorControlActivated="#aaa"
+            android:progressBackgroundTint="#000"
+            android:progressTint="#fa5"
+            android:progressTintMode="src_in"
+            android:thumb="@drawable/thumb" />
+
     </LinearLayout>
 
 </LinearLayout>

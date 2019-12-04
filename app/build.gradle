@@ -46,28 +46,97 @@ dependencies {
 }
 
 
-sceneform.asset('sampledata/strawberry_two.obj',
-        'default',
-        'sampledata/strawberry_two.sfa',
-        'src/main/res/raw/strawberry_two')
-
-sceneform.asset('sampledata/strawberry_leaf.obj',
-        'default',
-        'sampledata/strawberry_leaf.sfa',
-        'src/main/res/raw/strawberry_leaf')
-
-
-sceneform.asset('sampledata/strawberry_small.obj',
-        'default',
-        'sampledata/strawberry_small.sfa',
-        'src/main/assets/strawberry_small')
-
-sceneform.asset('sampledata/strawberry_on_floor.obj',
-        'default',
-        'sampledata/strawberry_on_floor.sfa',
-        'src/main/res/raw/strawberry_on_floor')
-
 sceneform.asset('sampledata/maceta.obj',
         'default',
         'sampledata/maceta.sfa',
         'src/main/res/raw/maceta')
+
+sceneform.asset('sampledata/Margarita/purpleflower2.obj',
+        'default',
+        'sampledata/Margarita/purpleflower2.sfa',
+        'src/main/res/raw/purpleflower2')
+
+sceneform.asset('sampledata/Margarita/purpleflower3.obj',
+        'default',
+        'sampledata/Margarita/purpleflower3.sfa',
+        'src/main/res/raw/purpleflower3')
+
+sceneform.asset('sampledata/Margarita/purpleflower4.obj',
+        'default',
+        'sampledata/Margarita/purpleflower4.sfa',
+        'src/main/res/raw/purpleflower4')
+
+sceneform.asset('sampledata/Girasol/girasol2.obj',
+        'default',
+        'sampledata/Girasol/girasol2.sfa',
+        'src/main/res/raw/girasol2')
+
+sceneform.asset('sampledata/Girasol/girasol3.obj',
+        'default',
+        'sampledata/Girasol/girasol3.sfa',
+        'src/main/res/raw/girasol3')
+
+sceneform.asset('sampledata/Girasol/girasol4.obj',
+        'default',
+        'sampledata/Girasol/girasol4.sfa',
+        'src/main/res/raw/girasol4')
+
+sceneform.asset('sampledata/Elote/elote2.obj',
+        'default',
+        'sampledata/Elote/elote2.sfa',
+        'src/main/res/raw/elote2')
+
+sceneform.asset('sampledata/Elote/elote3.obj',
+        'default',
+        'sampledata/Elote/elote3.sfa',
+        'src/main/res/raw/elote3')
+
+sceneform.asset('sampledata/Elote/elote4.obj',
+        'default',
+        'sampledata/Elote/elote4.sfa',
+        'src/main/res/raw/elote4')
+
+sceneform.asset('sampledata/Caladio/caladio2.obj',
+        'default',
+        'sampledata/Caladio/caladio2.sfa',
+        'src/main/res/raw/caladio2')
+
+sceneform.asset('sampledata/Caladio/caladio3.obj',
+        'default',
+        'sampledata/Caladio/caladio3.sfa',
+        'src/main/res/raw/caladio3')
+
+sceneform.asset('sampledata/Caladio/caladio4.obj',
+        'default',
+        'sampledata/Caladio/caladio4.sfa',
+        'src/main/res/raw/caladio4')
+
+sceneform.asset('sampledata/Arbolito de hojas/hojasAlargadas2.obj',
+        'default',
+        'sampledata/Arbolito de hojas/hojasalargadas2.sfa',
+        'src/main/res/raw/hojasAlargadas2')
+
+sceneform.asset('sampledata/Aloe Vera/aloevera2.obj',
+        'default',
+        'sampledata/Aloe Vera/aloevera2.sfa',
+        'src/main/res/raw/aloevera2')
+
+sceneform.asset('sampledata/Aloe Vera/aloevera3.obj',
+        'default',
+        'sampledata/Aloe Vera/aloevera3.sfa',
+        'src/main/res/raw/aloevera3')
+
+sceneform.asset('sampledata/Aloe Vera/aloevera4.obj',
+        'default',
+        'sampledata/Aloe Vera/aloevera4.sfa',
+        'src/main/res/raw/aloevera4')
+
+sceneform.asset('sampledata/Arbolito de hojas/hojasalargadas3.obj',
+        'default',
+        'sampledata/Arbolito de hojas/hojasalargadas3.sfa',
+        'src/main/res/raw/hojasAlargadas3')
+
+sceneform.asset('sampledata/Arbolito de hojas/hojasalargadas4.obj',
+        'default',
+        'sampledata/Arbolito de hojas/hojasalargadas4.sfa',
+        'src/main/res/raw/hojasAlargadas4')

@@ -4,7 +4,7 @@
       name: 'plants_model:Plane043SG',
       parameters: [
         {
-          baseColor: 'maceta',
+          baseColor: 'plants_tex',
         },
         {
           baseColorTint: [
@@ -24,7 +24,7 @@
           opacity: null,
         },
       ],
-      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+      source: 'sampledata/plants.sfm',
     },
   ],
   model: {
@@ -41,9 +41,9 @@
   },
   samplers: [
     {
-      file: 'sampledata\\maceta.png',
-      name: 'maceta',
-      pipeline_name: 'maceta.png',
+      file: 'sampledata\\plants_tex.png',
+      name: 'plants_tex',
+      pipeline_name: 'plants_tex.png',
     },
   ],
   version: '0.54:2',

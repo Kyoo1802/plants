@@ -1,0 +1,50 @@
+{
+  materials: [
+    {
+      name: 'plants_model:Plane043SG.001',
+      parameters: [
+        {
+          baseColor: 'plants_tex',
+        },
+        {
+          baseColorTint: [
+            1,
+            1,
+            1,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'sampledata/plants.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/Girasol/girasol3.obj',
+    name: 'girasol3',
+    recenter: 'root',
+    scale: 0.009397,
+  },
+  samplers: [
+    {
+      file: 'sampledata/Girasol\\plants_tex.png',
+      name: 'plants_tex',
+      pipeline_name: 'plants_tex.png',
+    },
+  ],
+  version: '0.54:2',
+}

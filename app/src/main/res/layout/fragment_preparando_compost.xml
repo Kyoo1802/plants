@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
+    android:background="@drawable/background3"
     android:orientation="vertical">
 
     <pl.droidsonroids.gif.GifImageView
@@ -10,7 +10,7 @@
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="125dp"
-        android:src="@drawable/agregando_tierra" />
+        android:src="@drawable/gifcompost" />
 
     <TextView
         android:id="@+id/preparando_compost_title"

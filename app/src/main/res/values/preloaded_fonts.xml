@@ -1,9 +1,2 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <array name="preloaded_fonts" translatable="false">
-        <item>@font/andika</item>
-        <item>@font/bangers</item>
-        <item>@font/bonbon</item>
-        <item>@font/boogaloo</item>
-    </array>
-</resources>
+{materials: [{name: 'plants_model:Plane043SG',parameters: [{baseColor: 'plants_tex',},{baseColorTint: [1,1,1,1,],},
+      

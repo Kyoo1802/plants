@@ -41,7 +41,7 @@ public class GardenViewModel extends AndroidViewModel {
         updatedState = new MutableLiveData<>();
     }
 
-    public void onTapAddSunFlower() {
+    public void onTapAddSunflower() {
         Plant newPlant = createPlant(PlantType.SUNFLOWER);
         newPlantId = newPlant.getPlantId();
         gardenService.addPlant(newPlant);
@@ -49,6 +49,30 @@ public class GardenViewModel extends AndroidViewModel {
 
     public void onTapAddCorn() {
         Plant newPlant = createPlant(PlantType.CORN);
+        newPlantId = newPlant.getPlantId();
+        gardenService.addPlant(newPlant);
+    }
+
+    public void onTapAddCaladio() {
+        Plant newPlant = createPlant(PlantType.CALADIO);
+        newPlantId = newPlant.getPlantId();
+        gardenService.addPlant(newPlant);
+    }
+
+    public void onTapAddHelechos() {
+        Plant newPlant = createPlant(PlantType.HELECHOS);
+        newPlantId = newPlant.getPlantId();
+        gardenService.addPlant(newPlant);
+    }
+
+    public void onTapAddAloeVera() {
+        Plant newPlant = createPlant(PlantType.ALOEVERA);
+        newPlantId = newPlant.getPlantId();
+        gardenService.addPlant(newPlant);
+    }
+
+    public void onTapAddMargarita() {
+        Plant newPlant = createPlant(PlantType.MARGARITA);
         newPlantId = newPlant.getPlantId();
         gardenService.addPlant(newPlant);
     }
@@ -72,7 +96,7 @@ public class GardenViewModel extends AndroidViewModel {
     }
 
     private void postUpdates(Plant plant) {
-        if(updatedState.getValue()!=null && plant.getPlantState()!=updatedState.getValue().getPlantState()){
+        if (updatedState.getValue() != null && plant.getPlantState() != updatedState.getValue().getPlantState()) {
             postUpdatedState(plant);
         }
         postUpdatedPlant(plant);
@@ -89,6 +113,7 @@ public class GardenViewModel extends AndroidViewModel {
     public LiveData<Plant> updatedPlant() {
         return updatedInfo;
     }
+
     public LiveData<Plant> updatedState() {
         return updatedState;
     }
@@ -100,7 +125,7 @@ public class GardenViewModel extends AndroidViewModel {
     public void changePrepGround(long id) {
         hasShownGround = true;
         Optional<Plant> plant = gardenService.changePlantState(id, PlantState.PREP_GROUND);
-        if(plant.isPresent()) {
+        if (plant.isPresent()) {
             postUpdatedState(plant.get());
         }
     }
@@ -108,7 +133,7 @@ public class GardenViewModel extends AndroidViewModel {
     public void changePrepCompost(long id) {
         hasShownCompost = true;
         Optional<Plant> plant = gardenService.changePlantState(id, PlantState.PREP_COMPOST);
-        if(plant.isPresent()) {
+        if (plant.isPresent()) {
             postUpdatedState(plant.get());
         }
     }

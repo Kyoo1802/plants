@@ -1,23 +1,23 @@
 package com.gaby.plants.view;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -78,6 +78,18 @@ public class FragmentArcore extends Fragment {
         return true;
     }
 
+    private static void animateInfo(Activity myActivity, int newHeight) {
+        View container = myActivity.findViewById(R.id.gardenInfoScroll);
+        ValueAnimator animator = ValueAnimator.ofInt(container.getHeight(), newHeight);
+        animator.setTarget(container);
+        animator.setDuration(1000).start();
+        animator.addUpdateListener(animation -> {
+            ViewGroup.LayoutParams layoutparams = container.getLayoutParams();
+            layoutparams.height = (Integer) animation.getAnimatedValue();
+            container.setLayoutParams(layoutparams);
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,29 +106,29 @@ public class FragmentArcore extends Fragment {
         CompletableFuture.allOf(
                 // Cargar Modelos en memoria
                 createModelRenderable(R.raw.maceta, PlantType.SUNFLOWER, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.SUNFLOWER, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.girasol2, PlantType.SUNFLOWER, PlantState.SPROUD),
+                createModelRenderable(R.raw.girasol3, PlantType.SUNFLOWER, PlantState.PLANT),
+                createModelRenderable(R.raw.girasol4, PlantType.SUNFLOWER, PlantState.FRUIT_PLANT),
                 createModelRenderable(R.raw.maceta, PlantType.CORN, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.CORN, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.maceta, PlantType.BLUE, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.BLUE, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.maceta, PlantType.WHITE_FLOWER, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.WHITE_FLOWER, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.WHITE_FLOWER, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.WHITE_FLOWER, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.maceta, PlantType.PURPLE_FLOWER, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.PURPLE_FLOWER, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.PURPLE_FLOWER, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.PURPLE_FLOWER, PlantState.FRUIT_PLANT),
-                createModelRenderable(R.raw.maceta, PlantType.SPIKE_PLANT, PlantState.SEED),
-                createModelRenderable(R.raw.strawberry_two, PlantType.SPIKE_PLANT, PlantState.SPROUD),
-                createModelRenderable(R.raw.strawberry_two, PlantType.SPIKE_PLANT, PlantState.PLANT),
-                createModelRenderable(R.raw.strawberry_two, PlantType.SPIKE_PLANT, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.elote2, PlantType.CORN, PlantState.SPROUD),
+                createModelRenderable(R.raw.elote3, PlantType.CORN, PlantState.PLANT),
+                createModelRenderable(R.raw.elote4, PlantType.CORN, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.maceta, PlantType.CALADIO, PlantState.SEED),
+                createModelRenderable(R.raw.caladio2, PlantType.CALADIO, PlantState.SPROUD),
+                createModelRenderable(R.raw.caladio3, PlantType.CALADIO, PlantState.PLANT),
+                createModelRenderable(R.raw.caladio4, PlantType.CALADIO, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.maceta, PlantType.HELECHOS, PlantState.SEED),
+                createModelRenderable(R.raw.hojasalargadas2, PlantType.HELECHOS, PlantState.SPROUD),
+                createModelRenderable(R.raw.hojasalargadas3, PlantType.HELECHOS, PlantState.PLANT),
+                createModelRenderable(R.raw.hojasalargadas3, PlantType.HELECHOS, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.maceta, PlantType.MARGARITA, PlantState.SEED),
+                createModelRenderable(R.raw.purpleflower2, PlantType.MARGARITA, PlantState.SPROUD),
+                createModelRenderable(R.raw.purpleflower3, PlantType.MARGARITA, PlantState.PLANT),
+                createModelRenderable(R.raw.purpleflower4, PlantType.MARGARITA, PlantState.FRUIT_PLANT),
+                createModelRenderable(R.raw.maceta, PlantType.ALOEVERA, PlantState.SEED),
+                createModelRenderable(R.raw.aloevera2, PlantType.ALOEVERA, PlantState.SPROUD),
+                createModelRenderable(R.raw.aloevera3, PlantType.ALOEVERA, PlantState.PLANT),
+                createModelRenderable(R.raw.aloevera4, PlantType.ALOEVERA, PlantState.FRUIT_PLANT),
                 // Renders the selected plant view
                 ViewRenderable.builder()
                         .setView(this.getActivity(), R.layout.arview_selected_plant)
@@ -173,14 +185,14 @@ public class FragmentArcore extends Fragment {
                         });
 
         ArFragment arFragment = (ArFragment) this.getChildFragmentManager().findFragmentById(R.id.arFragment);
+        FragmentActivity myActivity = this.getActivity();
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (!renderablesCompleted) {
+                    GardenViewModel vm = ViewModelProviders.of(myActivity).get(GardenViewModel.class);
+                    Plant newPlant = vm.getNewPlant();
+                    if (!renderablesCompleted || newPlant == null || newPlant.getPlantState() != PlantState.PREP_COMPOST) {
                         return;
                     }
-
-                    GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
-                    Plant newPlant = vm.getNewPlant();
                     vm.changeToSeed(vm.getNewPlantId());
 
                     // Create the Anchor.
@@ -190,91 +202,151 @@ public class FragmentArcore extends Fragment {
                     // Create the transformable andy and add it to the anchor.
                     Node plantNode = new Node();
                     plantNode.setParent(anchorNode);
-                    plantNode.setRenderable(getRenderableFromPlant(newPlant.getPlantType(), newPlant.getPlantState()));
+
+                    Node plantSeed = new Node();
+                    plantSeed.setParent(plantNode);
+                    plantSeed.setRenderable(getRenderableFromPlant(newPlant.getPlantType(), PlantState.SEED));
+                    Node plantSproud = new Node();
+                    plantSproud.setParent(plantNode);
+                    plantSproud.setRenderable(getRenderableFromPlant(newPlant.getPlantType(), PlantState.SPROUD));
+                    plantSproud.setEnabled(false);
+                    Node plantPlant = new Node();
+                    plantPlant.setParent(plantNode);
+                    plantPlant.setRenderable(getRenderableFromPlant(newPlant.getPlantType(), PlantState.PLANT));
+                    plantPlant.setEnabled(false);
+                    Node plantFruit = new Node();
+                    plantFruit.setParent(plantNode);
+                    plantFruit.setRenderable(getRenderableFromPlant(newPlant.getPlantType(), PlantState.FRUIT_PLANT));
+                    plantFruit.setEnabled(false);
 
                     Node actionsViewNode = new Node();
                     actionsViewNode.setParent(plantNode);
-                    actionsViewNode.setLocalPosition(new Vector3(0.0f, 0.35f, 0.0f));
+                    actionsViewNode.setLocalPosition(new Vector3(0.0f, 0.65f, 0.2f));
                     actionsViewNode.setRenderable(selectedPlantControl);
                     actionsViewNode.setEnabled(false);
                     plantControlNodes.add(actionsViewNode);
 
                     Node abonoViewNode = new Node();
                     abonoViewNode.setParent(plantNode);
-                    abonoViewNode.setLocalPosition(new Vector3(0.45f, 0.00f, 0.00f));
+                    abonoViewNode.setLocalPosition(new Vector3(0.2f, 0.30f, 0.1f));
                     abonoViewNode.setRenderable(addAbonoControl);
                     abonoViewNode.setEnabled(false);
                     plantControlNodes.add(abonoViewNode);
 
                     Node waterViewNode = new Node();
                     waterViewNode.setParent(plantNode);
-                    waterViewNode.setLocalPosition(new Vector3(0.20f, 0.00f, 0.00f));
+                    waterViewNode.setLocalPosition(new Vector3(0.20f, 0.20f, 0.05f));
                     waterViewNode.setRenderable(addWaterControl);
                     waterViewNode.setEnabled(false);
                     plantControlNodes.add(waterViewNode);
 
                     Node infoViewNode = new Node();
                     infoViewNode.setParent(plantNode);
-                    infoViewNode.setLocalPosition(new Vector3(-0.45f, 0.00f, 0.00f));
+                    infoViewNode.setLocalPosition(new Vector3(-0.45f, 0.00f, 0.05f));
                     infoViewNode.setRenderable(addAbonoControl);
                     infoViewNode.setEnabled(false);
                     plantControlNodes.add(infoViewNode);
 
                     Node progressViewNode = new Node();
                     progressViewNode.setParent(plantNode);
-                    progressViewNode.setLocalPosition(new Vector3(-0.35f, 0.10f, 0.00f));
+                    progressViewNode.setLocalPosition(new Vector3(-0.3f, 0.2f, 0.1f));
                     progressViewNode.setRenderable(progressBarView);
                     progressViewNode.setEnabled(false);
                     plantControlNodes.add(progressViewNode);
 
                     long newPlantId = newPlant.getPlantId();
-                    vm.updatedPlant().observe(this.getActivity(), plantUpdated -> {
+                    vm.updatedPlant().observe(myActivity, plantUpdated -> {
                         if (plantUpdated.getPlantId() == newPlantId) {
                             ProgressBar pBarWater = progressBarView.getView().findViewById(R.id.progressBarWater);
-                            pBarWater.setProgress(plantUpdated.getWaterPercentage());
+                            if (plantUpdated.getWaterPercentage() != pBarWater.getProgress()) {
+                                pBarWater.setProgress(plantUpdated.getWaterPercentage());
+                            }
 
                             ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
-                            pBarAbono.setProgress(plantUpdated.getAbonoPercentage());
+                            if (plantUpdated.getAbonoPercentage() != pBarAbono.getProgress()) {
+                                pBarAbono.setProgress(plantUpdated.getAbonoPercentage());
+                            }
                         }
                     });
                     vm.updatedState().observe(this.getActivity(), plantUpdated -> {
                         String test = "state change:" + plantUpdated.getPlantState();
                         System.out.println(test);
-                        Toast.makeText(this.getActivity(), test, Toast.LENGTH_LONG);
                         if (plantUpdated.getPlantId() == newPlantId
-                        && (plantUpdated.getPlantState() == PlantState.SPROUD
-                                ||plantUpdated.getPlantState() == PlantState.PLANT
-                                ||plantUpdated.getPlantState() == PlantState.FRUIT_PLANT)) {
-                            Renderable newRenderable = getRenderableFromPlant(plantUpdated.getPlantType(), plantUpdated.getPlantState());
-                            plantNode.setRenderable(newRenderable);
+                                && (plantUpdated.getPlantState() == PlantState.SPROUD
+                                || plantUpdated.getPlantState() == PlantState.PLANT
+                                || plantUpdated.getPlantState() == PlantState.FRUIT_PLANT)) {
+                            plantSeed.setEnabled(false);
+                            plantSproud.setEnabled(false);
+                            plantPlant.setEnabled(false);
+                            plantFruit.setEnabled(false);
+                            switch (plantUpdated.getPlantState()) {
+                                case SEED:
+                                    plantSeed.setEnabled(true);
+                                    break;
+                                case SPROUD:
+                                    plantSproud.setEnabled(true);
+                                    break;
+                                case PLANT:
+                                    plantPlant.setEnabled(true);
+                                    break;
+                                case FRUIT_PLANT:
+                                    plantFruit.setEnabled(true);
+                                    break;
+                            }
                         }
                     });
 
-                    plantNode.setOnTapListener((hitTestResult, motionEvent1) -> {
+                    plantSeed.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        boolean newEnabledState = !actionsViewNode.isEnabled();
                         long selectedPlantId = newPlantId;
                         Plant selectedPlant = vm.getPlant(selectedPlantId);
-                        boolean newEnabledState = !actionsViewNode.isEnabled();
                         hideAllControls();
                         actionsViewNode.setEnabled(newEnabledState);
                         progressViewNode.setEnabled(newEnabledState);
                         if (newEnabledState) {
-                            ImageButton btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
-                            ImageButton btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
-                            ImageButton btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
-                            ImageButton btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
-                            ImageButton btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
+                            ProgressBar pBarWater = progressBarView.getView().findViewById(R.id.progressBarWater);
+                            ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
+                            pBarWater.setProgress(selectedPlant.getWaterPercentage());
+                            pBarAbono.setProgress(selectedPlant.getAbonoPercentage());
+                            Button btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
+                            Button btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
+                            Button btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
+                            Button btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
+                            Button btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
                             SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBarSun);
+                            seekBarSunAdjust.setProgress(0);
+                            TextView seekBarSunValue = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
                             TextView txtSunDegrees = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
-                            seekBarSunAdjust.getProgressDrawable().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
-                            seekBarSunAdjust.getThumb().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
+                            TextView txtsun_adjust = selectedPlantControl.getView().findViewById(R.id.sun_adjust);
+                            TextView txtbien = selectedPlantControl.getView().findViewById(R.id.bien);
+                            String sf = String.format(
+                                    "%s: %d C y %d C.",
+                                    getContext().getResources().getText(R.string.add_sun_desc),
+                                    selectedPlant.getCorrectSunAmount()[0],
+                                    selectedPlant.getCorrectSunAmount()[1]);
+                            txtsun_adjust.setText(sf);
+                            TextView txtwater_adjust = selectedPlantControl.getView().findViewById(R.id.water_adjust);
+                            TextView txtabono_adjust = selectedPlantControl.getView().findViewById(R.id.abono_adjust);
                             seekBarSunAdjust.setVisibility(View.GONE);
                             txtSunDegrees.setVisibility(View.GONE);
+                            txtwater_adjust.setVisibility(View.GONE);
+                            txtabono_adjust.setVisibility(View.GONE);
+                            txtbien.setVisibility(View.GONE);
+
+                            if (selectedPlant.isHasSunLight()) {
+                                txtsun_adjust.setVisibility(View.GONE);
+                            } else {
+                                txtsun_adjust.setVisibility(View.VISIBLE);
+                            }
 
                             // Button Add Abono configuration
                             btnAddAbono.setOnClickListener(view -> {
                                 if (!abonoViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.GONE);
+                                    txtabono_adjust.setVisibility(View.VISIBLE);
                                     vm.onTapBtnAddAbono(selectedPlantId);
                                     abonoViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
                                     Timer timer = new Timer();
                                     timer.schedule(new TimerTask() {
                                         @Override
@@ -282,15 +354,18 @@ public class FragmentArcore extends Fragment {
                                             // Sends a request to the UI Thread to trigger a method.
                                             new Handler(Looper.getMainLooper()).post(() -> abonoViewNode.setEnabled(false));
                                         }
-                                    }, 1000);
+                                    }, 1500);
                                 }
                             });
 
                             // Button Add Water configuration
                             btnAddWater.setOnClickListener(view -> {
                                 if (!waterViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.VISIBLE);
+                                    txtabono_adjust.setVisibility(View.GONE);
                                     vm.onTapBtnAddWater(selectedPlantId);
                                     waterViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
                                     Timer timer = new Timer();
                                     timer.schedule(new TimerTask() {
                                         @Override
@@ -298,14 +373,27 @@ public class FragmentArcore extends Fragment {
                                             // Sends a request to the UI Thread to trigger a method.
                                             new Handler(Looper.getMainLooper()).post(() -> waterViewNode.setEnabled(false));
                                         }
-                                    }, 1000);
+                                    }, 1500);
                                 }
                             });
 
                             // Button View Info configuration
                             btnInfo.setOnClickListener(view -> {
-                                vm.getPlantInfo(selectedPlantId);
-                                infoViewNode.setEnabled(!infoViewNode.isEnabled());
+                                FragmentGardenInfo fragment = (FragmentGardenInfo) this.getChildFragmentManager().findFragmentById(R.id.gardenInfo);
+                                if (fragment.isShown()) {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+
+                                } else {
+                                    fragment.setPlant(selectedPlant);
+                                    fragment.setShown(true);
+                                    animateInfo(myActivity, (int) (myActivity.getResources().getDisplayMetrics().heightPixels * .8));
+                                }
+                                Button cerrar = fragment.getView().findViewById(R.id.cerrarGardenInfo);
+                                cerrar.setOnClickListener(v -> {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+                                });
                             });
 
 
@@ -320,6 +408,8 @@ public class FragmentArcore extends Fragment {
                                 seekBarSunAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                                     @Override
                                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                        seekBarSunValue.setText(progress + " C");
+
                                     }
 
                                     @Override
@@ -328,11 +418,14 @@ public class FragmentArcore extends Fragment {
 
                                     @Override
                                     public void onStopTrackingTouch(SeekBar seekBar) {
-                                        if (seekBar.getProgress() >= selectedPlant.getCorrectSunAmount()) {
+                                        if (selectedPlant.getCorrectSunAmount()[0] <= seekBar.getProgress() && seekBar.getProgress() <= selectedPlant.getCorrectSunAmount()[1]) {
                                             vm.onCompleteAdjustLight(selectedPlantId);
                                             seekBarSunAdjust.setVisibility(View.GONE);
                                             txtSunDegrees.setVisibility(View.GONE);
+                                            txtsun_adjust.setVisibility(View.GONE);
+                                            txtbien.setVisibility(View.VISIBLE);
                                             showPlantActionBtns(true, true);
+
                                         }
                                     }
                                 });
@@ -347,18 +440,440 @@ public class FragmentArcore extends Fragment {
                             showPlantActionBtns(selectedPlant.isHasSunLight(), false);
                         }
                     });
+                    plantSproud.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        boolean newEnabledState = !actionsViewNode.isEnabled();
+                        long selectedPlantId = newPlantId;
+                        Plant selectedPlant = vm.getPlant(selectedPlantId);
+                        hideAllControls();
+                        actionsViewNode.setEnabled(newEnabledState);
+                        progressViewNode.setEnabled(newEnabledState);
+                        if (newEnabledState) {
+                            ProgressBar pBarWater = progressBarView.getView().findViewById(R.id.progressBarWater);
+                            ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
+                            pBarWater.setProgress(selectedPlant.getWaterPercentage());
+                            pBarAbono.setProgress(selectedPlant.getAbonoPercentage());
+                            Button btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
+                            Button btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
+                            Button btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
+                            Button btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
+                            Button btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
+                            SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBarSun);
+                            seekBarSunAdjust.setProgress(0);
+                            TextView seekBarSunValue = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            TextView txtSunDegrees = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            TextView txtsun_adjust = selectedPlantControl.getView().findViewById(R.id.sun_adjust);
+                            TextView txtbien = selectedPlantControl.getView().findViewById(R.id.bien);
+                            String sf = String.format(
+                                    "%s: %d C y %d C.",
+                                    getContext().getResources().getText(R.string.add_sun_desc),
+                                    selectedPlant.getCorrectSunAmount()[0],
+                                    selectedPlant.getCorrectSunAmount()[1]);
+                            txtsun_adjust.setText(sf);
+                            TextView txtwater_adjust = selectedPlantControl.getView().findViewById(R.id.water_adjust);
+                            TextView txtabono_adjust = selectedPlantControl.getView().findViewById(R.id.abono_adjust);
+                            seekBarSunAdjust.setVisibility(View.GONE);
+                            txtSunDegrees.setVisibility(View.GONE);
+                            txtwater_adjust.setVisibility(View.GONE);
+                            txtabono_adjust.setVisibility(View.GONE);
+                            txtbien.setVisibility(View.GONE);
 
+                            if (selectedPlant.isHasSunLight()) {
+                                txtsun_adjust.setVisibility(View.GONE);
+                            } else {
+                                txtsun_adjust.setVisibility(View.VISIBLE);
+                            }
+
+                            // Button Add Abono configuration
+                            btnAddAbono.setOnClickListener(view -> {
+                                if (!abonoViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.GONE);
+                                    txtabono_adjust.setVisibility(View.VISIBLE);
+                                    vm.onTapBtnAddAbono(selectedPlantId);
+                                    abonoViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            // Sends a request to the UI Thread to trigger a method.
+                                            new Handler(Looper.getMainLooper()).post(() -> abonoViewNode.setEnabled(false));
+                                        }
+                                    }, 1500);
+                                }
+                            });
+
+                            // Button Add Water configuration
+                            btnAddWater.setOnClickListener(view -> {
+                                if (!waterViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.VISIBLE);
+                                    txtabono_adjust.setVisibility(View.GONE);
+                                    vm.onTapBtnAddWater(selectedPlantId);
+                                    waterViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            // Sends a request to the UI Thread to trigger a method.
+                                            new Handler(Looper.getMainLooper()).post(() -> waterViewNode.setEnabled(false));
+                                        }
+                                    }, 1500);
+                                }
+                            });
+
+                            // Button View Info configuration
+                            btnInfo.setOnClickListener(view -> {
+                                FragmentGardenInfo fragment = (FragmentGardenInfo) this.getChildFragmentManager().findFragmentById(R.id.gardenInfo);
+                                if (fragment.isShown()) {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+
+                                } else {
+                                    fragment.setPlant(selectedPlant);
+                                    fragment.setShown(true);
+                                    animateInfo(myActivity, (int) (myActivity.getResources().getDisplayMetrics().heightPixels * .8));
+                                }
+                                Button cerrar = fragment.getView().findViewById(R.id.cerrarGardenInfo);
+                                cerrar.setOnClickListener(v -> {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+                                });
+                            });
+
+
+                            // Button View Info configuration
+                            btnDelete.setOnClickListener(view -> {
+                                vm.onDeletePlant(selectedPlantId);
+                                hideAllControls();
+                                anchorNode.removeChild(plantNode);
+                            });
+
+                            btnSun.setOnClickListener(view -> {
+                                seekBarSunAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                    @Override
+                                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                        seekBarSunValue.setText(progress + " C");
+
+                                    }
+
+                                    @Override
+                                    public void onStartTrackingTouch(SeekBar seekBar) {
+                                    }
+
+                                    @Override
+                                    public void onStopTrackingTouch(SeekBar seekBar) {
+                                        if (selectedPlant.getCorrectSunAmount()[0] <= seekBar.getProgress() && seekBar.getProgress() <= selectedPlant.getCorrectSunAmount()[1]) {
+                                            vm.onCompleteAdjustLight(selectedPlantId);
+                                            seekBarSunAdjust.setVisibility(View.GONE);
+                                            txtSunDegrees.setVisibility(View.GONE);
+                                            txtsun_adjust.setVisibility(View.GONE);
+                                            txtbien.setVisibility(View.VISIBLE);
+                                            showPlantActionBtns(true, true);
+
+                                        }
+                                    }
+                                });
+                                seekBarSunAdjust.setVisibility(View.VISIBLE);
+                                txtSunDegrees.setVisibility(View.VISIBLE);
+                                seekBarSunAdjust.setAlpha(0);
+                                seekBarSunAdjust.animate()
+                                        .alpha(1)
+                                        .setDuration(400);
+                            });
+
+                            showPlantActionBtns(selectedPlant.isHasSunLight(), false);
+                        }
+                    });
+                    plantPlant.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        boolean newEnabledState = !actionsViewNode.isEnabled();
+                        long selectedPlantId = newPlantId;
+                        Plant selectedPlant = vm.getPlant(selectedPlantId);
+                        hideAllControls();
+                        actionsViewNode.setEnabled(newEnabledState);
+                        progressViewNode.setEnabled(newEnabledState);
+                        if (newEnabledState) {
+                            ProgressBar pBarWater = progressBarView.getView().findViewById(R.id.progressBarWater);
+                            ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
+                            pBarWater.setProgress(selectedPlant.getWaterPercentage());
+                            pBarAbono.setProgress(selectedPlant.getAbonoPercentage());
+                            Button btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
+                            Button btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
+                            Button btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
+                            Button btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
+                            Button btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
+                            SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBarSun);
+                            seekBarSunAdjust.setProgress(0);
+                            TextView seekBarSunValue = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            TextView txtSunDegrees = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            TextView txtsun_adjust = selectedPlantControl.getView().findViewById(R.id.sun_adjust);
+                            TextView txtbien = selectedPlantControl.getView().findViewById(R.id.bien);
+                            String sf = String.format(
+                                    "%s: %d C y %d C.",
+                                    getContext().getResources().getText(R.string.add_sun_desc),
+                                    selectedPlant.getCorrectSunAmount()[0],
+                                    selectedPlant.getCorrectSunAmount()[1]);
+                            txtsun_adjust.setText(sf);
+                            TextView txtwater_adjust = selectedPlantControl.getView().findViewById(R.id.water_adjust);
+                            TextView txtabono_adjust = selectedPlantControl.getView().findViewById(R.id.abono_adjust);
+                            seekBarSunAdjust.setVisibility(View.GONE);
+                            txtSunDegrees.setVisibility(View.GONE);
+                            txtwater_adjust.setVisibility(View.GONE);
+                            txtabono_adjust.setVisibility(View.GONE);
+                            txtbien.setVisibility(View.GONE);
+
+                            if (selectedPlant.isHasSunLight()) {
+                                txtsun_adjust.setVisibility(View.GONE);
+                            } else {
+                                txtsun_adjust.setVisibility(View.VISIBLE);
+                            }
+
+                            // Button Add Abono configuration
+                            btnAddAbono.setOnClickListener(view -> {
+                                if (!abonoViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.GONE);
+                                    txtabono_adjust.setVisibility(View.VISIBLE);
+                                    vm.onTapBtnAddAbono(selectedPlantId);
+                                    abonoViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            // Sends a request to the UI Thread to trigger a method.
+                                            new Handler(Looper.getMainLooper()).post(() -> abonoViewNode.setEnabled(false));
+                                        }
+                                    }, 1500);
+                                }
+                            });
+
+                            // Button Add Water configuration
+                            btnAddWater.setOnClickListener(view -> {
+                                if (!waterViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.VISIBLE);
+                                    txtabono_adjust.setVisibility(View.GONE);
+                                    vm.onTapBtnAddWater(selectedPlantId);
+                                    waterViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            // Sends a request to the UI Thread to trigger a method.
+                                            new Handler(Looper.getMainLooper()).post(() -> waterViewNode.setEnabled(false));
+                                        }
+                                    }, 1500);
+                                }
+                            });
+
+                            // Button View Info configuration
+                            btnInfo.setOnClickListener(view -> {
+                                FragmentGardenInfo fragment = (FragmentGardenInfo) this.getChildFragmentManager().findFragmentById(R.id.gardenInfo);
+                                if (fragment.isShown()) {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+
+                                } else {
+                                    fragment.setPlant(selectedPlant);
+                                    fragment.setShown(true);
+                                    animateInfo(myActivity, (int) (myActivity.getResources().getDisplayMetrics().heightPixels * .8));
+                                }
+                                Button cerrar = fragment.getView().findViewById(R.id.cerrarGardenInfo);
+                                cerrar.setOnClickListener(v -> {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+                                });
+                            });
+
+
+                            // Button View Info configuration
+                            btnDelete.setOnClickListener(view -> {
+                                vm.onDeletePlant(selectedPlantId);
+                                hideAllControls();
+                                anchorNode.removeChild(plantNode);
+                            });
+
+                            btnSun.setOnClickListener(view -> {
+                                seekBarSunAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                    @Override
+                                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                        seekBarSunValue.setText(progress + " C");
+
+                                    }
+
+                                    @Override
+                                    public void onStartTrackingTouch(SeekBar seekBar) {
+                                    }
+
+                                    @Override
+                                    public void onStopTrackingTouch(SeekBar seekBar) {
+                                        if (selectedPlant.getCorrectSunAmount()[0] <= seekBar.getProgress() && seekBar.getProgress() <= selectedPlant.getCorrectSunAmount()[1]) {
+                                            vm.onCompleteAdjustLight(selectedPlantId);
+                                            seekBarSunAdjust.setVisibility(View.GONE);
+                                            txtSunDegrees.setVisibility(View.GONE);
+                                            txtsun_adjust.setVisibility(View.GONE);
+                                            txtbien.setVisibility(View.VISIBLE);
+                                            showPlantActionBtns(true, true);
+
+                                        }
+                                    }
+                                });
+                                seekBarSunAdjust.setVisibility(View.VISIBLE);
+                                txtSunDegrees.setVisibility(View.VISIBLE);
+                                seekBarSunAdjust.setAlpha(0);
+                                seekBarSunAdjust.animate()
+                                        .alpha(1)
+                                        .setDuration(400);
+                            });
+
+                            showPlantActionBtns(selectedPlant.isHasSunLight(), false);
+                        }
+                    });
+                    plantFruit.setOnTapListener((hitTestResult, motionEvent1) -> {
+                        boolean newEnabledState = !actionsViewNode.isEnabled();
+                        long selectedPlantId = newPlantId;
+                        Plant selectedPlant = vm.getPlant(selectedPlantId);
+                        hideAllControls();
+                        actionsViewNode.setEnabled(newEnabledState);
+                        progressViewNode.setEnabled(newEnabledState);
+                        if (newEnabledState) {
+                            ProgressBar pBarWater = progressBarView.getView().findViewById(R.id.progressBarWater);
+                            ProgressBar pBarAbono = progressBarView.getView().findViewById(R.id.progressBarAbono);
+                            pBarWater.setProgress(selectedPlant.getWaterPercentage());
+                            pBarAbono.setProgress(selectedPlant.getAbonoPercentage());
+                            Button btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
+                            Button btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
+                            Button btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
+                            Button btnInfo = selectedPlantControl.getView().findViewById(R.id.btnInfo);
+                            Button btnDelete = selectedPlantControl.getView().findViewById(R.id.btnDelete);
+                            SeekBar seekBarSunAdjust = selectedPlantControl.getView().findViewById(R.id.seekBarSun);
+                            seekBarSunAdjust.setProgress(0);
+                            TextView seekBarSunValue = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            TextView txtSunDegrees = selectedPlantControl.getView().findViewById(R.id.txtSunDegrees);
+                            TextView txtsun_adjust = selectedPlantControl.getView().findViewById(R.id.sun_adjust);
+                            TextView txtbien = selectedPlantControl.getView().findViewById(R.id.bien);
+                            String sf = String.format(
+                                    "%s: %d C y %d C.",
+                                    getContext().getResources().getText(R.string.add_sun_desc),
+                                    selectedPlant.getCorrectSunAmount()[0],
+                                    selectedPlant.getCorrectSunAmount()[1]);
+                            txtsun_adjust.setText(sf);
+                            TextView txtwater_adjust = selectedPlantControl.getView().findViewById(R.id.water_adjust);
+                            TextView txtabono_adjust = selectedPlantControl.getView().findViewById(R.id.abono_adjust);
+                            seekBarSunAdjust.setVisibility(View.GONE);
+                            txtSunDegrees.setVisibility(View.GONE);
+                            txtwater_adjust.setVisibility(View.GONE);
+                            txtabono_adjust.setVisibility(View.GONE);
+                            txtbien.setVisibility(View.GONE);
+
+                            if (selectedPlant.isHasSunLight()) {
+                                txtsun_adjust.setVisibility(View.GONE);
+                            } else {
+                                txtsun_adjust.setVisibility(View.VISIBLE);
+                            }
+
+                            // Button Add Abono configuration
+                            btnAddAbono.setOnClickListener(view -> {
+                                if (!abonoViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.GONE);
+                                    txtabono_adjust.setVisibility(View.VISIBLE);
+                                    vm.onTapBtnAddAbono(selectedPlantId);
+                                    abonoViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            // Sends a request to the UI Thread to trigger a method.
+                                            new Handler(Looper.getMainLooper()).post(() -> abonoViewNode.setEnabled(false));
+                                        }
+                                    }, 1500);
+                                }
+                            });
+
+                            // Button Add Water configuration
+                            btnAddWater.setOnClickListener(view -> {
+                                if (!waterViewNode.isEnabled()) {
+                                    txtwater_adjust.setVisibility(View.VISIBLE);
+                                    txtabono_adjust.setVisibility(View.GONE);
+                                    vm.onTapBtnAddWater(selectedPlantId);
+                                    waterViewNode.setEnabled(true);
+                                    txtbien.setVisibility(View.GONE);
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            // Sends a request to the UI Thread to trigger a method.
+                                            new Handler(Looper.getMainLooper()).post(() -> waterViewNode.setEnabled(false));
+                                        }
+                                    }, 1500);
+                                }
+                            });
+
+                            // Button View Info configuration
+                            btnInfo.setOnClickListener(view -> {
+                                FragmentGardenInfo fragment = (FragmentGardenInfo) this.getChildFragmentManager().findFragmentById(R.id.gardenInfo);
+                                if (fragment.isShown()) {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+
+                                } else {
+                                    fragment.setPlant(selectedPlant);
+                                    fragment.setShown(true);
+                                    animateInfo(myActivity, (int) (myActivity.getResources().getDisplayMetrics().heightPixels * .8));
+                                }
+                                Button cerrar = fragment.getView().findViewById(R.id.cerrarGardenInfo);
+                                cerrar.setOnClickListener(v -> {
+                                    fragment.setShown(false);
+                                    animateInfo(myActivity, 0);
+                                });
+                            });
+
+
+                            // Button View Info configuration
+                            btnDelete.setOnClickListener(view -> {
+                                vm.onDeletePlant(selectedPlantId);
+                                hideAllControls();
+                                anchorNode.removeChild(plantNode);
+                            });
+
+                            btnSun.setOnClickListener(view -> {
+                                seekBarSunAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                    @Override
+                                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                        seekBarSunValue.setText(progress + " C");
+
+                                    }
+
+                                    @Override
+                                    public void onStartTrackingTouch(SeekBar seekBar) {
+                                    }
+
+                                    @Override
+                                    public void onStopTrackingTouch(SeekBar seekBar) {
+                                        if (selectedPlant.getCorrectSunAmount()[0] <= seekBar.getProgress() && seekBar.getProgress() <= selectedPlant.getCorrectSunAmount()[1]) {
+                                            vm.onCompleteAdjustLight(selectedPlantId);
+                                            seekBarSunAdjust.setVisibility(View.GONE);
+                                            txtSunDegrees.setVisibility(View.GONE);
+                                            txtsun_adjust.setVisibility(View.GONE);
+                                            txtbien.setVisibility(View.VISIBLE);
+                                            showPlantActionBtns(true, true);
+
+                                        }
+                                    }
+                                });
+                                seekBarSunAdjust.setVisibility(View.VISIBLE);
+                                txtSunDegrees.setVisibility(View.VISIBLE);
+                                seekBarSunAdjust.setAlpha(0);
+                                seekBarSunAdjust.animate()
+                                        .alpha(1)
+                                        .setDuration(400);
+                            });
+
+                            showPlantActionBtns(selectedPlant.isHasSunLight(), false);
+                        }
+                    });
                 });
 
-        Timer growTimer = new Timer();
-        growTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Sends a request to the UI Thread to trigger a method.
-                new Handler(Looper.getMainLooper()).post(() -> {
-                });
-            }
-        }, 1000);
     }
 
     private CompletableFuture<Void> createModelRenderable(int id, PlantType type, PlantState state) {
@@ -381,9 +896,9 @@ public class FragmentArcore extends Fragment {
     }
 
     private void showPlantActionBtns(boolean show, boolean animate) {
-        ImageButton btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
-        ImageButton btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
-        ImageButton btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
+        Button btnAddAbono = selectedPlantControl.getView().findViewById(R.id.btnAddAbono);
+        Button btnAddWater = selectedPlantControl.getView().findViewById(R.id.btnAddWater);
+        Button btnSun = selectedPlantControl.getView().findViewById(R.id.btnSun);
         if (show) {
             btnSun.setVisibility(View.GONE);
             btnAddAbono.setVisibility(View.VISIBLE);

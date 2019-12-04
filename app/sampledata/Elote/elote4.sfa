@@ -1,0 +1,50 @@
+{
+  materials: [
+    {
+      name: 'plants_model:Plane043SG.001',
+      parameters: [
+        {
+          baseColor: 'plants_tex',
+        },
+        {
+          baseColorTint: [
+            1,
+            1,
+            1,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'sampledata/plants.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/Elote/elote4.obj',
+    name: 'elote4',
+    recenter: 'root',
+    scale: 0.009397,
+  },
+  samplers: [
+    {
+      file: 'sampledata/Elote\\plants_tex.png',
+      name: 'plants_tex',
+      pipeline_name: 'plants_tex.png',
+    },
+  ],
+  version: '0.54:2',
+}

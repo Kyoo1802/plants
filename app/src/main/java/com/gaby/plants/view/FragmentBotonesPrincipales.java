@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import com.gaby.plants.R;
 import com.gaby.plants.utils.FragmentUtils;
@@ -24,7 +24,7 @@ public class FragmentBotonesPrincipales extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ImageButton btnAddNewPlant = this.getView().findViewById(R.id.btnAddNewPlant);
+        Button btnAddNewPlant = this.getView().findViewById(R.id.btnAddNewPlant);
         btnAddNewPlant.setOnClickListener(v -> {
             FragmentUtils.replaceFragment(this.getActivity(), new FragmentMenuOpciones());
         });

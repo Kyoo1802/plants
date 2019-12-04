@@ -64,9 +64,10 @@ public class GardenService {
                         .abonoPercentage(0)
                         .plantState(plant.getNextState());
             }
-            garden.getPlants().put(plantId, newPlant.build());
+            Plant newPlantV = newPlant.build();
+            garden.getPlants().put(plantId, newPlantV);
             plants.postValue(garden.getPlants().values());
-            return Optional.of(plant);
+            return Optional.of(newPlantV);
         }
         return Optional.empty();
     }
@@ -83,9 +84,10 @@ public class GardenService {
                         .abonoPercentage(0)
                         .plantState(plant.getNextState());
             }
-            garden.getPlants().put(plantId, newPlant.build());
+            Plant newPlantV = newPlant.build();
+            garden.getPlants().put(plantId, newPlantV);
             plants.postValue(garden.getPlants().values());
-            return Optional.of(plant);
+            return Optional.of(newPlantV);
         }
         return Optional.empty();
     }

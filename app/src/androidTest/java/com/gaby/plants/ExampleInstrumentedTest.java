@@ -1,26 +1,41 @@
-package com.gaby.plants;
-
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-
-/**
- * Instrumented main_activity, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-@RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
-    @Test
-    public void useAppContext() {
-        // Context of the app under main_activity.
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.gaby.plants", appContext.getPackageName());
-    }
-}
+{
+        materials:[
+        {
+        name:'plants_model:Plane043SG.009',
+        parameters:[
+        {
+        baseColor:'plants_tex',
+        },
+        {
+        baseColorTint:[
+        1,
+        1,
+        1,
+        1,
+        ],
+        },
+        {
+        metallic:0,
+        },
+        {
+        roughness:1,
+        },
+        {
+        opacity:null,
+        },
+        ],
+        source:'build/sceneform_sdk/default_materials/obj_material.sfm',
+        },
+        ],
+        model:{
+        attributes:[
+        'Position',
+        'TexCoord',
+        'Orientation',
+        ],
+        collision:{},
+        file:'sampledata/girasol0001.obj',
+        name:'girasol0001',
+        recenter:'root',
+        scale:0.035681999999999998,
+        },

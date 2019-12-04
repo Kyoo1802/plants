@@ -25,10 +25,10 @@ public class FragmentMenuOpciones extends Fragment {
     private PlantCell[] plantCells = {
             new PlantCell(PlantType.CORN),
             new PlantCell(PlantType.SUNFLOWER),
-            new PlantCell(PlantType.SPIKE_PLANT),
-            new PlantCell(PlantType.WHITE_FLOWER),
-            new PlantCell(PlantType.PURPLE_FLOWER),
-            new PlantCell(PlantType.BLUE),
+            new PlantCell(PlantType.ALOEVERA),
+            new PlantCell(PlantType.HELECHOS),
+            new PlantCell(PlantType.MARGARITA),
+            new PlantCell(PlantType.CALADIO),
     };
 
     @Override
@@ -50,11 +50,25 @@ public class FragmentMenuOpciones extends Fragment {
             PlantCell plantCell = plantCells[position];
             GardenViewModel vm = ViewModelProviders.of(this.getActivity()).get(GardenViewModel.class);
             switch (plantCell.getPlantType()) {
+                case UNSPECIFIED:
+                    break;
                 case SUNFLOWER:
-                    vm.onTapAddSunFlower();
+                    vm.onTapAddSunflower();
                     break;
                 case CORN:
                     vm.onTapAddCorn();
+                    break;
+                case CALADIO:
+                    vm.onTapAddCaladio();
+                    break;
+                case HELECHOS:
+                    vm.onTapAddHelechos();
+                    break;
+                case MARGARITA:
+                    vm.onTapAddMargarita();
+                    break;
+                case ALOEVERA:
+                    vm.onTapAddAloeVera();
                     break;
                 default:
                     return;
@@ -110,8 +124,8 @@ public class FragmentMenuOpciones extends Fragment {
                 convertView.setScaleX(0f);
                 convertView.setScaleY(0f);
 
-                ImageView imgPlant = convertView.findViewById(R.id.imgPlant);
-                TextView textPlant = convertView.findViewById(R.id.textPlant);
+                ImageView imgPlant = convertView.findViewById(R.id.imgPlant2);
+                TextView textPlant = convertView.findViewById(R.id.textPlant2);
                 convertView.animate()
                         .setStartDelay(position * 100)
                         .scaleX(1f)
@@ -132,19 +146,19 @@ public class FragmentMenuOpciones extends Fragment {
         private int getResource(PlantType plantType) {
             switch (plantType) {
                 case SUNFLOWER:
-                    return R.drawable.plant1;
+                    return R.drawable.girasol;
                 case CORN:
-                    return R.drawable.plant2;
-                case BLUE:
-                    return R.drawable.plant3;
-                case WHITE_FLOWER:
-                    return R.drawable.plant4;
-                case PURPLE_FLOWER:
-                    return R.drawable.plant5;
-                case SPIKE_PLANT:
-                    return R.drawable.plant6;
+                    return R.drawable.corn;
+                case HELECHOS:
+                    return R.drawable.helechos;
+                case CALADIO:
+                    return R.drawable.caladio;
+                case MARGARITA:
+                    return R.drawable.margarita;
+                case ALOEVERA:
+                    return R.drawable.aloevera2;
                 default:
-                    return 0;
+                    return -1;
             }
         }
 

@@ -1,21 +1,60 @@
 <resources>
     <string name="app_name">Plants</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="iniciar">Iniciar</string>
     <string name="plants">Plants!</string>
     <string name="selecciona_planta">Selecciona una planta:</string>
-    <string name="corn">Elotes</string>
-    <string name="sunflower">Girasol</string>
     <string name="preparando_tierra">Preparando tierra...</string>
-    <string name="preparando_tierra_desc">Preparar la tierra ayuda a que \n Preparar la tierra ayuda a
-        que \n Preparar la tierra ayuda a que \n Preparar la tierra ayuda a que</string>
-    <string name="preparando_compost">Preparando composta...</string>
-    <string name="preparando_compost_desc">Preparar la composta ayuda a que \n Preparar la composta ayuda a
-        que \n Preparar la composta ayuda a que \n Preparar la composta ayuda a que</string>
-    <string name="ajustar_brillo">Ajusta la barra a la cantidad correcta de sol</string>
-    <string name="sun_degrees">25 C</string>
+    <string name="preparando_tierra_desc">
+        Preparar la tierra para la siembra es una tarea importante
+        para obtener buenas cosechas, ya sea en un huerto en la casa o en la agricultura tradicional.
+        El suelo debe ser muy bien preparado, de manera que las raíces de las plantas puedan ser
+        sembradas o reasentadas de forma rápida y sencilla.</string>
+    <string name="preparando_compost">Agregando composta...</string>
+    <string name="preparando_compost_desc">El uso de la composta ayuda a aumentar la capacidad
+        del suelo disminuyendo los cambios bruscos de temperatura.</string>
 
+    <string name="add_sun_desc">Ajusta la temperatura correcta para este tipo de planta entre </string>
+    <string name="bien">Bien hecho ahora agrega abono y agua a tu planta para que crezca.</string>
+    <string name="add_water_desc">El agua es vital para las plantas ya que son un 90%% agua.</string>
+    <string name="add_abono_desc">El abono refuerza las raíces de las plantas y favorece la floración.</string>
 
+    <string name="maiz_title">Maiz</string>
+    <string name="girasol_title">Girasol</string>
+    <string name="caladium_title">Caladium</string>
+    <string name="aloevera_title">Aloe Vera</string>
+    <string name="helechos_title">Helechos</string>
+    <string name="margaritas_title">Margarita</string>
+    <string name="aloevera">
+        Prefiere clima seco, pertenece a la especie de los lirios, el Aloe Vera o Sábila es una
+        planta con muchas propiedades medicinales y usos cosméticos usada desde hace milenios por
+        los nativos de América. \n\nEl <b>Aloe vera</b> requiere una exposición a pleno sol y resiste muy bien
+        la sequía y los parásitos, pero es muy sensible al exceso de humedad y al frío (menos de 10ºC)
+    </string>
+    <string name="caladium">
+        Pertenece a la familia de plantas Araceae. conocido de manera popular como «oreja de
+        elefante». Para que el Caladium crezca en excelentes condiciones, es necesario proporcionarle
+        humedad y una temperatura constante de 21 °C.
+    </string>
+    <string name="maiz">El <b>maíz</b> puede alcanzar una altura de  <b>2.5m</b>, tolera varios climas como lo son
+        humedos, calidos, templados, pero el frío no es tan tolerable. Su maduración tarda de <b>80 a 120 días</b>.
+        \n\nEl <b>maíz</b> llega a soportar temperaturas mínimas de hasta <b>8ºC</b> y a partir de los <b>30ºC</b> pueden
+        aparecer problemas serios debido a mala absorción de nutrientes minerales y agua. Para la
+        fructificación se requieren temperaturas de 20 a 32ºC.</string>
+    <string name="girasol">
+        El sol es el mejor amigo de esta flor de la familia de las asteráceas.
+        Requiere de un riego constante, pero moderado, crece en climas levemente frescos a subtropicales para
+        la floración y maduración de los frutos requiere temperaturas elevadas, la ideal se encuentra
+        entre 20 y 25ºC.
+    </string>
+    <string name="helechos">Los helechos son plantas vasculares carentes de flores, frutos y semillas.
+        Se reproducen a través de esporas, las cuales están ubicadas en esporangios o soros presentes
+        en el envés de las hojas. La temperatura ideal es de 21 ºC durante la primavera y el verano;
+        en invierno, agradece temperaturas más frescas, rondando los 16 o 17 ºC. El helecho es una
+        planta que no suele sufrir plagas o enfermedades aunque, en ocasiones, la cochinilla puede
+        resultar problemática.</string>
+    <string name="margarita">Planta herbácea perenne puede crecer hasta 1.50 m de alto ,florece casi
+        todo el tiempo, comenzando en la primavera y terminando en el principio del invierno. La mejor
+        temperatura para un buen desarrollo es entre 15º C y 25º C, aunque se adapta bien tanto al frío
+        como al calor, incluso heladas.</string>
 </resources>

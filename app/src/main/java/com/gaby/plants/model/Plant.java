@@ -16,14 +16,22 @@ public class Plant {
     private int abonoPercentage;
     private long lastTimeAbono;
 
-    public int getCorrectSunAmount() {
+    public int[] getCorrectSunAmount() {
         switch (plantType) {
             case SUNFLOWER:
-                return 20;
+                return new int[]{20, 25};
             case CORN:
-                return 40;
+                return new int[]{20, 32};
+            case CALADIO:
+                return new int[]{20, 22};
+            case HELECHOS:
+                return new int[]{16, 21};
+            case MARGARITA:
+                return new int[]{15, 25};
+            case ALOEVERA:
+                return new int[]{10, 32};
             default:
-                return 50;
+                return new int[]{0, 100};
         }
     }
 
@@ -36,8 +44,8 @@ public class Plant {
             case SEED:
                 return PlantState.SPROUD;
             case SPROUD:
-            case FRUIT_PLANT:
                 return PlantState.PLANT;
+            case FRUIT_PLANT:
             case PLANT:
                 return PlantState.FRUIT_PLANT;
             default:
@@ -46,32 +54,10 @@ public class Plant {
     }
 
     public int getWaterIncrease() {
-        switch (plantState) {
-            case SEED:
-                return 25;
-            case SPROUD:
-                return 21;
-            case PLANT:
-                return 10;
-            case FRUIT_PLANT:
-                return 1;
-            default:
-                return 20;
-        }
+        return 25;
     }
 
     public int getAbonoIncrease() {
-        switch (plantState) {
-            case SEED:
-                return 25;
-            case SPROUD:
-                return 20;
-            case PLANT:
-                return 10;
-            case FRUIT_PLANT:
-                return 1;
-            default:
-                return 20;
-        }
+        return 25;
     }
 }

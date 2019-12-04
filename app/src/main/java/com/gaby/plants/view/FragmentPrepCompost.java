@@ -53,11 +53,11 @@ public class FragmentPrepCompost extends Fragment {
 
         ObjectAnimator animPrepDesc = ObjectAnimator.ofFloat(descView, View.ALPHA, 1f).setDuration(1000);
         ObjectAnimator animPrepDescTranslationY = ObjectAnimator.ofFloat(descView, View.TRANSLATION_Y, -850).setDuration(1000);
-        ObjectAnimator animPrepBtnTranslationY = ObjectAnimator.ofFloat(btnView, View.TRANSLATION_Y, -400).setDuration(100);
+        ObjectAnimator animPrepBtnTranslationY = ObjectAnimator.ofFloat(btnView, View.TRANSLATION_Y, -700).setDuration(100);
         ObjectAnimator animPrepBtn = ObjectAnimator.ofFloat(btnView, View.ALPHA, 1f).setDuration(400);
 
         AnimatorSet animator = new AnimatorSet();
-        animator.play(animImgScaleX).after(2000);
+        animator.play(animImgScaleX).after(1500);
         animator.play(animImgScaleX).with(animImgScaleY);
         animator.play(animImgScaleX).with(animImgTranslationY);
         animator.play(animImgScaleX).with(animTitleTranslationY);
