@@ -1,29 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <component name="AndroidLayouts">
+    <FrameLayout
+        android:id="@+id/frameFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <shared>
+    <FrameLayout
+        android:id="@+id/arFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-            <config>
+        <FrameLayout
+            android:id="@+id/arFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-                <device id="Nexus 6P" />
+        <FrameLayout
+            android:id="@+id/gardenButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
-                <device id="pixel_2" />
-            </config>
-        </shared>
-    </component>
-
-    <component name="ChangeListManager">
-
-        <list
-            name="Default Changelist"
-            comment=""
-            default="true"
-            id="d026d4c6-3084-467f-a922-00f4d5d45833">
-
-            <change
-                afterDir="false"
-                afterPath="$PROJECT_DIR$/app/sampledata/Stylizedplants_mesh.mb" />
-
-            <change
+</LinearLayout>

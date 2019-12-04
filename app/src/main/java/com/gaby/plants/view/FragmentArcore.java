@@ -78,18 +78,6 @@ public class FragmentArcore extends Fragment {
         return true;
     }
 
-    private static void animateInfo(Activity myActivity, int newHeight) {
-        View container = myActivity.findViewById(R.id.gardenInfoScroll);
-        ValueAnimator animator = ValueAnimator.ofInt(container.getHeight(), newHeight);
-        animator.setTarget(container);
-        animator.setDuration(1000).start();
-        animator.addUpdateListener(animation -> {
-            ViewGroup.LayoutParams layoutparams = container.getLayoutParams();
-            layoutparams.height = (Integer) animation.getAnimatedValue();
-            container.setLayoutParams(layoutparams);
-        });
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -333,7 +321,7 @@ public class FragmentArcore extends Fragment {
                             txtabono_adjust.setVisibility(View.GONE);
                             txtbien.setVisibility(View.GONE);
 
-                            if (selectedPlant.isHasSunLight()) {
+                            if(selectedPlant.isHasSunLight()){
                                 txtsun_adjust.setVisibility(View.GONE);
                             } else {
                                 txtsun_adjust.setVisibility(View.VISIBLE);
@@ -477,7 +465,7 @@ public class FragmentArcore extends Fragment {
                             txtabono_adjust.setVisibility(View.GONE);
                             txtbien.setVisibility(View.GONE);
 
-                            if (selectedPlant.isHasSunLight()) {
+                            if(selectedPlant.isHasSunLight()){
                                 txtsun_adjust.setVisibility(View.GONE);
                             } else {
                                 txtsun_adjust.setVisibility(View.VISIBLE);
@@ -621,7 +609,7 @@ public class FragmentArcore extends Fragment {
                             txtabono_adjust.setVisibility(View.GONE);
                             txtbien.setVisibility(View.GONE);
 
-                            if (selectedPlant.isHasSunLight()) {
+                            if(selectedPlant.isHasSunLight()){
                                 txtsun_adjust.setVisibility(View.GONE);
                             } else {
                                 txtsun_adjust.setVisibility(View.VISIBLE);
@@ -765,7 +753,7 @@ public class FragmentArcore extends Fragment {
                             txtabono_adjust.setVisibility(View.GONE);
                             txtbien.setVisibility(View.GONE);
 
-                            if (selectedPlant.isHasSunLight()) {
+                            if(selectedPlant.isHasSunLight()){
                                 txtsun_adjust.setVisibility(View.GONE);
                             } else {
                                 txtsun_adjust.setVisibility(View.VISIBLE);
@@ -874,6 +862,18 @@ public class FragmentArcore extends Fragment {
                     });
                 });
 
+    }
+
+    private static void animateInfo(Activity myActivity, int newHeight) {
+        View container = myActivity.findViewById(R.id.gardenInfoScroll);
+        ValueAnimator animator = ValueAnimator.ofInt(container.getHeight(), newHeight);
+        animator.setTarget(container);
+        animator.setDuration(1000).start();
+        animator.addUpdateListener(animation -> {
+            ViewGroup.LayoutParams layoutparams = container.getLayoutParams();
+            layoutparams.height = (Integer) animation.getAnimatedValue();
+            container.setLayoutParams(layoutparams);
+        });
     }
 
     private CompletableFuture<Void> createModelRenderable(int id, PlantType type, PlantState state) {

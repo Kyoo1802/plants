@@ -28,4 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentUtils.replaceFragment(this, new FragmentStartApp());
     }
+    @Override
+    public void onBackPressed() {
+    }
+
 }
